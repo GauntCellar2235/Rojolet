@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stats</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h2>Stats</h2>
+            <div id="user-info">
+                <!-- User info will be displayed here -->
+            </div>
+            <script>
+                window.addEventListener("load", async () => {
+                    const username = localStorage.getItem("username");
+
+                    if (!username) {
+                        alert("No user logged in");
+                        window.location.href = "login.html"; // Redirect to login if not logged in
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/user/${username}`);
+
+                        if (!response.ok) {
+                            throw new Error(
+                                `Network response was not ok: ${response.status} - ${response.statusText}`,
+                            );
+                        }
+
+                        const userData = await response.json();
+
+                        const userInfoDiv =
+                            document.getElementById("user-info");
+                        userInfoDiv.innerHTML = `
+                            <p>Username: ${userData.username}</p>
+                            <p>Tokens: ${userData.tokens}</p>
+                        `;
+                    } catch (error) {
+                        console.error("Error fetching user data:", error);
+                    }
+                });
+            </script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sign Up</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                    />
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <script>
+                document
+                    .getElementById("signupForm")
+                    .addEventListener("submit", async (e) => {
+                        e.preventDefault();
+
+                        const formData = new FormData(e.target);
+                        const data = {
+                            username: formData.get("username"),
+                            password: formData.get("password"),
+                            tokens: 0, // Initialize tokens field with default value
+                        };
+
+                        try {
+                            const response = await fetch("/signup", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(data),
+                            });
+
+                            if (!response.ok) {
+                                throw new Error(
+                                    `Network response was not ok: ${response.status} - ${response.statusText}`,
+                                );
+                            }
+
+                            const result = await response.json();
+                            alert(result.message);
+                        } catch (error) {
+                            console.error("Error:", error);
+                            alert(
+                                "There was an error with your sign up. Please try again.",
+                            );
+                        }
+                    });
+            </script>
+        </div>
+    </body>
+</html>
