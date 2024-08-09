@@ -4,7 +4,57 @@
       {
         "id": "bc3a8ff0-c242-4e64-8eed-249a5edae4c2",
         "line": 1,
-        "version": 289,
+        "version": 295,
+        "index": 0
+      },
+      {
+        "id": "8ff68e92-7fc4-4084-b8e3-58f3b14342ae",
+        "line": 22,
+        "version": 295,
+        "index": 601
+      }
+    ],
+    "public/chat.html": [
+      {
+        "id": "95e38bb2-9eb6-458c-b8dc-af674574ac48",
+        "line": 42,
+        "version": 714,
+        "index": 1359
+      },
+      {
+        "id": "a9d002a0-5e6d-44ac-a642-968649e3cf14",
+        "line": 293,
+        "version": 714,
+        "index": 10525
+      },
+      {
+        "id": "e6e948a0-ff5b-4334-8265-2291b62433c3",
+        "line": 299,
+        "version": 714,
+        "index": 10658
+      }
+    ],
+    "public/market.html": [
+      {
+        "id": "191635d2-dba4-469d-83b7-11c5fbd97ae1",
+        "line": 106,
+        "version": 1823,
+        "index": 3335
+      }
+    ],
+    "public/panel/leaderboard": [
+      {
+        "id": "883e6e75-b976-49aa-8f3f-b6dcbca77268",
+        "line": 1,
+        "version": 182,
+        "index": 0
+      }
+    ],
+    "public/stats.html": [
+      {
+        "id": "8809210f-3b16-40d3-9748-e450fea0b8f8",
+        "line": 1,
+        "version": 2314,
         "index": 0
       }
     ]

@@ -1,74 +1,124 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="rojolet.png">
     <title>Rojolet</title>
-    <header
-      style="
-        text-align: center;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      "
-    >
-      <h1>Rojolet</h1>
-    </header>
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Titan+One&display=swap" rel="stylesheet">
     <style>
       body {
+        font-family: 'Nunito Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        background-image: url('images/checkers.png');
+        background-size: fit;
+        background-position: center;
       }
-      .container {
-        margin: 20px auto;
+
+      .sidebar {
+        width: 30%;
         padding: 20px;
-        max-width: 600px;
+        color: darkred;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        background-color: #8B0000; 
+        box-shadow: inset -13px 0 0px -5px rgba(84, 6, 1); 
+      }
+
+      .sidebar h1 {
+        font-family: 'Titan One', cursive;
+        font-size: 36px;
+        margin: 10px 0;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .sidebar h2, .sidebar h6 {
+        font-size: 18px;
+        margin: 5px 0;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        position: relative;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin: 20px;
+      }
+
+      .register-button,
+      .login-button {
+        background-color: red;
+        color: white;
+        border: 2px solid #d40000;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-left: 10px;
+        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .register-button:hover,
+      .login-button:hover {
         background-color: #d40000;
-        /* Background color for the container */
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        /* Box shadow for a subtle lift effect */
-        h1 {
-          color: #fff;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
-        }
-        h2, h6 {
-          color: #fff;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
-        }
-            .register-button,
-            .login-button {
-              /* NOTE FOR GAUNT: Styling for register and login buttons */
-              background-color: transparent;
-              color: white;
-              border: 2px solid white;
-              border-radius: 10px;
-              padding: 10px 20px;
-              font-size: 20px;
-              cursor: pointer;
-              text-decoration: none;
-              display: inline-block;
-              margin-right: 10px;
-              box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);      transition: transform 0.3s ease;
-            }
-        }
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .discord-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .discord-button img {
+        width: 50px;
+        height: 40px;
+        transition: transform 0.3s ease;
+      }
+
+      .discord-button:hover img {
+        transform: scale(1.1);
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div style="background-color:">
-        <h1>THE FIRST</h1>
-        <h1>RED</h1>
-        <h1>PRIVATE SERVER</h1>
-        <div class="buttons-container">
-          <!-- NOTE FOR GAUNT: Link to sign up page -->
-          <a href="signup.html" class="register-button">Register</a>
-          <!-- NOTE FOR GAUNT: Link to login page -->
-          <a href="login.html" class="login-button">Login</a>
-          <h2>GauntCellar2235 is the founder of Rojolet. (Written in HTML, CSS, and JS)</h2>
-          <a href="https://discord.com/invite/G5fhrTWAZ8" class="discord-button bottom">
-            <img src="images/discord.png">
-            </a>
-            <h6>(Not affiliated with blooket or blacket in any way)</h6>
-        </div>
+    <div class="sidebar">
+      <header>
+        <h1>Rojolet</h1>
+      </header>
+      <main>
+        <h1>The First</h1>
+        <h1>Red Private Server</h1>
+        <h2>GauntCellar2235 is the founder of Rojolet. (Written in HTML, CSS, and JS)</h2>
+        <h6>(Not affiliated with Blooket or Blacket in any way)</h6>
+      </main>
+    </div>
+    <div class="content">
+      <div class="buttons">
+        <a href="signup.html" class="register-button">Register</a>
+        <a href="login.html" class="login-button">Login</a>
       </div>
+      <a href="https://discord.gg/MndT66x2K4" class="discord-button">
+        <img src="images/discord.png" alt="Discord Link">
+      </a>
     </div>
   </body>
 </html>
