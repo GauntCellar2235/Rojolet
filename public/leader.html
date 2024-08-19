@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kills Leaderboard</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                margin: 0;
+                padding: 20px;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+
+            .leaderboard {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .leaderboard table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .leaderboard th,
+            .leaderboard td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .leaderboard th {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .leaderboard tr:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Kills Leaderboard</h1>
+        <div class="leaderboard">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Kills</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardTable">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Include Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+        <script>
+            // Your Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+                authDomain: "cosmik-7c124.firebaseapp.com",
+                projectId: "cosmik-7c124",
+                storageBucket: "cosmik-7c124.appspot.com",
+                messagingSenderId: "412506429662",
+                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+                measurementId: "G-R7K0LTHCK3",
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            var db = firebase.firestore();
+
+            // Fetch and display the leaderboard
+            function loadLeaderboard() {
+                db.collection("users")
+                    .orderBy("kills", "desc")
+                    .get()
+                    .then((querySnapshot) => {
+                        const leaderboardTable =
+                            document.getElementById("leaderboardTable");
+                        leaderboardTable.innerHTML = ""; // Clear existing content
+
+                        querySnapshot.forEach((doc) => {
+                            const username = doc.id;
+                            const kills = doc.data().kills || 0;
+
+                            const row = `
+                        <tr>
+                            <td>${username}</td>
+                            <td>${kills}</td>
+                        </tr>
+                    `;
+
+                            leaderboardTable.insertAdjacentHTML(
+                                "beforeend",
+                                row,
+                            );
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching leaderboard: ", error);
+                    });
+            }
+
+            // Load the leaderboard on page load
+            window.onload = loadLeaderboard;
+        </script>
+    </body>
+</html>

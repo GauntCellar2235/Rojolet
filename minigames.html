@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>New Minigame Area</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            #gameContainer {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+                background-color: #a8d5a8;
+                overflow: hidden;
+            }
+
+            .player {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background-size: cover;
+                background-position: center;
+                transition: all 0.1s linear;
+            }
+
+            .projectile {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+            }
+
+            #healthBar {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 200px;
+                height: 20px;
+                background-color: lightgray;
+                border-radius: 10px;
+            }
+
+            #health {
+                height: 100%;
+                background-color: green;
+                border-radius: 10px;
+            }
+
+            .tree {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background-color: #228b22;
+                border-radius: 25px;
+            }
+
+            .dirt {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: #8b4513;
+            }
+
+            .rock {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background-color: gray;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="gameContainer">
+            <div id="healthBar">
+                <div id="health"></div>
+            </div>
+            <div class="tree" style="left: 200px; top: 300px"></div>
+            <div class="dirt" style="left: 400px; top: 500px"></div>
+            <div class="rock" style="left: 600px; top: 200px"></div>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+                authDomain: "cosmik-7c124.firebaseapp.com",
+                projectId: "cosmik-7c124",
+                storageBucket: "cosmik-7c124.appspot.com",
+                messagingSenderId: "412506429662",
+                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+                measurementId: "G-R7K0LTHCK3",
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            let playerElement = null;
+            let currentLobbyId = null;
+            let position = { x: 100, y: 100 };
+            let health = 100;
+            let lastDirection = { x: 0, y: -10 };
+
+            function getUserFromCookies() {
+                const cookie = document.cookie
+                    .split("; ")
+                    .find((row) => row.startsWith("username="));
+                if (cookie) {
+                    return cookie.split("=")[1];
+                }
+                return null;
+            }
+
+            async function loadGameArea() {
+                const username = getUserFromCookies();
+                if (!username) {
+                    alert("Username not found. Please log in.");
+                    return;
+                }
+
+                try {
+                    const userDoc = await db
+                        .collection("users")
+                        .doc(username)
+                        .get();
+                    if (!userDoc.exists) {
+                        alert("User document does not exist.");
+                        return;
+                    }
+
+                    const profilePicture = userDoc.data()?.profilePicture;
+
+                    if (profilePicture) {
+                        createPlayer(username, profilePicture, position);
+                    } else {
+                        alert("No profile picture selected.");
+                        return;
+                    }
+
+                    currentLobbyId = prompt("Enter Lobby ID to join:");
+                    if (!currentLobbyId) {
+                        alert("Lobby ID is required.");
+                        return;
+                    }
+
+                    const lobbyRef = db
+                        .collection("lobbies")
+                        .doc(currentLobbyId);
+                    const lobbyDoc = await lobbyRef.get();
+
+                    if (!lobbyDoc.exists) {
+                        alert(
+                            "Lobby does not exist. Please enter a valid Lobby ID.",
+                        );
+                        return;
+                    }
+
+                    await joinLobby(lobbyRef, username, profilePicture);
+                    listenToPlayerMovements(lobbyRef);
+                } catch (error) {
+                    console.error("Error loading game area:", error);
+                    alert("An error occurred while loading the game.");
+                }
+            }
+
+            async function joinLobby(lobbyRef, username, profilePicture) {
+                try {
+                    const lobbyDoc = await lobbyRef.get();
+                    let participants = lobbyDoc.data()?.participants || [];
+
+                    const existingPlayer = participants.find(
+                        (p) => p.username === username,
+                    );
+                    if (!existingPlayer) {
+                        participants.push({
+                            username,
+                            position,
+                            profilePicture,
+                            health,
+                        });
+                        await lobbyRef.update({ participants });
+                    }
+
+                    participants.forEach((participant) => {
+                        if (participant.username !== username) {
+                            createPlayer(
+                                participant.username,
+                                participant.profilePicture,
+                                participant.position,
+                            );
+                        }
+                    });
+                } catch (error) {
+                    console.error("Error joining lobby:", error);
+                    alert("An error occurred while joining the lobby.");
+                }
+            }
+
+            function createPlayer(username, profilePicture, position) {
+                const gameContainer = document.getElementById("gameContainer");
+                let existingPlayerElement = document.getElementById(username);
+
+                if (!existingPlayerElement) {
+                    const newPlayerElement = document.createElement("div");
+                    newPlayerElement.id = username;
+                    newPlayerElement.classList.add("player");
+                    newPlayerElement.style.backgroundImage = `url('${profilePicture}')`;
+                    newPlayerElement.style.left = `${position.x}px`;
+                    newPlayerElement.style.top = `${position.y}px`;
+                    gameContainer.appendChild(newPlayerElement);
+
+                    if (username === getUserFromCookies()) {
+                        playerElement = newPlayerElement;
+                    }
+                }
+            }
+
+            function movePlayer(dx, dy) {
+                const newX = position.x + dx;
+                const newY = position.y + dy;
+
+                if (!checkCollision(newX, newY)) {
+                    position.x = newX;
+                    position.y = newY;
+                    lastDirection = { x: dx, y: dy };
+                    updatePlayerPosition();
+                }
+            }
+
+            function checkCollision(x, y) {
+                const obstacles = document.querySelectorAll(
+                    ".tree, .dirt, .rock",
+                );
+                for (const obstacle of obstacles) {
+                    const rect1 = {
+                        left: x,
+                        right: x + 50,
+                        top: y,
+                        bottom: y + 50,
+                    };
+                    const rect2 = obstacle.getBoundingClientRect();
+
+                    if (
+                        rect1.left < rect2.right &&
+                        rect1.right > rect2.left &&
+                        rect1.top < rect2.bottom &&
+                        rect1.bottom > rect2.top
+                    ) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function updatePlayerPosition() {
+                if (playerElement) {
+                    playerElement.style.left = `${position.x}px`;
+                    playerElement.style.top = `${position.y}px`;
+                    updatePlayerPositionInFirestore();
+                }
+            }
+
+            function updatePlayerPositionInFirestore() {
+                const username = getUserFromCookies();
+                const lobbyRef = db.collection("lobbies").doc(currentLobbyId);
+
+                lobbyRef.get().then((lobbyDoc) => {
+                    const participants = lobbyDoc.data().participants || [];
+                    const participantIndex = participants.findIndex(
+                        (p) => p.username === username,
+                    );
+                    if (participantIndex !== -1) {
+                        participants[participantIndex].position = position;
+                        lobbyRef.update({ participants });
+                    }
+                });
+            }
+
+            function listenToPlayerMovements(lobbyRef) {
+                lobbyRef.onSnapshot((snapshot) => {
+                    const lobbyData = snapshot.data();
+                    const participants = lobbyData?.participants || [];
+
+                    participants.forEach((participant) => {
+                        const playerElement = document.getElementById(
+                            participant.username,
+                        );
+                        if (playerElement) {
+                            playerElement.style.left = `${participant.position.x}px`;
+                            playerElement.style.top = `${participant.position.y}px`;
+                        } else {
+                            createPlayer(
+                                participant.username,
+                                participant.profilePicture,
+                                participant.position,
+                            );
+                        }
+
+                        if (participant.username === getUserFromCookies()) {
+                            health = participant.health;
+                            updateHealthBar();
+                        }
+                    });
+                });
+            }
+
+            function shootProjectile() {
+                const projectile = document.createElement("div");
+                projectile.classList.add("projectile");
+                projectile.style.left = `${position.x + 20}px`;
+                projectile.style.top = `${position.y + 20}px`;
+                document
+                    .getElementById("gameContainer")
+                    .appendChild(projectile);
+
+                const velocity = { x: lastDirection.x, y: lastDirection.y };
+                const interval = setInterval(() => {
+                    const newX = parseFloat(projectile.style.left) + velocity.x;
+                    const newY = parseFloat(projectile.style.top) + velocity.y;
+                    projectile.style.left = `${newX}px`;
+                    projectile.style.top = `${newY}px`;
+
+                    const hitPlayer = checkProjectileCollision(
+                        projectile,
+                        newX,
+                        newY,
+                    );
+                    if (hitPlayer) {
+                        clearInterval(interval);
+                        projectile.remove();
+                        dealDamageToPlayer(hitPlayer);
+                    }
+                }, 20);
+            }
+
+            function checkProjectileCollision(projectile, x, y) {
+                const players = document.querySelectorAll(".player");
+                for (const player of players) {
+                    if (player === playerElement) continue;
+
+                    const rect1 = {
+                        left: x,
+                        right: x + 10,
+                        top: y,
+                        bottom: y + 10,
+                    };
+                    const rect2 = player.getBoundingClientRect();
+
+                    if (
+                        rect1.left < rect2.right &&
+                        rect1.right > rect2.left &&
+                        rect1.top < rect2.bottom &&
+                        rect1.bottom > rect2.top
+                    ) {
+                        return player.id;
+                    }
+                }
+                return null;
+            }
+
+            function dealDamageToPlayer(hitPlayerUsername) {
+                const lobbyRef = db.collection("lobbies").doc(currentLobbyId);
+                lobbyRef.get().then((lobbyDoc) => {
+                    const participants = lobbyDoc.data().participants || [];
+                    const hitPlayerIndex = participants.findIndex(
+                        (p) => p.username === hitPlayerUsername,
+                    );
+                    const shooterIndex = participants.findIndex(
+                        (p) => p.username === getUserFromCookies(),
+                    );
+                    if (hitPlayerIndex !== -1) {
+                        participants[hitPlayerIndex].health -= 10;
+
+                        // Check if the hit player is dead
+                        if (participants[hitPlayerIndex].health <= 0) {
+                            participants[shooterIndex].kills =
+                                (participants[shooterIndex].kills || 0) + 1;
+
+                            // Update kills in the users collection
+                            const shooterUsername =
+                                participants[shooterIndex].username;
+                            db.collection("users")
+                                .doc(shooterUsername)
+                                .update({
+                                    kills: firebase.firestore.FieldValue.increment(
+                                        1,
+                                    ),
+                                    tokens: firebase.firestore.FieldValue.increment(
+                                        10,
+                                    ), // Increment tokens
+                                })
+                                .catch((error) => {
+                                    console.error(
+                                        "Error updating kills and tokens:",
+                                        error,
+                                    );
+                                });
+
+                            // Remove the dead player's character from the game area
+                            const deadPlayerElement =
+                                document.getElementById(hitPlayerUsername);
+                            if (deadPlayerElement) {
+                                deadPlayerElement.remove();
+                            }
+
+                            // Redirect the dead player to lobby.html
+                            if (
+                                participants[hitPlayerIndex].username ===
+                                getUserFromCookies()
+                            ) {
+                                window.location.href = "lobby.html";
+                            }
+                        }
+
+                        lobbyRef.update({ participants });
+                    }
+                });
+            }
+
+            function updateHealthBar() {
+                const healthBar = document.getElementById("health");
+                healthBar.style.width = `${health}%`;
+
+                if (health <= 0) {
+                    // Remove the player's character from the game area
+                    if (playerElement) {
+                        playerElement.remove();
+                    }
+                    window.location.href = "lobby.html";
+                }
+            }
+
+            function updateHealthBar() {
+                const healthBar = document.getElementById("health");
+                healthBar.style.width = `${health}%`;
+
+                if (health <= 0) {
+                    window.location.href = "lobby.html";
+                }
+            }
+
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "ArrowUp":
+                        movePlayer(0, -10);
+                        break;
+                    case "ArrowDown":
+                        movePlayer(0, 10);
+                        break;
+                    case "ArrowLeft":
+                        movePlayer(-10, 0);
+                        break;
+                    case "ArrowRight":
+                        movePlayer(10, 0);
+                        break;
+                    case " ":
+                        shootProjectile();
+                        break;
+                }
+            });
+
+            loadGameArea();
+        </script>
+    </body>
+</html>

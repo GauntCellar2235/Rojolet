@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Guilds</title>
+    </head>
+    <body>
+        <h1>Create or Join a Guild</h1>
+
+        <!-- Form to create a new guild -->
+        <div>
+            <h2>Create Guild</h2>
+            <input type="text" id="guildName" placeholder="Guild Name" />
+            <input
+                type="text"
+                id="guildDescription"
+                placeholder="Guild Description"
+            />
+            <input
+                type="text"
+                id="guildImage"
+                placeholder="Guild Cover Image URL"
+            />
+            <button onclick="createGuild()">Create Guild</button>
+        </div>
+
+        <hr />
+
+        <!-- List of available guilds -->
+        <div>
+            <h2>Available Guilds</h2>
+            <div id="guildList"></div>
+        </div>
+
+        <!-- Guild management section for the owner -->
+        <div id="manageGuild" style="display: none">
+            <h2>Manage Your Guild</h2>
+            <input type="hidden" id="guildId" />
+            <input
+                type="text"
+                id="editGuildName"
+                placeholder="Edit Guild Name"
+            />
+            <input
+                type="text"
+                id="editGuildDescription"
+                placeholder="Edit Guild Description"
+            />
+            <input
+                type="text"
+                id="editGuildImage"
+                placeholder="Edit Guild Cover Image URL"
+            />
+            <button onclick="saveGuildChanges()">Save Changes</button>
+            <h3>Members</h3>
+            <div id="guildMembers"></div>
+        </div>
+
+        <!-- Firebase SDK v8.x -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+        <script>
+            // Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+                authDomain: "cosmik-7c124.firebaseapp.com",
+                databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
+                projectId: "cosmik-7c124",
+                storageBucket: "cosmik-7c124.appspot.com",
+                messagingSenderId: "412506429662",
+                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+                measurementId: "G-R7K0LTHCK3",
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            const auth = firebase.auth();
+
+            // Function to get username from cookies
+            function getUsernameFromCookies() {
+                const cookies = document.cookie.split("; ");
+                const usernameCookie = cookies.find((cookie) =>
+                    cookie.startsWith("username="),
+                );
+                return usernameCookie
+                    ? decodeURIComponent(usernameCookie.split("=")[1])
+                    : null;
+            }
+
+            // Function to create a guild
+            function createGuild() {
+                const guildName = document.getElementById("guildName").value;
+                const guildDescription =
+                    document.getElementById("guildDescription").value;
+                const guildImage = document.getElementById("guildImage").value;
+
+                const user = firebase.auth().currentUser;
+                const creatorName = getUsernameFromCookies();
+
+                if (user && guildName && guildDescription && guildImage) {
+                    db.collection("guilds")
+                        .add({
+                            name: guildName,
+                            description: guildDescription,
+                            image: guildImage,
+                            creator: user.uid,
+                            creatorName: creatorName,
+                        })
+                        .then(() => {
+                            alert("Guild created successfully!");
+                            loadGuilds(); // Refresh the guild list after creation
+                        })
+                        .catch((error) => {
+                            console.error("Error creating guild: ", error);
+                        });
+                } else {
+                    alert(
+                        "Please fill in all fields and ensure you are logged in.",
+                    );
+                }
+            }
+
+            // Function to load and display all available guilds
+            function loadGuilds() {
+                const guildList = document.getElementById("guildList");
+                guildList.innerHTML = "";
+
+                db.collection("guilds")
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            const guild = doc.data();
+                            guildList.innerHTML += `
+                        <div id="guild-${doc.id}">
+                            <h3>${guild.name}</h3>
+                            <p>${guild.description}</p>
+                            <img src="${guild.image}" alt="${guild.name}" width="100">
+                            <p>Created by: ${guild.creatorName}</p>
+                            <button onclick="viewGuild('${doc.id}', '${guild.creator}')">View Guild</button>
+                            <button onclick="joinGuild('${doc.id}')" id="join-${doc.id}" style="display:none;">Join Guild</button>
+                        </div>
+                        <hr>
+                    `;
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error loading guilds: ", error);
+                    });
+            }
+
+            // Function to view and manage the guild
+            function viewGuild(guildId, creatorId) {
+                const user = firebase.auth().currentUser;
+
+                if (user) {
+                    if (user.uid === creatorId) {
+                        // Show guild management if the user is the owner
+                        document.getElementById("manageGuild").style.display =
+                            "block";
+                        document.getElementById("guildId").value = guildId;
+
+                        // Load guild details for editing
+                        db.collection("guilds")
+                            .doc(guildId)
+                            .get()
+                            .then((doc) => {
+                                if (doc.exists) {
+                                    const guild = doc.data();
+                                    document.getElementById(
+                                        "editGuildName",
+                                    ).value = guild.name;
+                                    document.getElementById(
+                                        "editGuildDescription",
+                                    ).value = guild.description;
+                                    document.getElementById(
+                                        "editGuildImage",
+                                    ).value = guild.image;
+
+                                    loadGuildMembers(guildId);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error loading guild: ", error);
+                            });
+                    } else {
+                        // If not the owner, show the "Join Guild" button and hide management
+                        document.getElementById(
+                            `join-${guildId}`,
+                        ).style.display = "inline";
+                        document.getElementById("manageGuild").style.display =
+                            "none";
+                    }
+                } else {
+                    alert("You must be logged in to view or join a guild.");
+                }
+            }
+
+            // Function to join a guild
+            function joinGuild(guildId) {
+                const user = firebase.auth().currentUser;
+
+                if (user) {
+                    db.collection("guilds")
+                        .doc(guildId)
+                        .collection("members")
+                        .add({
+                            uid: user.uid,
+                            username: getUsernameFromCookies(),
+                        })
+                        .then(() => {
+                            alert("Joined guild successfully!");
+                            // Optionally reload the guild list or update the UI
+                        })
+                        .catch((error) => {
+                            console.error("Error joining guild: ", error);
+                        });
+                } else {
+                    alert("You must be logged in to join a guild.");
+                }
+            }
+
+            // Function to load guild members
+            function loadGuildMembers(guildId) {
+                const guildMembersDiv = document.getElementById("guildMembers");
+                guildMembersDiv.innerHTML = "";
+
+                db.collection("guilds")
+                    .doc(guildId)
+                    .collection("members")
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            const member = doc.data();
+                            guildMembersDiv.innerHTML += `
+                        <div>
+                            <p>${member.username}</p>
+                            <button onclick="kickMember('${guildId}', '${doc.id}')">Kick</button>
+                        </div>
+                    `;
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error loading members: ", error);
+                    });
+            }
+
+            // Function to save guild changes
+            function saveGuildChanges() {
+                const guildId = document.getElementById("guildId").value;
+                const updatedName =
+                    document.getElementById("editGuildName").value;
+                const updatedDescription = document.getElementById(
+                    "editGuildDescription",
+                ).value;
+                const updatedImage =
+                    document.getElementById("editGuildImage").value;
+
+                if (
+                    guildId &&
+                    updatedName &&
+                    updatedDescription &&
+                    updatedImage
+                ) {
+                    db.collection("guilds")
+                        .doc(guildId)
+                        .update({
+                            name: updatedName,
+                            description: updatedDescription,
+                            image: updatedImage,
+                        })
+                        .then(() => {
+                            alert("Guild updated successfully!");
+                            loadGuilds(); // Refresh the guild list after updating
+                        })
+                        .catch((error) => {
+                            console.error("Error updating guild: ", error);
+                        });
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            }
+
+            // Function to kick a member from a guild
+            function kickMember(guildId, memberId) {
+                db.collection("guilds")
+                    .doc(guildId)
+                    .collection("members")
+                    .doc(memberId)
+                    .delete()
+                    .then(() => {
+                        alert("Member kicked successfully!");
+                        loadGuildMembers(guildId); // Refresh the member list
+                    })
+                    .catch((error) => {
+                        console.error("Error kicking member: ", error);
+                    });
+            }
+
+            // Load available guilds on page load
+            window.onload = function () {
+                loadGuilds();
+            };
+        </script>
+    </body>
+</html>

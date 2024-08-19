@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minigame Area</title>
+    <style>
+        #characterSelection img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #gameArea div {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            font-size: 24px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 10px;
+        }
+        #matchmakingStatus {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minigame Area</h1>
+
+    <div id="characterSelection">
+        <h2>Select Your Character</h2>
+    </div>
+    <div id="gameArea">
+        <h2>Game Area</h2>
+    </div>
+    <div id="matchmakingStatus"></div>
+
+    <button onclick="startMatchmaking()">Start Matchmaking</button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "cosmik-7c124.firebaseapp.com",
+            projectId: "cosmik-7c124",
+            storageBucket: "cosmik-7c124.appspot.com",
+            messagingSenderId: "412506429662",
+            appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+            measurementId: "G-R7K0LTHCK3"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let selectedSkin = null;
+        let currentLobbyId = null;
+        let playerElement = null;
+        let position = { x: 100, y: 100 };
+        let matchmakingTimer = null;
+        let matchmakingStatus = document.getElementById('matchmakingStatus');
+
+        function getUserFromCookies() {
+            const cookie = document.cookie.split('; ').find(row => row.startsWith('username='));
+            if (cookie) {
+                return cookie.split('=')[1];
+            }
+            console.error('Username not found in cookies');
+            return null;
+        }
+
+        async function loadMinigameArea() {
+            const username = getUserFromCookies();
+            if (!username) return;
+
+            const userDoc = await db.collection('users').doc(username).get();
+            const unlockedSkins = userDoc.data()?.unlockedSkins || [];
+
+            if (unlockedSkins.length > 0) {
+                displayCharacterSelection(unlockedSkins);
+            } else {
+                alert('No unlocked skins available.');
+            }
+
+            if (currentLobbyId) {
+                db.collection('lobbies').doc(currentLobbyId).onSnapshot(lobbyDoc => {
+                    const participants = lobbyDoc.data()?.participants || [];
+                    updatePlayerPositions(participants);
+                });
+            }
+        }
+
+        function displayCharacterSelection(unlockedSkins) {
+            unlockedSkins.forEach(skin => {
+                const skinElement = document.createElement('img');
+                skinElement.src = `path/to/skins/${skin}.webp`; // Adjust the path accordingly
+                skinElement.alt = skin;
+                skinElement.onclick = () => selectCharacter(skin);
+                document.getElementById('characterSelection').appendChild(skinElement);
+            });
+        }
+
+        function selectCharacter(skin) {
+            selectedSkin = skin;
+            console.log('Selected character:', skin);
+            alert(`You have selected ${skin}`);
+        }
+
+        async function startMatchmaking() {
+            if (selectedSkin) {
+                console.log('Starting matchmaking...');
+                await matchmake();
+            } else {
+                alert('Please select a character before starting matchmaking.');
+            }
+        }
+
+        async function matchmake() {
+            const username = getUserFromCookies();
+            if (!username) return;
+
+            currentLobbyId = prompt("Enter Lobby ID to join the game (or create one):");
+
+            if (currentLobbyId) {
+                const lobbyRef = db.collection('lobbies').doc(currentLobbyId);
+                const lobbyDoc = await lobbyRef.get();
+
+                if (lobbyDoc.exists) {
+                    const participants = lobbyDoc.data().participants || [];
+                    console.log('Lobby exists, participants:', participants);
+
+                    if (participants.length < 10 && !participants.some(p => p.username === username)) {
+                        const newParticipant = { username, position: { x: 100, y: 100 }, skin: selectedSkin };
+                        participants.push(newParticipant);
+                        await lobbyRef.update({ participants });
+                        console.log('Joined lobby:', currentLobbyId);
+                    }
+
+                    matchmakingStatus.textContent = 'Matchmaking in progress...';
+                    matchmakingTimer = setTimeout(async () => {
+                        await startGame();
+                    }, 60000); // 60 seconds
+
+                } else {
+                    await db.collection('lobbies').doc(currentLobbyId).set({
+                        participants: [{ username, position: { x: 100, y: 100 }, skin: selectedSkin }],
+                        isReady: false,
+                        selectedSkin: selectedSkin,
+                        maxParticipants: 10
+                    });
+                    console.log('Created new lobby:', currentLobbyId);
+                    alert('Lobby created! Waiting for players...');
+                    matchmakingStatus.textContent = 'Lobby created. Waiting for more players...';
+                    matchmakingTimer = setTimeout(async () => {
+                        await startGame();
+                    }, 60000); // 60 seconds
+                }
+
+                listenToPlayerMovements(lobbyRef);
+            }
+        }
+
+        async function startGame() {
+            clearTimeout(matchmakingTimer);
+            const lobbyRef = db.collection('lobbies').doc(currentLobbyId);
+            const lobbyDoc = await lobbyRef.get();
+            const participants = lobbyDoc.data()?.participants || [];
+
+            console.log('Start game function called. Participants:', participants);
+
+            const playerInfo = await Promise.all(participants.map(async (participant) => {
+                const userDoc = await db.collection('users').doc(participant.username).get();
+                return { username: participant.username, tokens: userDoc.data()?.tokens || 0 };
+            }));
+
+            const topPlayer = playerInfo.reduce((max, p) => p.tokens > max.tokens ? p : max, playerInfo[0]);
+
+            alert('Game is starting!\n' + `${topPlayer.username}: ${topPlayer.tokens} tokens`);
+
+            // Redirect to the new minigame area page after the alert
+            window.location.href = 'new_minigame_area.html';
+        }
+
+        function updatePlayerPositions(participants) {
+            const gameArea = document.getElementById('gameArea');
+            gameArea.innerHTML = ''; // Clear previous player positions
+
+            participants.forEach(participant => {
+                if (participant && participant.username && participant.position && participant.skin) {
+                    const playerDiv = document.createElement('div');
+                    playerDiv.id = participant.username;
+                    playerDiv.textContent = participant.username;
+                    playerDiv.style.left = `${participant.position.x || 0}px`;
+                    playerDiv.style.top = `${participant.position.y || 0}px`;
+
+                    playerDiv.style.backgroundImage = `url('path/to/skins/${participant.skin}.webp')`;
+                    playerDiv.style.backgroundSize = 'cover';
+
+                    gameArea.appendChild(playerDiv);
+
+                    if (participant.username === getUserFromCookies()) {
+                        playerElement = playerDiv;
+                    }
+                }
+            });
+        }
+
+        function movePlayer(dx, dy) {
+            if (playerElement) {
+                position.x += dx;
+                position.y += dy;
+                playerElement.style.left = `${position.x}px`;
+                playerElement.style.top = `${position.y}px`;
+
+                updatePlayerPositionInFirestore(position);
+            }
+        }
+
+        function updatePlayerPositionInFirestore(position) {
+            const username = getUserFromCookies();
+            const lobbyRef = db.collection('lobbies').doc(currentLobbyId);
+
+            lobbyRef.get().then(lobbyDoc => {
+                const participants = lobbyDoc.data()?.participants || [];
+                const participantIndex = participants.findIndex(p => p.username === username);
+                if (participantIndex !== -1) {
+                    participants[participantIndex].position = position;
+                    lobbyRef.update({ participants });
+                }
+            }).catch(error => console.error('Error updating player position:', error));
+        }
+
+        function listenToPlayerMovements(lobbyRef) {
+            lobbyRef.onSnapshot(lobbyDoc => {
+                const participants = lobbyDoc.data()?.participants || [];
+                updatePlayerPositions(participants);
+            });
+        }
+
+        window.addEventListener('keydown', (event) => {
+            const key = event.key.toLowerCase();
+            if (key === 'w') movePlayer(0, -10);  // Move up
+            if (key === 'a') movePlayer(-10, 0);  // Move left
+            if (key === 's') movePlayer(0, 10);   // Move down
+            if (key === 'd') movePlayer(10, 0);   // Move right
+        });
+
+        window.onload = loadMinigameArea;
+    </script>
+</body>
+</html>

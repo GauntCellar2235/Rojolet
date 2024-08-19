@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Join Lobby</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                background-color: #f0f0f0;
+            }
+
+            #lobbyList {
+                margin-top: 50px;
+            }
+
+            .lobby-item {
+                display: block;
+                padding: 10px;
+                margin: 10px auto;
+                width: 80%;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                font-size: 18px;
+            }
+
+            .lobby-item:hover {
+                background-color: #e0e0e0;
+            }
+
+            #error {
+                color: red;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Available Lobbies</h1>
+        <div id="lobbyList"></div>
+        <div id="error"></div>
+
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+                authDomain: "cosmik-7c124.firebaseapp.com",
+                projectId: "cosmik-7c124",
+                storageBucket: "cosmik-7c124.appspot.com",
+                messagingSenderId: "412506429662",
+                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+                measurementId: "G-R7K0LTHCK3",
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            async function loadLobbies() {
+                try {
+                    const lobbyListDiv = document.getElementById("lobbyList");
+                    const errorDiv = document.getElementById("error");
+
+                    const lobbiesSnapshot = await db
+                        .collection("lobbies")
+                        .get();
+                    if (lobbiesSnapshot.empty) {
+                        errorDiv.textContent = "No lobbies available.";
+                        return;
+                    }
+
+                    lobbiesSnapshot.forEach((doc) => {
+                        const lobbyId = doc.id;
+                        const lobbyItem = document.createElement("div");
+                        lobbyItem.className = "lobby-item";
+                        lobbyItem.textContent = `Lobby ID: ${lobbyId}`;
+                        lobbyItem.onclick = () => joinLobby(lobbyId);
+                        lobbyListDiv.appendChild(lobbyItem);
+                    });
+                } catch (error) {
+                    console.error("Error loading lobbies:", error);
+                    document.getElementById("error").textContent =
+                        "Failed to load lobbies.";
+                }
+            }
+
+            function joinLobby(lobbyId) {
+                const username = getUserFromCookies();
+                if (!username) {
+                    alert("Username not found. Please log in.");
+                    return;
+                }
+
+                // Redirect to the game area with the selected lobby ID
+                window.location.href = `minigame.html?lobbyId=${lobbyId}`;
+            }
+
+            function getUserFromCookies() {
+                const cookie = document.cookie
+                    .split("; ")
+                    .find((row) => row.startsWith("username="));
+                if (cookie) {
+                    return cookie.split("=")[1];
+                }
+                return null;
+            }
+
+            loadLobbies();
+        </script>
+    </body>
+</html>
