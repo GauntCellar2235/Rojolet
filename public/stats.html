@@ -40,8 +40,7 @@
                 color: #fff;
                 text-align: center;
                 margin-left: 50px;
-                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);            
-
+                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
             }
             
             .container {
@@ -273,10 +272,18 @@
 
 
             @media only screen and (max-width: 768px) {
-    .class{
-      /*new styles to resize element for smaller phone screens*/
-    }
+  .class{
+    font-size: 10px; /*new styles for screens less than or equal to 768 px in width*/
+    height: 100px;
+    width: 150px;
   }
+}
+
+.class{
+  font-size: 23px; /*default styles*/
+height: 300px;
+width: 450px;
+}
 
 
         </style>
