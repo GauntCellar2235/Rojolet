@@ -13,55 +13,28 @@
                 background-image: url("images/checkers.png");
                 background-size: cover;
                 background-position: center;
-                display: ;
                 height: 100vh;
                 justify-content: center;
                 align-items: center;
             }
             .container {
-                background-color: #ac0000;
-                width: 500px;
-                margin-left: 950px;
-                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                max-width: 925px;
+                width: 100%;
+                background-color: #a30000;
+                border-radius: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                color: #fff;
+                text-align: center;
+                margin-left: 800px;
+                margin: 200px;
+                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
             }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-        <h1>Blooks</h1>
-        <div id="purchasedItems"></div>
-        </div>
-    </body>
-</html>
-<style>
-    body {
-                        font-family=Titan+One&family=Nunito+Sans:wght@700&display=swap"
 
-                Nunito Sans,
-                sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("images/checkers.png");
-            background-size: cover;
-
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            text-align: center;
-
-        .container {
-            background-color: #ac0000;
-            width: 500px;
-            margin-left: 950px;
-            border-radius: 8px;
-        }
-    }
-
-
-
-
-    .nav-button {
+            .nav-button {
         background-color: #d40000;
         display: flex;
         justify-content: space-around;
@@ -122,23 +95,25 @@
         font-size: 15px;
         text-decoration: none;
     }
-</style>
-</head>
+        </style>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navdiv">
+                <div class="logo"><a href="index.html">Rojolet</a></div>
+                <ul>
+                    <button><a href="stats.html">Stats</a></button>
+                    <button><a href="chat.html">Chat</a></button>
+                    <button><a href="market.html">Shop</a></button>
+                    <button><a href="#">Items</a></button>
+                    <button><a href="lobby.html">Games</a></button>
+                    <button><a href="admin.html">Panel</a></button>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+        <h1>Shop</h1>
+        </div>
 <body>
-
-
-
-<nav class="navbar">
-    <div class="navdiv">
-        <div class="logo"><a href="index.html">Rojolet</a></div>
-        <ul>
-            <button><a href="stats.html">Stats</a></button>
-            <button><a href="chat.html">Chat</a></button>
-            <button><a href="#">Shop</a></button>
-            <button><a href="blooks.html">Items</a></button>
-            <button><a href="#">Games</a></button>
-            <button><a href="admin.html">Panel</a></button>
-            <button><a href="settings.html">Settings</a></button>
-        </ul>
-    </div>
-</nav>
+</html>
