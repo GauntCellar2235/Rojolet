@@ -84,19 +84,6 @@ io.on('connection', (socket) => {
         }
     });
 
-    
-    socket.on('user connected', (username) => {
-        if (username === 'ILoveYouEmyHagevik') {
-            fs.appendFile(path.join(__dirname, 'public', 'stats.html'), '\n<div>Role: Owner</div>', (err) => {
-                if (err) {
-                    console.error('Error adding role to stats.html:', err);
-                } else {
-                    console.log('Role Owner added to ILoveYouEmyHagevik in stats.html');
-                }
-            });
-        }
-    });
-
     socket.on('disconnect', () => {
         // Remove disconnected users from the connected users list
         for (const [username, id] of Object.entries(connectedUsers)) {
