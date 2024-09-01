@@ -1,142 +1,16 @@
 <!doctype html>
 <html lang="en">
-    <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Market | Rojolet</title>
-        <script type="module" src="shop.js"></script>
-        <style>
-            @import url("https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@700&display=swap");
-
-            body {
-                font-family: "Nunito Sans", sans-serif;
-                margin: 0;
-                padding: 0;
-                background-image: url("images/checkers.png");
-                background-size: cover;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                overflow: hidden;
-                text-align: center;
-            }
-
-            .container {
-                background-color: #ac0000;
-                width: 500px;
-                margin-left: 950px;
-                border-radius: 8px;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            }
-
-            .nav-button {
-                background-color: #d40000;
-                display: flex;
-                justify-content: space-around;
-                margin-top: 20px;
-                width: 100%;
-                font-family: "Titan One", sans-serif;
-                animation: navGlow 1.5s infinite alternate;
-            }
-
-            .nav-button a {
-                text-decoration: none;
-                color: #fff;
-                background-color: #c20000;
-                padding: 10px 40px;
-                border-radius: 5px;
-                font-family: "Nunito Sans", sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                transition:
-                    background-color 0.3s,
-                    transform 0.3s;
-                animation: buttonPulse 2s infinite;
-            }
-
-            .nav-button a:hover {
-                background-color: #a30000;
-                transform: scale(1.05);
-            }
-
-            .nav-bar {
-                padding-right: 15px;
-                padding-left: 15px;
-                background-color: red;
-            }
-
-            .navdiv {
-                display: flex;
-                align-items: center;
-                background-color: #8b0000;
-                border-bottom: #6b0000 8px solid;
-                animation: fadeIn 2s ease-in-out;
-                height: 100px;
-            }
-
-            .logo a {
-                margin-left: 15px;
-                font-size: 35px;
-                color: #fff;
-                font-family: "Titan One", sans-serif;
-                text-decoration: none;
-                animation: bounce 1.5s infinite;
-            }
-
-            @keyframes bounce {
-                0%,
-                100% {
-                    transform: translateY(0);
-                }
-                50% {
-                    transform: translateY(-10px);
-                }
-            }
-
-            button {
-                background-color: #9d0000;
-                margin-left: 10px;
-                border-radius: 10px;
-                border-color: #fff;
-                padding: 10px;
-                width: 90px;
-                text-decoration: none;
-                animation: buttonPulse 2s infinite;
-            }
-
-            button a {
-                color: white;
-                font-family: "Titan One", sans-serif;
-                font-size: 15px;
-                text-decoration: none;
-            }
-
-            button:hover {
-                transform: scale(1.05);
-                background-color: #a30000;
-            }
-        </style>
+        <title>Shop</title>
+        <script type="module" src="market.js"></script>
     </head>
     <body>
-        <nav class="navbar">
-            <div class="navdiv">
-                <div class="logo"><a href="index.html">Rojolet</a></div>
-                <ul>
-                    <button><a href="stats.html">Stats</a></button>
-                    <button><a href="chat.html">Chat</a></button>
-                    <button><a href="#">Market</a></button>
-                    <button><a href="blooks.html">Blooks</a></button>
-                    <button><a href="lobby.html">Games</a></button>
-                    <button><a href="admin.html">Panel</a></button>
-                </ul>
-            </div>
-        </nav>
-        <h1>Store</h1>
-        <div class="container">
-            <div id="shopItems"></div>
-            <p id="tokenCount"></p>
-        </div>
+        <h1>Shop</h1>
+        <div style="display: none;" id="shopItems"></div>
+        <button id="getRandomItem">open pack</button>
+        <div id="tokenCount">Tokens: 0</div>
     </body>
 </html>
