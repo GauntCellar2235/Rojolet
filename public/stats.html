@@ -338,12 +338,12 @@ width: 450px;
         <div style="margin-left: 325px; margin-top: -490px;" class="container">
             <div class="profile-info">
                 <img
-                    id="profilePicture"
+                    id="profile-picture"
                     class="profile-picture"
                     src="default-profile.png"
                     alt="Profile Picture"
                 />
-                <h1 id="usernameDisplay">Username</h1>
+                <h1 id="username">Username</h1>
             </div>
             <div class="stats">
 
@@ -365,6 +365,7 @@ width: 450px;
                 <h1 style="font-size: 20px; margin-top: -24px;" >Tokens:</h1>
                 <img style="width: 40px; margin-right: 30px; margin-top: -10px;" src="images/token.png" alt="Token Icon" />
                 <span style="font-size: 25px; margin-right: -15px; margin-top: -50px; font-family: 'Nunito sans', sans-serif;" id="tokens">0</span>
+                <button id="claim-tokens-button"></button>
             </p>
             </div>
                  <div class="messages-container">
@@ -390,175 +391,6 @@ width: 450px;
         <!-- Div for unlocked skins -->
         <div id="skins"></div>
 
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-            import {
-                getFirestore,
-                doc,
-                getDoc,
-                updateDoc,
-            } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
-
-            const firebaseConfig = {
-                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
-                authDomain: "cosmik-7c124.firebaseapp.com",
-                databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
-                projectId: "cosmik-7c124",
-                storageBucket: "cosmik-7c124",
-                messagingSenderId: "412506429662",
-                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
-                measurementId: "G-R7K0LTHCK3",
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const firestore = getFirestore(app);
-
-            function formatNumberWithCommas(number) {
-                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
-
-            window.onload = async function () {
-                const cookies = document.cookie
-                    .split("; ")
-                    .reduce((acc, cookie) => {
-                        const [name, value] = cookie.split("=");
-                        acc[name] = decodeURIComponent(value);
-                        return acc;
-                    }, {});
-
-                const username = cookies.username || "Guest";
-
-                if (username !== "Guest") {
-                    try {
-                        const userDocRef = doc(firestore, "users", username);
-                        const userDoc = await getDoc(userDocRef);
-
-                        if (userDoc.exists()) {
-                            const userData = userDoc.data();
-
-                            document.getElementById(
-                                "usernameDisplay",
-                            ).textContent = username;
-
-                            // Check if profilePicture is an object or a URL
-                            const profilePictureUrl =
-                                typeof userData.profilePicture === "string"
-                                    ? userData.profilePicture
-                                    : userData.profilePicture.url ||
-                                      "default-profile.png";
-
-                            document.getElementById("profilePicture").src =
-                                profilePictureUrl;
-                            document.getElementById("roles").textContent =
-                                userData.roles || "No roles";
-                            const tokenCount =
-                                parseInt(userData.tokens, 10) || 0;
-                            document.getElementById("tokens").textContent =
-                                formatNumberWithCommas(tokenCount);
-
-                            const badges = userData.badges || [];
-                            const badgesContainer =
-                                document.getElementById("badges");
-                            badgesContainer.innerHTML = badges
-                                .map(
-                                    (badge) =>
-                                        `<img src="${badge}" alt="Badge">`,
-                                )
-                                .join("");
-
-                            const skins = userData.unlockedSkins || [];
-                            const skinsContainer =
-                                document.getElementById("skins");
-                            skinsContainer.innerHTML = skins
-                                .map(
-                                    (skin) =>
-                                        `<img src="${skin.url}" alt="${skin.name}" onclick="selectSkin('${skin.url}')">`,
-                                )
-                                .join("");
-                        } else {
-                            document.getElementById(
-                                "usernameDisplay",
-                            ).textContent = "Guest";
-                            document.getElementById("profilePicture").src =
-                                "default-profile.png";
-                            document.getElementById("roles").textContent =
-                                "No roles assigned";
-                            document.getElementById("tokens").textContent = "0";
-                        }
-                    } catch (error) {
-                        console.error("Error fetching user data:", error);
-                    }
-                } else {
-                    document.getElementById("usernameDisplay").textContent =
-                        "Guest";
-                    document.getElementById("profilePicture").src =
-                        "images/blooks/default.png";
-                    document.getElementById("roles").textContent =
-                        "No roles assigned";
-                    document.getElementById("tokens").textContent = "0";
-                }
-            };
-
-            document
-                .getElementById("profilePicture")
-                .addEventListener("click", function () {
-                    const skinsContainer = document.getElementById("skins");
-                    if (
-                        skinsContainer.style.display === "none" ||
-                        skinsContainer.style.display === ""
-                    ) {
-                        skinsContainer.style.display = "block";
-                    } else {
-                        skinsContainer.style.display = "none";
-                    }
-                });
-
-            window.selectSkin = async function (skinUrl) {
-                const cookies = document.cookie
-                    .split("; ")
-                    .reduce((acc, cookie) => {
-                        const [name, value] = cookie.split("=");
-                        acc[name] = decodeURIComponent(value);
-                        return acc;
-                    }, {});
-
-                const username = cookies.username || "Guest";
-
-                if (username !== "Guest") {
-                    try {
-                        const userDocRef = doc(firestore, "users", username);
-                        await updateDoc(userDocRef, {
-                            profilePicture: skinUrl,
-                        });
-
-                        document.getElementById("profilePicture").src = skinUrl;
-                        document.getElementById("skins").style.display = "none";
-                    } catch (error) {
-                        console.error("Error updating profile picture:", error);
-                    }
-                }
-            };
-            function fetchUserData(username) {
-                const userDoc = db.collection("users").doc(username);
-                userDoc.get().then((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        document.getElementById("username").textContent = username;
-                        document.getElementById("role").textContent = data.role || "N/A";
-                        document.getElementById("tokens").textContent = data.tokens || "0";
-                        document.getElementById("profile-picture").src = data.profilePicture || "images/default-avatar.png";
-                        displayBadges(data.badges || []);
-
-                        if (data.role === "Co-Owner" || data.role === "Owner") {
-                            document.getElementById("panelButton").style.display = "inline-block";
-                        }
-                    } else {
-                        console.log("No such document!");
-                    }
-                }).catch((error) => {
-                    console.log("Error getting document:", error);
-                });
-            }
-        </script>
+        <script type="module" defer src="stats.js"></script>
     </body>
 </html>
