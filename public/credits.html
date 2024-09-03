@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
     <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credits | Rojolet</title>
-    <link
-    href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
-    rel="stylesheet"
-/>
-    <style>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Credits | Rojolet</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
             body {
-                display: block;
                 font-family:
                     Nunito Sans,
                     sans-serif;
@@ -21,93 +20,311 @@
                 background-size: cover;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
-                overflow: hidden;
+                height: 200vh;
                 text-align: center;
             }
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                max-width: 400px;
+                width: 100%;
+                height: 400px;
+                background-color: #a30000;
+                border-radius: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                color: #fff;
+                text-align: center;
+                margin-left: 800px;
+                margin: 200px;
+                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
+            }
             .nav-button {
-                    background-color: #d40000;
-                    display: flex;
-                    justify-content: space-around;
-                    margin-top: 20px;
-                    width: 100%;
-                    font-family: "Titan One", sans-serif;
-                }
-                .nav-button a {
-                    text-decoration: none;
-                    color: #fff;
-                    background-color: #c20000;
-                    padding: 10px 40px;
-                    border-radius: 5px;
-                    font-family: "Nunito Sans", sans-serif;
-                    font-weight: 700;
-                    font-size: 16px;
-                    transition: background-color 0.3s;
-                }
-                .nav-button a:hover {
-                    background-color: #a30000;
-                }
+                background-color: #d40000;
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+                width: 100%;
+                font-family: "Titan One", sans-serif;
+            }
+            .nav-button a {
+                text-decoration: none;
+                color: #fff;
+                background-color: #c20000;
+                padding: 10px 40px;
+                border-radius: 5px;
+                font-family: "Nunito Sans", sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+            .nav-button a:hover {
+                background-color: #a30000;
+            }
 
-
-
-
-
-                
-                .nav-bar {
-                    padding-right: 15px;
-                    padding-left: 15px;
-                    background-color: rgb(178, 9, 9);
-                }
-                .navdiv {
-                    display: flex;
-                    align-items: center;
-                    background-color: #8B0000;
-                    border-bottom: #6B0000 8px solid;
-                    height: 100px;
-                    font-family: 'Titan One', sans-serif;
-                }
-                .navdiv h1 {
-                    color: #fff;
-                }
-                .logo a {
-                    margin-left: 15px;
-                    font-size: 35px;
-                    color: #fff;
-                    font-family: "Titan One", sans-serif;
-                    text-decoration: none;
-                }
-                button {
-                    background-color: #9d0000;
-                    margin-left: 10px;
-                    border-radius: 10px;
-                    border-color: #fff;
-                    padding: 10px;
-                    width: 90px;
-                    text-decoration: none;
-                }
-                button a {
-                    color: white;
-                    font-family: "Titan One", sans-serif;
-                    font-size: 15px;
-                    text-decoration: none;
-                }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="navdiv">
-            <div class="logo"><a href="index.html">Rojolet</a></div>
-            <ul>
-                <button><a href="stats.html">Stats</a></button>
-                <button><a href="chat.html">Chat</a></button>
-                <button><a href="market.html">Market</a></button>
-                <button><a href="blooks.html">Blooks</a></button>
-                <button><a href="lobby.html">Games</a></button>
-                <button><a href="guilds.html">Clans</a></button>
-                <button><a href="admin.html">Panel</a></button>
-            </ul>
+            #badges img {
+                width: 1.502vw;
+                height: 1.502vw;
+                margin: 5px;
+            }
+            h1 {
+                font-family: "Titan One", sans-serif;
+            }
+            .tokens {
+                font-size: 10px;
+            }
+            .nav-bar {
+                padding-right: 15px;
+                padding-left: 15px;
+                background-color: red;
+            }
+            .navdiv {
+                display: flex;
+                align-items: center;
+                background-color: #8b0000;
+                border-bottom: #6b0000 8px solid;
+                height: 100px;
+            }
+            .logo a {
+                margin-left: 15px;
+                font-size: 35px;
+                color: #fff;
+                font-family: "Titan One", sans-serif;
+                text-decoration: none;
+            }
+            button {
+                background-color: #9d0000;
+                margin-left: 10px;
+                align-items: center;
+                border-radius: 10px;
+                border-color: #fff;
+                padding: 10px;
+                width: 90px;
+                text-decoration: none;
+                font-family: "Titan One", sans-serif;
+                color: white;
+                flex-direction: row;
+            }
+            button a {
+                color: white;
+                font-family: "Titan One", sans-serif;
+                font-size: 15px;
+                text-decoration: none;
+            }
+            button b {
+                color: white;
+                font-family: "Titan One", sans-serif;
+                font-size: 15px;
+                text-decoration: none;
+            }
+            .Gaunt-pfp {
+                width: 150px;
+                height: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navdiv">
+                <div class="logo"><a href="index.html">Rojolet</a></div>
+                <ul>
+                    <button><a href="stats.html">Stats</a></button>
+                    <button><a href="chat.html">Chat</a></button>
+                    <button><a href="market.html">Shop</a></button>
+                    <button><a href="blooks.html">Items</a></button>
+                    <button><a href="lobby.html">Games</a></button>
+                    <button><a href="guilds.html">Clans</a></button>
+                    <button><a href="admin.html">Panel</a></button>
+                </ul>
+            </div>
+        </nav>
+        <h1 style="color: #fff; margin-right: 120px; font-size: 50px;";>Credits</h1>
+         <!---GauntCellar2235's credits-->
+        <div style="margin-left: 480px" class="container">
+            <img
+                class="Gaunt-pfp"
+                src="images/blooks/Gaunt.webp"
+                alt="Gaunt pfp"
+            />
+            <h1
+                style="
+                    color: #8b0000;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                "
+            >
+               [Owner] GauntCellar2235
+            </h1>
+            <h3>The Owner, founder, developer, and artist of Rojolet</h3>
         </div>
-    </nav>
-    
-</body>
+
+         <!---Prq's credits-->
+        <div style="margin-left: 990px; margin-top: -640px;" class="container">
+            <img class="Gaunt-pfp" src="images/blooks/Prq.webp" alt="Prq pfp" />
+            <h1
+                style="
+                    color: #800080;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                "
+            >
+                [Co-Owner] Prq
+            </h1>
+            <h3>
+                Co-owner, developer, for Rojolet and an amazing friend has
+                helped so much for this project. Helped us out when we needed it most and things didn't look good for Rojolet.
+            </h3>
+        </div>
+
+        <!---SOUNDGOD's credits-->
+        <div style="margin-left: 1500px; margin-top: -640px;" class="container">
+            <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="Prq pfp" />
+            <h1
+                style="
+                    color: #8723e5;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                "
+            >
+                [Mod] SOUNDGOD
+            </h1>
+            <h3>
+                Mod, and Developer he helped us with a subdomain for Rojolet.
+            </h3>
+        </div>
+                <!---Waffle's credits-->
+                <div style="margin-left: 480px; margin-top: -125px;" class="container">
+                    <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+                    <h1
+                        style="
+                            color: #a92eec;
+                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                        "
+                    >
+                        [Co-Owner] Waffle House
+                    </h1>
+                    <h3>
+                         Co-owner, Developer, Artist, and an amazing friend on mine. Helped us out when we needed it most and things didn't look good for Rojolet.
+                    </h3>
+                </div>
+
+         <!---kv_'s credits-->
+            <div style="margin-left: 1000px; margin-top: -640px;" class="container">
+            <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+            <h1
+            style="
+            color: #ff3b3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            "
+            >
+            [Admin] kv_
+            <h3>
+            Admin, artist, and a good friend. He has come a long way to get admin for Rojolet.
+            </h3>
+            </div>
+                <!---Cat_55's credits-->
+                <div style="margin-left: 1500px; margin-top: -640px;" class="container">
+                    <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+                    <h1
+                        style="
+                            color: #da9b9b;
+                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                        "
+                    >
+                        [Co-Owner] Cat_55
+                    </h1>
+                    <h3>
+                        Co-Owner, and a great friend of mine. THE VERY FIRST person i recruited for Rojolet and kept me going with making it.
+                    </h3>
+                </div>
+
+                                <!---SOLQ's credits-->
+                                <div style="margin-left: 480px; margin-top: -125px;" class="container">
+                                    <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+                                    <h1
+                                        style="
+                                            color: #8edb80;
+                                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                                        "
+                                    >
+                                        [Co-Owner] SOLQ
+                                    </h1>
+                                    <h3>
+                                        Co-Owner, artist, and a great friend. Has made a lot of blooks, you guys probably don't know him but he was our first artist.
+                                    </h3>
+                                </div>
+                
+                         <!---Allonme's credits-->
+                            <div style="margin-left: 1000px; margin-top: -640px;" class="container">
+                            <img class="Gaunt-pfp" src="public/images/blooks/Allonme.png" alt="pfp" />
+                            <h1
+                            style="
+                            color: #0007ff;
+                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                            margin-top: 25px;
+                            "
+                            >
+                            [Co-Owner] Allonme
+                            <h3>
+                            Co-owner, developer, and an amazing friend. He's one of the first people i recruited for Rojolet and he has done a great job.
+                            </h3>
+                            </div>
+                                <!---Non_exsisting's credits-->
+                                <div style="margin-left: 1500px; margin-top: -640px;" class="container">
+                                    <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" style="margin-top: 25px;"/>
+                                    <h1
+                                        style="
+                                            color: #6885cf;
+                                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                                            margin-top: 50px;
+                                        "
+                                    >
+                                        [Helper] Non_exsisting
+                                    </h1>
+                                    <h3>
+                                        Helper, Tester. He has tested a lot for Rojolet and finding ton's of bugs.
+                                    </h3>
+                                <!---Hyper's credits-->
+                                <div style="margin-left: -1850px;" class="container">
+                                    <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+                                    <h1
+                                        style="
+                                            color: #ff0000;
+                                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                                            margin-top: 25px;
+                                        "
+                                    >
+                                        [Co-Owner] Hyper
+                                    </h1>
+                                    <h3>
+                                        Owner, A great friend of mine.
+                                    </h3>
+                                </div>
+                                                         <!---persons's credits-->
+                            <div style="margin-left: -800px; margin-top: -533px;" class="container">
+                                <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+                                <h1
+                                style="
+                                color: #c494ff;
+                                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                                "
+                                >
+                                [Mod] Spork
+                                <h3>
+                                    Mod, A great friend of mine
+                                </h3>
+                                </div>
+                                                                                         <!---persons's credits-->
+                            <div style="margin-top: -533px;" class="container">
+                                <img class="Gaunt-pfp" src="https://placehold.co/600x400" alt="pfp" />
+                                <h1
+                                style="
+                                color: rgb(243, 96, 191);
+                                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                                "
+                                >
+                                [Helper] FastyJay
+                                <h3>
+                                    Helper, A great friend and a Youtuber for Rojolet
+                                </h3>
+                                </div>
+    </body>
 </html>
