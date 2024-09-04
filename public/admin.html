@@ -4,132 +4,36 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Panel | Rojolet</title>
-        <link rel="stylesheet" href="styles.css" />
-        <!-- Firebase CDN URLs -->
-        <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"></script>
-        <script>
-            // Initialize Firebase
-            const firebaseConfig = {
-                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
-                authDomain: "cosmik-7c124.firebaseapp.com",
-                databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
-                projectId: "cosmik-7c124",
-                storageBucket: "cosmik-7c124.appspot.com",
-                messagingSenderId: "412506429662",
-                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
-                measurementId: "G-R7K0LTHCK3",
-            };
-
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-            const firestore = firebase.firestore();
-
-            // Utility function to get cookies
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(";").shift();
-            }
-
-            // Check user role
-            async function checkUserRole() {
-                const username = getCookie("username");
-                if (!username) {
-                    window.location.href = "login.html";
-                    return;
-                }
-
-                const userDocRef = firestore.doc(`users/${username}`);
-                const userDoc = await userDocRef.get();
-
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-                    const roles = [
-                        "Helper",
-                        "Admin",
-                        "Mod",
-                        "Owner",
-                        "Co-Owner",
-                    ];
-                    if (!roles.includes(userData.roles)) {
-                        window.location.href = "login.html";
-                    }
-                } else {
-                    window.location.href = "login.html";
-                }
-            }
-
-            // Search for user
-            async function searchUser() {
-                const username =
-                    document.getElementById("username-search").value;
-                const userDocRef = firestore.doc(`users/${username}`);
-                const userDoc = await userDocRef.get();
-
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-                    document.getElementById("user-username").textContent =
-                        `Username: ${userData.username}`;
-                    document.getElementById("user-info").style.display =
-                        "block";
-                    document.getElementById("username-search").value = "";
-                } else {
-                    alert("User not found.");
-                }
-            }
-
-            // Accept user
-            async function acceptUser() {
-                const username = document
-                    .getElementById("user-username")
-                    .textContent.replace("Username: ", "");
-                const userDocRef = firestore.doc(`users/${username}`);
-                await userDocRef.update({ accepted: true });
-                alert("User accepted.");
-            }
-
-            // Decline user
-            async function declineUser() {
-                const username = document
-                    .getElementById("user-username")
-                    .textContent.replace("Username: ", "");
-                const userDocRef = firestore.doc(`users/${username}`);
-                await userDocRef.update({ accepted: false });
-                alert("User declined.");
-            }
-
-            // Initialize on load
-            window.onload = function () {
-                checkUserRole();
-                document.getElementById("search-btn").onclick = searchUser;
-                document.getElementById("accept-btn").onclick = acceptUser;
-                document.getElementById("decline-btn").onclick = declineUser;
-            };
-        </script>
+        <title>Admin Panel | Rojolet</title>
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+        <link
+        href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
+        rel="stylesheet"
+    />
         <style>
-        body {
-                font-family: "Titan One",sans-serif;
+                        body {
+                display: block;
+                font-family:
+                    Nunito Sans,
+                    sans-serif;
                 margin: 0;
                 padding: 0;
                 background-image: url("images/checkers.png");
                 background-size: cover;
-
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
-                overflow: hidden;
                 text-align: center;
-        }
-        .container {
+            }
+            .container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 padding: 20px;
-                max-width: 925px;
+                max-width: 725px;
+                height: 500px;
                 width: 100%;
                 background-color: #a30000;
                 border-radius: 20px;
@@ -137,85 +41,90 @@
                 color: #fff;
                 text-align: center;
                 margin-left: 750px;
-                margin-top: 200px;
+                margin-top: 100px;
                 box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
             }
-        
 
-
-
-
-        .nav-button {
-            background-color: #d40000;
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            width: 100%;
-            font-family: "Titan One", sans-serif;
-        }
-        .nav-button a {
-            text-decoration: none;
-            color: #fff;
-            background-color: #c20000;
-            padding: 10px 40px;
-            border-radius: 5px;
-            font-family: "Nunito Sans", sans-serif;
-            font-weight: 700;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .nav-button a:hover {
-            background-color: #a30000;
-        }
-
+            .nav-button {
+                    background-color: #d40000;
+                    display: flex;
+                    justify-content: space-around;
+                    margin-top: 20px;
+                    width: 100%;
+                    font-family: "Titan One", sans-serif;
+                }
+                .nav-button a {
+                    text-decoration: none;
+                    color: #fff;
+                    background-color: #c20000;
+                    padding: 10px 40px;
+                    border-radius: 5px;
+                    font-family: "Nunito Sans", sans-serif;
+                    font-weight: 700;
+                    font-size: 16px;
+                    transition: background-color 0.3s;
+                }
+                .nav-button a:hover {
+                    background-color: #a30000;
+                }
 
 
 
 
 
-        .nav-bar {
-            padding-right: 15px;
-            padding-left: 15px;
-            background-color: red;
-        }
-        .navdiv {
-            display: flex;
-            align-items: center;
-            background-color: #8B0000;
-            border-bottom: #6B0000 8px solid;
-            height: 100px;
-        }
-        .logo a {
-            margin-left: 15px;
-            font-size: 35px;
-            color: #fff;
-            font-family: "Titan One", sans-serif;
-            text-decoration: none;
-        }
-        button {
-            background-color: #9d0000;
-            margin-left: 10px;
-            border-radius: 10px;
-            border-color: #fff;
-            padding: 10px;
-            width: 90px;
-            text-decoration: none;
-        }
-        button a {
-            color: white;
-            font-family: "Titan One", sans-serif;
-            font-size: 15px;
-            text-decoration: none;
-        }
-        button b {
-            color: white;
-            font-family: "Titan One", sans-serif;
-            font-size: 15px;
-            text-decoration: none;
-        }
-    </style>
+                
+                .nav-bar {
+                    padding-right: 15px;
+                    padding-left: 15px;
+                    background-color: rgb(178, 9, 9);
+                }
+                .navdiv {
+                    display: flex;
+                    align-items: center;
+                    background-color: #8B0000;
+                    border-bottom: #6B0000 8px solid;
+                    height: 100px;
+                    font-family: 'Titan One', sans-serif;
+                }
+                .navdiv h1 {
+                    color: #fff;
+                }
+                .logo a {
+                    margin-left: 15px;
+                    font-size: 35px;
+                    color: #fff;
+                    font-family: "Titan One", sans-serif;
+                    text-decoration: none;
+                }
+                button {
+                    background-color: #9d0000;
+                    margin-left: 10px;
+                    border-radius: 10px;
+                    border-color: #fff;
+                    padding: 10px;
+                    width: 90px;
+                    text-decoration: none;
+                }
+                button a {
+                    color: white;
+                    font-family: "Titan One", sans-serif;
+                    font-size: 15px;
+                    text-decoration: none;
+                }
+                .username-input {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #8B0000;
+                border-radius: 8px;
+                background-color: #6B0000;
+                color: white;
+                height: 20px;
+                width: 400px;
+                margin: 5px;
+            }
+        </style>
     </head>
-    <body>
+    <body> 
         <nav class="navbar">
             <div class="navdiv">
                 <div class="logo"><a href="index.html">Rojolet</a></div>
@@ -230,26 +139,115 @@
                 </ul>
             </div>
         </nav>
-    
 
-<div class="container">
-        <div id="admin-panel">
-            <h1>Admin Panel</h1>
-            <input
-                type="text"
-                id="username-search"
-                placeholder="Enter username to search"
-            />
-            <button id="search-btn"><b>Search</b></button>
+        <div class="container">
+        <h1 style="font-family: 'Titan One', sans-serif; color: #fff;">Admin Panel</h1>
 
-            <div id="user-info" style="display: none">
-                <h2>User Information</h2>
-                <p id="user-username"></p>
-                <button id="accept-btn">Accept</button>
-                <button id="decline-btn">Decline</button>
-            </div>
+        <div>
+            <label for="username"></label>
+            <input 
+             class="username-input"
+             type="text" 
+             id="username" 
+             placeholder="Search User" style="font-family: 'Titan One', sans-serif;"/>
+            <button onclick="searchUser()" style="color: #fff; background-color: #8b0202; height: 45px; width: 100px; font-family: 'Titan One', sans-serif; font-size: 17px;">Search</button>
         </div>
+
+        <div id="userDetails" style="display: none">
+            <h2>User Details</h2>
+            <form id="userForm"></form>
+            <button onclick="updateUser()">Update User</button>
         </div>
+    </div>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+                authDomain: "cosmik-7c124.firebaseapp.com",
+                databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
+                projectId: "cosmik-7c124",
+                storageBucket: "cosmik-7c124.appspot.com",
+                messagingSenderId: "412506429662",
+                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+                measurementId: "G-R7K0LTHCK3",
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            let currentUserDocId = null;
+
+            function searchUser() {
+                const username = document
+                    .getElementById("username")
+                    .value.trim();
+                if (!username) {
+                    alert("Please enter a username.");
+                    return;
+                }
+
+                db.collection("users")
+                    .where("username", "==", username)
+                    .get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            alert("No user found with that username.");
+                            return;
+                        }
+
+                        querySnapshot.forEach((doc) => {
+                            currentUserDocId = doc.id;
+                            const userData = doc.data();
+                            displayUserFields(userData);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error searching for user: ", error);
+                    });
+            }
+
+            function displayUserFields(userData) {
+                const form = document.getElementById("userForm");
+                form.innerHTML = "";
+
+                for (const key in userData) {
+                    if (userData.hasOwnProperty(key)) {
+                        const fieldHTML = `<div>
+                    <label for="${key}">${key}</label>
+                    <input type="text" id="${key}" value="${userData[key]}" />
+                </div>`;
+                        form.innerHTML += fieldHTML;
+                    }
+                }
+
+                document.getElementById("userDetails").style.display = "block";
+            }
+
+            function updateUser() {
+                if (!currentUserDocId) {
+                    alert("No user selected for update.");
+                    return;
+                }
+
+                const updatedData = {};
+                const form = document.getElementById("userForm");
+                const inputs = form.querySelectorAll("input");
+
+                inputs.forEach((input) => {
+                    const key = input.id;
+                    const value = input.value;
+                    updatedData[key] = value;
+                });
+
+                db.collection("users")
+                    .doc(currentUserDocId)
+                    .update(updatedData)
+                    .then(() => {
+                        alert("User updated successfully!");
+                    })
+                    .catch((error) => {
+                        console.error("Error updating user: ", error);
+                    });
+            }
+        </script>
     </body>
 </html>
-<style>
