@@ -1,6 +1,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    getDoc,
+} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
@@ -10,7 +17,7 @@ const firebaseConfig = {
     storageBucket: "cosmik-7c124.appspot.com",
     messagingSenderId: "412506429662",
     appId: "1:412506429662:web:9ca3e17199297df7384a4f",
-    measurementId: "G-R7K0LTHCK3"
+    measurementId: "G-R7K0LTHCK3",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -33,7 +40,8 @@ function getCookie(name) {
     for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) === " ") c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        if (c.indexOf(nameEQ) === 0)
+            return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -42,7 +50,7 @@ function deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=Strict`;
 }
 
-async function login() {
+window.login = async function () {
     const usernameInput = document.getElementById("login-username");
     const passwordInput = document.getElementById("login-password");
 
@@ -55,23 +63,33 @@ async function login() {
     const password = passwordInput.value;
 
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, username + "@example.com", password);
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            username + "@example.com",
+            password,
+        );
 
         const uid = userCredential.user.uid;
         const idToken = await userCredential.user.getIdToken();
 
-        setCookie("uid", uid, 10000000);
-        setCookie("idToken", idToken, 10000000);
+        console.log("Setting cookies", { uid, idToken });
 
-        window.location.href = "/public/stats.html";
+        setCookie("uid", uid, 10000000000); 
+        setCookie("idToken", idToken, 10000000); 
+
+        window.location.href = "stats.html";
     } catch (error) {
-        alert("Incorrect username or password.");
+        Swal.fire({
+            icon: "error",
+            title: "Login Error",
+            text: "Incorrect username or password.",
+        });
     }
-}
+};
 
 async function validateToken(idToken) {
     try {
-        const decodedToken = await auth.verifyIdToken(idToken);
+        const decodedToken = await auth.verifyIdToken(idToken); // 
         return decodedToken;
     } catch (error) {
         console.error("Token validation error:", error);
@@ -94,6 +112,8 @@ window.addEventListener("load", async () => {
             console.error("Invalid token!");
             return;
         }
+
+        console.log("Fetching user data with", { uid, idToken });
 
         const userRef = doc(firestore, "users", uid);
         const userDoc = await getDoc(userRef);
@@ -119,6 +139,3 @@ window.addEventListener("load", async () => {
     deleteCookie("uid");
     deleteCookie("idToken");
 });
-
-// Expose the login function globally so it can be used in HTML onclick
-window.login = login;
