@@ -1,11 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import {
-    getFirestore,
-    doc,
-    getDoc,
-    updateDoc,
-} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
-
+// Firebase configuration and initialization
 const firebaseConfig = {
     apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
     authDomain: "cosmik-7c124.firebaseapp.com",
@@ -16,170 +9,174 @@ const firebaseConfig = {
     appId: "1:412506429662:web:9ca3e17199297df7384a4f",
     measurementId: "G-R7K0LTHCK3",
 };
-
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-
-const shopItems = [
-    {
-        name: "GauntCellar2235",
-        url: "https://c1bc10b3-5b75-4650-b220-d4b321e8b25c-00-3prrchdywjsd3.spock.replit.dev/images/blooks/Gaunt.webp",
-        cost: 12000,
-        rarity: "Mystical",
-    },
-    {
-        name: "Allonme",
-        url: "https://c1bc10b3-5b75-4650-b220-d4b321e8b25c-00-3prrchdywjsd3.spock.replit.dev/images/blooks/Allonme.webp",
-        cost: 10000,
-        rarity: "Chroma",
-    },
-    {
-        name: "Prq",
-        url: "https://c1bc10b3-5b75-4650-b220-d4b321e8b25c-00-3prrchdywjsd3.spock.replit.dev/images/blooks/Prq.webp",
-        cost: 5000,
-        rarity: "Chroma",
-    },
-];
-
-window.onload = function () {
-    const shopItemsDiv = document.getElementById("shopItems");
-
-    if (!shopItems || !Array.isArray(shopItems)) {
-        console.error("shopItems is not defined or not an array");
-        return;
-    }
-
-    shopItems.forEach((item) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.innerHTML = `
-            <h3>${item.name}</h3>
-            <img src="${item.url}" alt="${item.name}" width="100">
-            <p>Cost: ${item.cost} tokens</p>
-            <p>Rarity: ${item.rarity}</p>
-            <button onclick="window.buyItem('${item.name}', ${item.cost}, '${item.url}', '${item.rarity}')">Buy</button>
-        `;
-        shopItemsDiv.appendChild(itemDiv);
-    });
-
-    document.getElementById("getRandomItem").addEventListener("click", async () => {
-        const result = await getRandomItem();
-        if (result && result.success) {
-            alert(`Random Item: ${result.item.name}`);
-        }
-    });
-};
-
-window.buyItem = async function (name, cost, url, rarity) {
-    const username = getCookie("username");
-
-    if (!username) {
-        alert("Username not found in cookies!");
-        return;
-    }
-
-    const userRef = doc(firestore, "users", username);
-    const userDoc = await getDoc(userRef);
-
-    if (userDoc.exists()) {
-        const userData = userDoc.data();
-
-        if (userData.tokens >= cost) {
-            const newTokens = userData.tokens - cost;
-
-            let newSkins = Array.isArray(userData.unlockedSkins)
-                ? userData.unlockedSkins
-                : [];
-
-            const existingItemIndex = newSkins.findIndex(
-                (item) => item.name === name,
-            );
-
-            if (existingItemIndex !== -1) {
-                newSkins[existingItemIndex].count =
-                    (newSkins[existingItemIndex].count || 1) + 1;
-            } else {
-                newSkins.push({ name, url, count: 1, rarity });
-            }
-
-            await updateDoc(userRef, {
-                tokens: newTokens,
-                unlockedSkins: newSkins,
-            });
-
-            document.getElementById("tokenCount").innerText =
-                `Tokens: ${newTokens}`;
-            alert("Item purchased successfully!");
-        } else {
-            alert("Not enough tokens!");
-        }
-    } else {
-        alert("User not found!");
-    }
-};
-
-async function getRandomItem() {
-    const username = getCookie("username");
-
-    if (!username) {
-        alert("Username not found in cookies!");
-        return;
-    }
-
-    const userRef = doc(firestore, "users", username);
-    const userDoc = await getDoc(userRef);
-
-    if (userDoc.exists()) {
-        const userData = userDoc.data();
-
-        if (userData.tokens >= 20) {
-            const newTokens = userData.tokens - 20;
-
-            const randomIndex = Math.floor(
-                Math.random() * shopItems.length,
-            );
-            const randomItem = shopItems[randomIndex];
-
-            let newSkins = Array.isArray(userData.unlockedSkins)
-                ? userData.unlockedSkins
-                : [];
-
-            const existingItemIndex = newSkins.findIndex(
-                (item) => item.name === randomItem.name,
-            );
-
-            if (existingItemIndex !== -1) {
-                newSkins[existingItemIndex].count =
-                    (newSkins[existingItemIndex].count || 1) + 1;
-            } else {
-                newSkins.push({
-                    name: randomItem.name,
-                    url: randomItem.url,
-                    count: 1,
-                    rarity: randomItem.rarity
-                });
-            }
-
-            await updateDoc(userRef, {
-                tokens: newTokens,
-                unlockedSkins: newSkins,
-            });
-
-            document.getElementById("tokenCount").innerText =
-                `Tokens: ${newTokens}`;
-
-            return { item: randomItem, success: true };
-        } else {
-            alert("Not enough tokens to get a random item!");
-            return { success: false };
-        }
-    } else {
-        alert("User not found!");
-        return { success: false };
-    }
-}
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (parts.length === 2) return parts.pop().split(";").shift();
 }
+
+const uid = getCookie("uid");
+
+async function getUserTokens(uid) {
+    try {
+        const userDoc = await db.collection("users").doc(uid).get();
+        if (userDoc.exists) {
+            return userDoc.data().tokens || 0; 
+        } else {
+            console.error("No such document!");
+            return 0;
+        }
+    } catch (error) {
+        console.error("Error getting document:", error);
+        return 0;
+    }
+}
+
+function getRandomImage(imgSrcArray, probabilities) {
+    const random = Math.random() * 100;
+    let sum = 0;
+    for (let i = 0; i < probabilities.length; i++) {
+        sum += probabilities[i];
+        if (random <= sum) {
+            return imgSrcArray[i];
+        }
+    }
+}
+
+async function updateBlooksCollection(uid, treasure) {
+    const userRef = db.collection("users").doc(uid);
+    try {
+        const userDoc = await userRef.get();
+        if (userDoc.exists) {
+            let blooks = userDoc.data().blooks || {};
+
+            if (blooks[treasure.name]) {
+                blooks[treasure.name].quantity += 1;
+            } else {
+                blooks[treasure.name] = {
+                    quantity: 1,
+                    rarity: treasure.rarity,
+                };
+            }
+
+            await userRef.update({ blooks });
+        } else {
+            console.error("User document not found.");
+        }
+    } catch (error) {
+        console.error("Error updating blooks collection:", error);
+    }
+}
+
+async function openChest(chestContainer, chestData) {
+    const chest = chestContainer.querySelector(".chest");
+    const imageContainer = chestContainer.querySelector(".image-container");
+    const tokenCost = chestData.cost;
+
+    const userTokens = await getUserTokens(uid);
+
+    if (userTokens >= tokenCost) {
+        if (!chest.classList.contains("open")) {
+            try {
+                await db
+                    .collection("users")
+                    .doc(uid)
+                    .update({
+                        tokens: firebase.firestore.FieldValue.increment(
+                            -tokenCost,
+                        ),
+                    });
+
+                chest.classList.add("open");
+
+                setTimeout(async () => {
+                    chest.classList.remove("open");
+                    imageContainer.style.transform =
+                        "translateX(-50%) scale(0)";
+
+                    const chosenImages = chestData.imgSrc.map((srcArray, i) =>
+                        getRandomImage(srcArray, chestData.probabilities[i]),
+                    );
+
+                    const treasures = chosenImages.map((src, index) => ({
+                        name: chestData.alt[index],
+                        rarity: chestData.rarities[index],
+                    }));
+
+                    for (const treasure of treasures) {
+                        await updateBlooksCollection(uid, treasure);
+                    }
+
+                    Swal.fire({
+                        title: `You got the following treasures!`,
+                        html: chosenImages
+                            .map(
+                                (src, i) =>
+                                    `<img src="${src}" alt="${chestData.alt[i]}" width="100">`,
+                            )
+                            .join(""),
+                        confirmButtonText: "Close",
+                    });
+                }, 3000);
+            } catch (error) {
+                console.error("Error updating tokens:", error);
+                Swal.fire({
+                    title: "Error",
+                    text: "Failed to open chest. Please try again later.",
+                    icon: "error",
+                    confirmButtonText: "Close",
+                });
+            }
+        }
+    } else {
+        Swal.fire({
+            title: "Not Enough Tokens",
+            text: `You need ${tokenCost} tokens to open this chest.`,
+            icon: "error",
+            confirmButtonText: "Close",
+        });
+    }
+}
+
+const chestsData = [
+    {
+        id: 1,
+        imgSrc: [
+            [
+                "/public/images/ChezyBRED.webp",
+                "/public/images/ChestImage1_2.webp",
+                "/public/images/ChestImage1_3.webp",
+            ],
+        ],
+        alt: ["Treasure 1A", "Treasure 1B", "Treasure 1C"],
+        cost: 10,
+        probabilities: [[50, 30, 20]],
+        rarities: ["common", "rare", "epic"], 
+    },
+];
+
+const chestsContainer = document.getElementById("chests");
+
+chestsData.forEach((chestData) => {
+    const chestContainer = document.createElement("div");
+    chestContainer.classList.add("chest-container");
+
+    chestContainer.innerHTML = `
+        <div class="chest-background"></div>
+        <div class="chest">
+            <div class="chest-lid"></div>
+            <div class="chest-body"></div>
+            <div class="image-container">
+                <img src="${chestData.imgSrc[0][0]}" alt="${chestData.alt[0]}">
+            </div>
+        </div>
+    `;
+
+    chestContainer.addEventListener("click", () =>
+        openChest(chestContainer, chestData),
+    );
+    chestsContainer.appendChild(chestContainer);
+});

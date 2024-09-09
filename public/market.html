@@ -1,196 +1,171 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Market | Rojolet</title>
-        <script type="module" src="market.js"></script>
-        <link
-        href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
-        rel="stylesheet"
-    />
-        <style>
-             body {
-                display: block;
-                font-family:
-                    Nunito Sans,
-                    sans-serif;
-                margin: 0;
-                padding: 0;
-                background-image: url("images/checkers.png");
-                background-size: cover;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                overflow: hidden;
-                text-align: center;
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chest Animation with Tokens</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, #fffbb9, #fff200);
+            margin: 0;
+            font-family: Arial, sans-serif;
+            gap: 20px;
+        }
+
+        .chest-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .chest-container:hover {
+            transform: translateY(-10px);
+        }
+
+        .chest-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .chest {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 800px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .chest-lid {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: #8B4513;
+            border-bottom: 5px solid #5A2D0C;
+            top: 0;
+            left: 0;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .chest-body {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            bottom: 0;
+            left: 0;
+            border-top: 5px solid #4b2200;
+            box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .chest.open .chest-lid {
+            transform: rotateX(-120deg);
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.75);
+        }
+
+        .chest.open .chest-lid::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+            top: 0;
+            left: -50%;
+            transform: rotate(-45deg);
+            opacity: 0;
+            animation: shine 1.2s ease-in-out 0.3s forwards;
+        }
+
+        .chest-body::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 0, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .chest.open .chest-body::before {
+            transform: scale(1.5);
+        }
+
+        @keyframes shine {
+            to {
+                opacity: 1;
+                transform: rotate(45deg);
             }
-            .container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 500px;
-                width: 100%;
-                height: 900px;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
-                margin-top: 100px;
-                margin-left: 150px;
-            }
-            .history-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 400px;
-                width: 100%;
-                height: 700px;
-                background-color: #8B0000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-            }
+        }
 
-            .token-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 150px;
-                width: 100%;
-                height: 30px;
-                background-color: #8B0000;
-                border-bottom-left-radius: 10px;
-                border-bottom-right-radius: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 2360px;
-                margin-top: -690px;
-                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
-            }
-            .blue-container {
-                background: rgb(0,41,247);
-                background: radial-gradient(circle, rgba(0,41,247,1) 0%, rgba(29,103,255,1) 45%, rgba(70,143,247,1) 75%, rgba(32,186,244,1) 100%);
-                width: 300px;
-                height: 300px;
-                margin-left: 900px;
-                border-radius: 40px;
-                margin-top: -950px;
-            }
-            .red-container {
-                background: rgb(255,0,14);
-                background: radial-gradient(circle, rgba(255,0,14,1) 0%, rgba(185,7,7,1) 40%, rgba(158,5,5,1) 75%, rgba(129,2,2,1) 100%);
-                width: 350px;
-                height: 350px;
-                margin-left: 1500px;
-                border-radius: 40px;
-                margin-top: -950px;
-            }
-            .nav-button {
-                    background-color: #d40000;
-                    display: flex;
-                    justify-content: space-around;
-                    margin-top: 20px;
-                    width: 100%;
-                    font-family: "Titan One", sans-serif;
-                }
-                .nav-button a {
-                    text-decoration: none;
-                    color: #fff;
-                    background-color: #c20000;
-                    padding: 10px 40px;
-                    border-radius: 5px;
-                    font-family: "Nunito Sans", sans-serif;
-                    font-weight: 700;
-                    font-size: 16px;
-                    transition: background-color 0.3s;
-                }
-                .nav-button a:hover {
-                    background-color: #a30000;
-                }
+        .image-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s;
+            z-index: 1;
+        }
 
+        .chest.open .image-container {
+            transform: translateX(-50%) scale(1);
+        }
 
+        .image-container img {
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+        }
 
+        .chest-container:nth-child(1) .chest-background {
+            background: radial-gradient(circle, #2b1601, #5c4401);
+        }
 
+        .chest-container:nth-child(2) .chest-background {
+            background: radial-gradient(circle, #7fff7f, #00ff00);
+        }
 
-                
-                .nav-bar {
-                    padding-right: 15px;
-                    padding-left: 15px;
-                    background-color: rgb(178, 9, 9);
-                }
-                .navdiv {
-                    display: flex;
-                    align-items: center;
-                    background-color: #8B0000;
-                    border-bottom: #6B0000 8px solid;
-                    height: 100px;
-                }
-                .logo a {
-                    margin-left: 15px;
-                    font-size: 35px;
-                    color: #fff;
-                    font-family: "Titan One", sans-serif;
-                    text-decoration: none;
-                }
-                button {
-                    background-color: #9d0000;
-                    margin-left: 10px;
-                    border-radius: 10px;
-                    border-color: #fff;
-                    padding: 10px;
-                    width: 90px;
-                    text-decoration: none;
-                }
-                button a {
-                    color: white;
-                    font-family: "Titan One", sans-serif;
-                    font-size: 15px;
-                    text-decoration: none;
-                }
+        .chest-container:nth-child(3) .chest-background {
+            background: radial-gradient(circle, #7f7fff, #0000ff);
+        }
 
-        </style>
-    </head>
-    <body>
-        <nav class="navbar">
-            <div class="navdiv">
-                <div class="logo"><a href="index.html">Rojolet</a></div>
-                <ul>
-                    <button><a href="stats.html">Stats</a></button>
-                    <button><a href="chat.html">Chat</a></button>
-                    <button><a href="#">Market</a></button>
-                    <button><a href="blooks.html">Blooks</a></button>
-                    <button><a href="lobby.html">Games</a></button>
-                    <button><a href="guilds.html">Clans</a></button>
-                    <button><a href="admin.html">Panel</a></button>
-                </ul>
-            </div>
-        </nav>
-        <div class="container">
-        <h1 style="font-size: 35px; font-family: 'Titan One', sans-serif;">Purchase history</h1>
-        <div class="history-container">
+        .chest-container:nth-child(4) .chest-background {
+            background: radial-gradient(circle, #ffff7f, #ffff00);
+        }
 
-        </div>
-        </div>
-        <div class="blue-containe">
-        <img src="public/images/debug pack art.png">
-        </div>
-        <div class="red-container">
-        <div style="display: none;" id="shopItems"></div>
-        <img id="getRandomItem" src="https://placehold.co/600x400" style=" margin-top: 60px; width: 200px;" alt="">
-        </div>
-        <div class="token-container">
-            <img style="width: 40px; margin-right: 100px; margin-top: -10px;" src="images/token.png" alt="Token Icon" />
-        <div id="tokenCount" style="margin-left: 30px; margin-top: -30px; font-size: 19px; font-family: 'Nunito sans', sans-serif;">Tokens: 0</div>
-    </div>
-    </body>
+        .chest-container:nth-child(5) .chest-background {
+            background: radial-gradient(circle, #ff7fff, #ff00ff);
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css">
+</head>
+
+<body>
+    <div style="display: flex; gap: 100px;" id="chests"></div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+    <script src="market.js"> </script>
+</body>
+
 </html>
