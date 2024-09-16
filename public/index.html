@@ -1,144 +1,134 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rojolet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Titan+One&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Nunito Sans', sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        height: 100vh;
-        background-image: url('images/checkers.png');
-        background-size: cover;
-        background-position: center;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rojolet</title>
+  <link
+  href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@700&display=swap"
+  rel="stylesheet"
+/>
+  <style>
+                body {
+                font-family:
+                    Nunito Sans,
+                    sans-serif;
+                margin: 0;
+                padding: 0;
+                background-image: url("images/checkers.png");
+                background-size: cover;
+                justify-content: center;
+                align-items: center;
+                height: 200vh;
+                text-align: center;
+            }
+            .nav-button {
+                background-color: #d40000;
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+                width: 100%;
+                font-family: "Titan One", sans-serif;
+            }
+            .nav-button a {
+                text-decoration: none;
+                color: #fff;
+                background-color: #c20000;
+                padding: 10px 40px;
+                border-radius: 5px;
+                font-family: "Nunito Sans", sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+            .nav-button a:hover {
+                background-color: #a30000;
+            }
 
-      .container {
-        width: 500px;
-        height: 500px;
-        background-color: #ac0000;
-        margin-left: 500px;
-        margin-top: 400px;
-        padding: 20px;
-        border-radius: 20px;
-        color: white;
-      }
-      
-      .sidebar {
-        width: 30%;
-        padding: 20px;
-        color: darkred;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        background-color: #8B0000; 
-        box-shadow: inset -13px 0 0px -5px rgba(84, 6, 1); 
-      }
-    
-      .sidebar h1 {
-        font-family: 'Titan One', cursive;
-        font-size: 36px;
-        margin: 10px 0;
-        color: #fff;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
+            h1 {
+                font-family: "Titan One", sans-serif;
+            }
+            .tokens {
+                font-size: 10px;
+            }
+            .nav-bar {
+                padding-right: 15px;
+                padding-left: 15px;
+                background-color: red;
+            }
+            .navdiv {
+                display: flex;
+                align-items: center;
+                background-color: #8B0000;
+                border-bottom: #6b0000 8px solid;
+                height: 100px;
+                justify-content: space-between;
+            }
+            .logo a {
+                margin-left: 15px;
+                font-size: 35px;
+                color: #fff;
+                font-family: "Titan One", sans-serif;
+                text-decoration: none;
+            }
+            button {
+                background-color: #9d0000;
+                margin-left: 10px;
+                align-items: center;
+                border-radius: 10px;
+                border-color: #fff;
+                padding: 10px;
+                width: 90px;
+                text-decoration: none;
+                font-family: "Titan One", sans-serif;
+                color: white;
+                flex-direction: row;
+            }
+            button a {
+                color: white;
+                font-family: "Titan One", sans-serif;
+                font-size: 15px;
+                text-decoration: none;
+            }
 
-      .sidebar h2, .sidebar h6 {
-        font-size: 18px;
-        margin: 5px 0;
-        color: #fff;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
-
-      .content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 20px;
-        position: relative;
-      }
-
-      .buttons {
-        display: flex;
-        justify-content: flex-end;
-        margin: 20px;
-      }
-
-      .register-button,
-      .login-button {
-        background-color: red;
-        color: white;
-        border: 2px solid #d40000;
-        border-radius: 10px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        text-decoration: none;
-        margin-left: 10px;
-        transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .register-button:hover,
-      .login-button:hover {
-        background-color: #d40000;
-        color: white;
-        transform: scale(1.05);
-      }
-
-      .discord-button {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        margin-right: 2470px;
-      }
-
-      .discord-button img {
-        width: 50px;
-        height: 40px;
-        transition: transform 0.3s ease;
-      }
-      
-      .discord-button:hover img {
-        transform: scale(1.1);
-      }
-     
-     h3 {
-      color: #8B0000; text-align: left; position:absolute; bottom:0; right:0; margin-right: 10px;
-     } 
-    </style>
-  </head>
-  <body>
-    <div class="sidebar">
-      <header>
-        <h1>Rojolet</h1>
-      </header>
-      <main>
-        <h1>The First</h1>
-        <h1>Red Private Server</h1>
-        <h2>GauntCellar2235 is the founder of Rojolet. (Written in HTML, CSS, and JS)</h2>
-        <h6>(Not affiliated with Blooket or Blacket in any way)</h6>
-
-
-      </div>
-      <a style='color: white; text-align: left; position:absolute; bottom:0; right:0; margin-right: 10px;'href="terms.html">Terms of Service</a>
-      <h3 style='color: #a49a9a; position:absolute; bottom:0; right:0; margin-right: 10px;'>Version 1.0</h3>
-      </main>
-
-    <div class="content">
-      <div class="buttons">
-        <a href="signup.html" class="register-button">Register</a>
-        <a href="login.html" class="login-button">Login</a>
-      </div>
-      <a href="https://discord.gg/MndT66x2K4" class="discord-button">
-        <img src="images/discord.png" alt="Discord Link">
-      </a>
-  </body>
+            .home-image {
+                width: 60vh;
+                margin-left: -1500px;
+                margin-top: 300px;
+            }
+            h1 { 
+                font-size: 100px;
+                color: #fff;
+            }            
+            h2 { 
+                font-size: 60px;
+                color: #fff;
+                font-family: 'Titan One', sans-serif;
+            }
+            h3 { 
+                font-size: 30px;
+                color: #fff;
+                font-family: 'Nunito sans', sans-serif;
+            }
+  </style>
+</head>
+<body>
+          <nav class="navbar">
+            <div class="navdiv">
+                <div class="logo"><a href="index.html">Rojolet</a></div>
+                <ul>
+                    <button><a href="stats.html">Sign Up</a></button>
+                    <button><a href="chat.html">Login</a></button>
+                </ul>
+            </div>
+        </nav>
+        <img class="home-image" src="images/home image.webp" alt="Gaunt the ruler">
+        <h1 style="margin-top: -650px; margin-left: 600px;">Rojolet</h1>
+        <h2 style="margin-left: 600px;">The first red private</h2>
+        <h2 style="margin-left: 600px;">server</h2>
+        <h3 style="margin-left: 600px;">Founded by GauntCellar2235. Written in JS, HTML, and CSS.
+        <h3 style="margin-left: 600px;">This project has taken a long time to make and we are so excited for you to play.
+        </h3>
+</body>
 </html>

@@ -1,115 +1,159 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login | Rojolet</title>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link
-        href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
-        rel="stylesheet"
-    />
-        <style>
-                        body {
-                font-family:
-                    Nunito Sans,
-                    sans-serif;
-                margin: 0;
-                padding: 0;
-                background-image: url("images/checkers.png");
-                background-size: cover;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                overflow: hidden;
-                text-align: center;
-            }
-            .container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 450px;
-                height: 350px;
-                width: 100%;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 1000px;
-                margin-top: 300px;
-                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
-            }
-            .username-input,
-            .password-input {
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #8B0000;
-                border-radius: 8px;
-                background-color: #6B0000;
-                color: white;
-                height: 20px;
-                width: 400px;
-                margin: 5px;
-            }
-            .toggle-link {
-                color: #fff;
-                font-family: "Titan One", sans-serif;
-                text-decoration: none;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+</head>
+<style>
+    .form-login {
+        height: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 21.875vw;
+        width: 90%;
+        background-color: rgb(72, 18, 18);
+        border-radius: 0.365vw;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-bottom: 0.365vw;
+        box-shadow: inset 0 -0.365vw rgba(0, 0, 0, 0.2), 0 0 0.208vw rgba(0, 0, 0, 0.15);
+    }
+    .email, .password {
+        margin: 0.260vw 0.573vw;
+        max-width: 13.542vw;
+        width: calc(100% - 1.823vw);
+        height: 1.823vw;
+        font-size: 0.885vw;
+        font-family: Nunito, sans-serif;
+        color: #ffffff;
+        background-color: rgb(72, 18, 18);
+        outline: none;
+        border-color: red;
+        padding-left: 10px;
+        margin-left: 60px;
+    }
+    .login-h1 {
+        font-weight: 700;
+        font-size: 40px;
+        z-index: 1;
+        font-family: Titan One, sans-serif;
+        margin-top: 40px;
+        color: white;
+    }
+    .login {
+        border-color: #b22121;
+        border-style: solid;
+        border-radius: 0.313vw;
+        background-color: #6e1919;
+        width: 6.510vw;
+        height: 2.344vw;
+        margin: auto auto 1.042vw;
+        color: #999;
+        font-size: 1.146vw;
+        font-family: Nunito, sans-serif;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .header {
+        font-size: 2.083vw;
+        font-family: Titan One, sans-serif;
+        background-color: #8f1d1d;
+        width: 100%;
+        height: 2.865vw;
+        padding-bottom: 0.313vw;
+        box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+<body style="background-color: #6e1919;">
+    <div id="header" class="header">Rojolet</div>
 
-            button {
-                width: 100%;
-                background-color: red;
-                color: white;
-                border: 2px solid #d40000;
-                border-radius: 10px;
-                padding: 10px;
-                font-size: 16px;
-                cursor: pointer;
-                transition:
-                    transform 0.3s ease,
-                    background-color 0.3s ease,
-                    color 0.3s ease;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-                margin-top: 10px;
+    <div class="form-login" id="form-login">
+        <h1 class="login-h1">Login</h1>
+        <input style="margin-top: 20px;" class="email" type="email" id="email-input" placeholder="Email">
+        <input style="margin-top: 20px;" class="password" type="password" id="password-input" placeholder="Password">
+        <button id="login" class="login" onclick="login()">Login</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+  authDomain: "cosmik-7c124.firebaseapp.com",
+  databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
+  projectId: "cosmik-7c124",
+  storageBucket: "cosmik-7c124.appspot.com",
+  messagingSenderId: "412506429662",
+  appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+  measurementId: "G-R7K0LTHCK3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        async function login() {
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // Fetch user's 2FA details
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                const userData = userDoc.data();
+
+                // If the user has a PIN set for 2FA
+                if (userData.pin2fa) {
+                    const { value: enteredPin } = await Swal.fire({
+                        title: 'Enter your 2FA PIN',
+                        input: 'password',
+                        inputAttributes: {
+                            maxlength: 4,
+                            autocapitalize: 'off',
+                            autocorrect: 'off'
+                        }
+                    });
+
+                    if (enteredPin !== userData.pin2fa) {
+                        throw new Error('Invalid PIN');
+                    }
+                }
+
+                // If the user has email 2FA
+                if (userData.email2fa) {
+                    Swal.fire('2FA Email', 'Please check your email for 2FA verification', 'info');
+                }
+
+                // Redirect after successful 2FA verification
+                window.location.href = 'stats.html';
+            } catch (error) {
+                Swal.fire('Error!', error.message, 'error');
             }
-        </style>
-        <script defer type="module" src="/public/api/login.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h2 style="font-family:'Titan One', sans-serif; font-size: 40px;">Login</h2>
-            <form onsubmit="event.preventDefault(); login();">
-                <div class="form-group">
-                    <label for="login-username" style="font-family:'Titan One', sans-serif; font-size: 20px;"></label>
-                    <input
-                    class="username-input"
-                        type="text"
-                        id="login-username"
-                        placeholder="Username"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="login-password" style="font-family:'Titan One', sans-serif; font-size: 20px;"></label>
-                    <input
-                    class="password-input"
-                        type="password"
-                        id="login-password"
-                        placeholder="Password"
-                    />
-                </div>
-                <button class="button" type="button" onclick="login()">
-                    Login
-                </button>
-            </form>
-            <a href="signup.html"
-                ><span class="toggle-link"
-                    >Don't have an account? Sign Up</span
-                ></a
-            >
-        </div>
-    </body>
+        }
+    </script>
+</body>
 </html>

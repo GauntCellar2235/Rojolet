@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Stats | Rojolet</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
-            rel="stylesheet"
-        />
-        <style>
-            body {
-                display: block;
-                font-family:
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<style>
+        body {
+            font-family:
                     Nunito Sans,
                     sans-serif;
                 margin: 0;
@@ -21,661 +24,302 @@
                 background-size: cover;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
-                overflow: hidden;
+                height: 200vh;
                 text-align: center;
-            }
+        }
 
-            .history-container {
-                margin-top: 10px;
-                height: 450px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                padding: 20px;
-                max-width: 215px;
-                width: 100%;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 50px;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+       .banner{
+        margin-top: -80px;
+        border-radius: 0.365vw;
+    background-color: rgb(138, 24, 24);
+    width: 300px;
+    height: 75px;
+    margin-left: 460px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+       }
+       .pfp{
+        margin-top: 100px;
+        width: 70px;
+     
+    -o-object-fit: contain;
+    object-fit: contain;
+    margin-left: 200px;
+       }
+       .username{
+        font-weight: 700;
+    font-size: 1.354vw;
+    line-height: 1.354vw;
+    z-index: 1;
+    font-family: Titan One, sans-serif;
+    margin-left: 125px;
+    margin-top: 0px;
+           }
+           .role{
+            font-family: 'Nunito', sans-serif;
+            margin-top: -10px;
+            font-size: 20px;
+            margin-left: 105px;
+           }
+           .stats{
+            height: 125px;
+            border-radius: 0.365vw;
+    background-color: rgb(138, 24, 24);
+    width: 700px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+    margin-left: 400px;
+    margin-top: 250px;
+           }
+           .insider{
+            height: 75px;
+            border-radius: 0.365vw;
+    background-color: red;
+    margin: 0.521vw;
+    width: 10.417vw;
+    padding: 0.260vw 0.260vw 0.573vw;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+font-size: 10px;
+           }
+           .insider-h1{
+            margin-top: -20px;
+           }
+           .tokensimg{
+            margin-top: -30px;
+            width: 40px;
+           }
+           .claim-tokens{
+            font-family: 'Nunito', sans-serif;
+font-size: 5px;
+            background-color: rgb(113, 24, 138);
+            color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.260vw;
+    border-radius: 0.260vw;
+    transform: translateY(-0.208vw);
+    transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.4, 1);
+    width: 100px;
+    height: 20px;
+    margin-left: 470px;
+    margin-top: 10px;
+           }
+           .sidebar{
+            position: fixed;
+    top: 0;
+    left: 0;
+    width: 11.510vw;
+    height: 100%;
+    padding: 1.042vw 0.521vw 1.042vw 0;
+    box-sizing: border-box;
+    background-color: rgb(138, 24, 24);
+    box-shadow: inset -0.521vw 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    font-family: Titan One, sans-serif;
+    
+           }
+           .button-sidebar{
+            position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 2.083vw;
+    width: 9.896vw;
+    margin: 0.208vw 0;
+    padding-left: 1.563vw;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    border-top-right-radius: 0.260vw;
+    border-bottom-right-radius: 0.260vw;
+    background-color: transparent;
+    color: #fff;
+    transition: 0.2s linear;
+    font-size: 25px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+           }
+           a:hover{
+            color: black;
+            background-color: white;
+           }
+           .icons{
+            margin-top: 300px;
+            width: 35px;
+          
+           }
+           
+</style>
+<body>
+    <div class="sidebar" id="sidebar">
+        <h1 style="color: white; margin-left: 20px;">Rojolet</h1>
+        <a style="margin-top: 20px; margin-left: 30px;" class="button-sidebar" href="">Stats</a>
+        <a style="margin-top: 15px; margin-left: 20px;" class="button-sidebar" href="">Market</a>
+        <a style="margin-top: 15px; margin-left: 30px;" class="button-sidebar" href="">Chat</a>
+        <a style="margin-top: 15px; margin-left: 25px;" class="button-sidebar" href="">Rojos</a>
+        <a style="margin-top: 15px; margin-left: 0px;" class="button-sidebar" href="">Inventory</a>
+        <a style="margin-top: 15px; margin-left: 0px;" class="button-sidebar" href="">Settings</a>
+        <img class="icons" src="/imgs/icons8-youtube-50.png" alt="">
+        <img style="margin-top: -35px; margin-left: 40px;" class="icons" src="/imgs/icons8-discord-50.png" alt="">
+        <img style="margin-top: -37px; margin-left: 80px;" class="icons" src="/imgs/icons8-github-30.png" alt="">
+        <img style="margin-top: -37px; margin-left: 120px;" class="icons" src="/imgs/icons8-person-30.png" alt="">
+    </div>
+    <div>
+        <img style="margin-left: 375px;" class="pfp" id="pfp" src="https://blacket.org/content/blooks/Haunted%20Pumpkin.webp" alt="">
+    </div>
+    <div class="banner">
+        <h1 class="username" id="username">Prq</h1>
+        <h1 class="role" id="roles">common</h1>
+    </div>
+    <div class="claim-tokens" id="claim-tokens">
+        <h1>claim tokens</h1>
+    </div>
+    <div class="stats" id="stats">
 
-            }
-            
-            .container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 925px;
-                width: 100%;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 800px;
-                margin: 200px;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            }
-            .friend-container {
-                margin-top: -660px;
-                display: flex;
-                flex-direction: column;
-                max-width: 300px;
-                width: 100%;
-                height: 600px;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 1300px;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            }
-            .role-container {
-                flex-direction: row;
-                align-items: center;
-                padding: 20px;
-                max-width: 500px;
-                width: 100%;
-                background-color: #8B0000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
-
-            }
-            .stats-container {
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 925px;
-                min-width: 300px;
-                width: 100%;
-                height: 250px;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 325px;
-                margin-top: -175px;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            }
-            .token-container {
-                flex-direction: row;
-                align-items: center;
-                padding: 20px;
-                max-width: 300px;
-                height: 50px;
-                width: 100%;
-                background-color: #8B0000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            }
-
-            .messages-container {
-                flex-direction: row;
-                align-items: center;
-                padding: 20px;
-                max-width: 300px;
-                height: 50px;
-                width: 100%;
-                background-color: #8B0000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-top: 60px;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
-            }
-            .blooks-container {
-                flex-direction: row;
-                align-items: center;
-                padding: 20px;
-                max-width: 300px;
-                height: 50px;
-                width: 100%;
-                background-color: #8B0000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-                margin-left: 580px;
-                margin-top: -240px;
-            }
-            .packs-container {
-                flex-direction: row;
-                align-items: center;
-                padding: 20px;
-                max-width: 300px;
-                height: 50px;
-                width: 100%;
-                background-color: #8B0000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-                margin-left: 580px;
-                margin-top: 60px;
-            }
-            .profile-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-bottom: 20px;
-            }
-            .profile-picture {
-                width: 150px;
-                height: 150px;
-                object-fit: cover;
-                margin-bottom: 15px;
-                cursor: pointer;
-            }
-            .profile-info h1 {
-                font-family: "Titan One", cursive;
-                margin: 0;
-                font-size: 24px;
-            }
-            .stats {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-            }
-            .stats img {
-                width: 24px;
-                height: 24px;
-                vertical-align: middle;
-                margin-right: 10px;
-            }
-            .stats h2 {
-                font-family: "Titan One", cursive;
-                margin: 5px 0;
-                font-size: 20px;
-            }
-            .stats p {
-                font-family: "Nunito Sans", sans-serif;
-                font-weight: 700;
-                font-size: 18px;
-                margin: 5px 0;
-            }
-            .nav-button {
-                background-color: #d40000;
-                display: flex;
-                justify-content: space-around;
-                margin-top: 20px;
-                width: 100%;
-                font-family: "Titan One", sans-serif;
-            }
-            .nav-button a {
-                text-decoration: none;
-                color: #fff;
-                background-color: #c20000;
-                padding: 10px 40px;
-                border-radius: 5px;
-                font-family: "Nunito Sans", sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                transition: background-color 0.3s;
-            }
-            .nav-button a:hover {
-                background-color: #a30000;
-            }
-            
-            #badges img {
-                width: 1.502vw;
-                height: 1.502vw;
-                margin: 5px;
-            }
-            h1 {
-                font-family: "Titan One", sans-serif;
-            }
-.tokens{
-    font-size: 10px;
-
-}
-            /* Skins container styles */
-            #skins {
-                display: none;
-                position: absolute;
-                top: 200px;
-                left: 50%;
-                transform: translateX(-50%);
-                background-color: #8B0000;
-                border-radius: 10px;
-                padding: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            }
-            #skins img {
-                width: 100px;
-                height: 100px;
-                object-fit: cover;
-                margin: 5px;
-                cursor: pointer;
-            }
-
-            .nav-bar {
-                padding-right: 15px;
-                padding-left: 15px;
-                background-color: red;
-            }
-            .navdiv {
-                display: flex;
-                align-items: center;
-                background-color: #8B0000;
-                border-bottom: #6B0000 8px solid;
-                height: 100px;
-            }
-            .logo a {
-                margin-left: 15px;
-                font-size: 35px;
-                color: #fff;
-                font-family: "Titan One", sans-serif;
-                text-decoration: none;
-            }
-            button {
-                background-color: #9d0000;
-                margin-left: 10px;
-                align-items: center;
-                border-radius: 10px;
-                border-color: #fff;
-                padding: 10px;
-                width: 90px;
-                text-decoration: none;
-                font-family: "Titan One", sans-serif;
-                color: white;
-                flex-direction: row;
-            }
-            button a {
-                color: white;
-                font-family: "Titan One", sans-serif;
-                font-size: 15px;
-                text-decoration: none;
-            }
-            button b {
-                color: white;
-                font-family: "Titan One", sans-serif;
-                font-size: 15px;
-                text-decoration: none;
-            }
-
-        </style>
-    </head>
-    <body>
-        <nav class="navbar">
-            <div class="navdiv">
-                <div class="logo"><a href="index.html">Rojolet</a></div>
-                <ul>
-                    <button><a href="#">Stats</a></button>
-                    <button><a href="chat.html">Chat</a></button>
-                    <button><a href="market/market.html">Market</a></button>
-                    <button><a href="blooks.html">Blooks</a></button>
-                    <button><a href="guilds.html">Clans</a></button>
-                    <button><a href="admin.html">Panel</a></button>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="history-container">
-            <button style="margin-top: -400px;"><b>Game History</b></button>
-            <button style="margin-top: -400px;"><b>Purchase History</b></button>
+        <div class="insider" id="">
+            <h1 class="insider-h1" id="tokens">tokens</h1>
         </div>
-        
-        <div style="margin-left: 325px; margin-top: -490px;" class="container">
-            <div class="profile-info">
-                <img
-                    id="profile-picture"
-                    class="profile-picture"
-                    src="default-profile.png"
-                    alt="Profile Picture"
-                />
-                <h1 id="username">Username</h1>
-            </div>
-            <div class="stats">
-
-                <div class="role-container">
-                <p id="roles">Not Assigned</p>
-            <p id="badges"></p>
-                    <button><a href="settings.html">Settings</a></button>
-                    <button><a href="credits.html">Credits</a></button>
-                    <button style="width: 130px;"><a href="leader.html">Leaderboard</a></button>
-
-            </div>
+        <div style="margin-top: -80px; margin-left: 265px;" class="insider" id="rojos">
+            <h1 class="insider-h1" id="badges"></h1>
         </div>
-            
+        <div  style="margin-top: -85px; margin-left: 525px;" class="insider" id="messages">
+            <h1 class="insider-h1">messages</h1>
+        </div>
+    </div>
+    
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-            </div>
-        <div class="stats-container">
-            <div class="token-container">
-            <p>
-                <h1 style="font-size: 20px; margin-top: -24px;" >Tokens:</h1>
-                <img style="width: 40px; margin-top: -10px;" src="images/token.png" alt="Token Icon" />
-                <span style="font-size: 30px; font-family: 'Nunito sans', sand-serif;" id="tokens">0</span>
-            </p>
-            </div>
-                 <div class="messages-container">
-                   <h1 style="font-size: 20px; margin-top: -8px;" >Messages:</h1>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+  authDomain: "cosmik-7c124.firebaseapp.com",
+  databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
+  projectId: "cosmik-7c124",
+  storageBucket: "cosmik-7c124.appspot.com",
+  messagingSenderId: "412506429662",
+  appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+  measurementId: "G-R7K0LTHCK3"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-                 </div>
-                 <div class="blooks-container">
-                    <h1 style="font-size: 20px; margin-top: -8px;">Blooks:</h1>
-                 </div>
-                 <div class="packs-container">
-                    <h1 style="font-size: 20px; margin-top: -8px;">Packs Opened:</h1>
-                 </div>
-            </div>
+    // Handle authentication state
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        getDoc(userRef).then(docSnap => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            // Update UI with user data
+            document.getElementById('tokens').textContent = `Tokens: ${data.tokens}`;
+            document.getElementById('roles').textContent = ` ${data.roles.join(', ')}`;
+            document.getElementById('username').textContent = ` ${data.username}`;
+            document.querySelector('#pfp').src = data.pfp;
 
-
-     <div style=" display: flex;margin-right: px;" class="friend-container">
-         <h1>Friends</h1>
-     </div>
- 
-
-
-        
-        <!-- Div for unlocked skins -->
-        <div id="skins"></div>
-
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-            import {
-                getFirestore,
-                doc,
-                getDoc,
-                updateDoc,
-                serverTimestamp,
-                Timestamp,
-            } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
-
-            const firebaseConfig = {
-                apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
-                authDomain: "cosmik-7c124.firebaseapp.com",
-                databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
-                projectId: "cosmik-7c124",
-                storageBucket: "cosmik-7c124.appspot.com",
-                messagingSenderId: "412506429662",
-                appId: "1:412506429662:web:9ca3e17199297df7384a4f",
-                measurementId: "G-R7K0LTHCK3",
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const firestore = getFirestore(app);
-
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(';').shift();
+            if (data.owneraccess) {
+              document.getElementById('username').classList.add('rainbow-username');
             }
 
-            function canClaimTokens(lastClaimed) {
-                const now = new Date();
-                let lastClaimedDate;
-                if (lastClaimed instanceof Timestamp) {
-                    lastClaimedDate = lastClaimed.toDate();
-                } else {
-                    lastClaimedDate = new Date(0);
-                }
-                const hoursDiff = Math.abs(now - lastClaimedDate) / 36e5;
-                return hoursDiff >= 8;
-            }
-
-            async function claimTokens() {
-                const uid = getCookie("uid");
-
-                if (!uid) {
-                    alert("User not logged in!");
-                    return;
-                }
-
-                const userRef = doc(firestore, "users", uid);
-                const userDoc = await getDoc(userRef);
-
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    const lastClaimed = userData.lastClaimed || new Date(0);
-
-                    if (canClaimTokens(lastClaimed)) {
-                        const newTokens = (userData.tokens || 0) + 1000;
-
-                        await updateDoc(userRef, {
-                            tokens: newTokens,
-                            lastClaimed: serverTimestamp(),
-                        });
-
-                        document.getElementById("tokens").innerText = newTokens;
-                        Swal.fire("Success", "You've received 1000 tokens!", "success");
-                    } else {
-                        Swal.fire("Wait", "You can claim tokens again in 8 hours.", "info");
-                    }
-                } else {
-                    alert("User not found!");
-                }
-            }
-
-            function displayBadges(badges) {
-                const badgesContainer = document.getElementById("badges-container");
-                if (!badgesContainer) {
-                    console.error("Element with ID 'badges-container' not found.");
-                    return;
-                }
-
-                badgesContainer.innerHTML = "";
-
-                if (badges && badges.length > 0) {
-                    badges.forEach((badge) => {
-                        const badgeElement = document.createElement("img");
-                        badgeElement.src = badge.iconUrl || "https://via.placeholder.com/40";
-                        badgeElement.alt = badge.name || "Unnamed badge";
-                        badgeElement.title = badge.name || "Unnamed badge";
-                        badgeElement.className = "badge";
-
-                        badgeElement.onerror = function() {
-                            console.error(`Failed to load badge image: ${badge.iconUrl}`);
-                            badgeElement.src = "https://via.placeholder.com/40";
-                        };
-
-                        badgesContainer.appendChild(badgeElement);
-                    });
-                } else {
-                    badgesContainer.innerText = "No badges earned.";
-                }
-            }
-
-            async function showUserStats(username) {
-                const userRef = doc(firestore, "users", username); 
-                const userDoc = await getDoc(userRef);
-
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    document.getElementById("modal-content").innerHTML = `
-                        <h3>Username: ${userData.username || "Unknown"}</h3>
-                        <p><strong>Tokens:</strong> ${userData.tokens || 0}</p>
-                        <p><strong>Blooks Unlocked:</strong> ${userData.blooksUnlocked || 0}</p>
-                        <p><strong>Packs Opened:</strong> ${userData.packsOpened || 0}</p>
-                        <p><strong>Messages Sent:</strong> ${userData.messagesSent || 0}</p>
-                    `;
-                    document.getElementById("stats-modal").style.display = "flex";
-                } else {
-                    Swal.fire("Error", "User not found!", "error");
-                }
-            }
-
-            function closeModal() {
-                document.getElementById("stats-modal").style.display = "none";
-                document.getElementById("cosmetics-modal").style.display = "none";
-            }
-
-            async function displayCosmetics() {
-                const uid = getCookie("uid");
-
-                if (!uid) {
-                    alert("User not logged in!");
-                    return;
-                }
-
-                const userRef = doc(firestore, "users", uid);
-                const userDoc = await getDoc(userRef);
-
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    const cosmetics = userData.Cosmetics || [];
-
-                    const cosmeticsContainer = document.getElementById("cosmetics-container");
-                    if (!cosmeticsContainer) {
-                        console.error("Element with ID 'cosmetics-container' not found.");
-                        return;
-                    }
-
-                    const cosmeticsCount = document.getElementById("cosmetics-count");
-                    if (!cosmeticsCount) {
-                        console.error("Element with ID 'cosmetics-count' not found.");
-                        return;
-                    }
-
-                    cosmeticsContainer.innerHTML = "";
-                    cosmeticsCount.innerText = ` ${cosmetics.length}`;
-
-                    if (cosmetics.length > 0) {
-                        cosmetics.forEach((cosmetic) => {
-                            const cosmeticElement = document.createElement("img");
-                            cosmeticElement.src = cosmetic.iconUrl || "https://via.placeholder.com/40";
-                            cosmeticElement.alt = cosmetic.name || "Unnamed cosmetic";
-                            cosmeticElement.title = cosmetic.name || "Unnamed cosmetic";
-                            cosmeticElement.className = "cosmetic";
-
-                            cosmeticElement.addEventListener("click", async () => {
-                                await updateDoc(userRef, {
-                                    profilePicture: cosmetic.iconUrl
-                                });
-                                document.getElementById("profile-picture").src = cosmetic.iconUrl;
-                                closeModal();
-                                Swal.fire("Success", "Profile picture updated!", "success");
-                            });
-
-                            cosmeticsContainer.appendChild(cosmeticElement);
-                        });
-                    } else {
-                        cosmeticsContainer.innerText = "No cosmetics found.";
-                    }
-
-                    document.getElementById("cosmetics-modal").style.display = "flex";
-                } else {
-                    alert("User not found!");
-                }
-            }
-
-            window.addEventListener("load", async () => {
-                const uid = getCookie("uid");
-
-                if (!uid) {
-                    alert("User not logged in!");
-                    return;
-                }
-
-                const userRef = doc(firestore, "users", uid);
-                const userDoc = await getDoc(userRef);
-
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-
-                    const profilePicture = document.getElementById("profile-picture");
-                    const username = document.getElementById("username");
-                    const tokensElement = document.getElementById("tokens");
-                    const rolesElement = document.getElementById("roles");
-                    const badgesContainer = document.getElementById("badges");
-                    const cosmeticsCountElement = document.getElementById("cosmetics-count");
-                    const claimTokensButton = document.getElementById("claim-tokens-button");
-                    const statsButton = document.getElementById("stats");
-
-                    if (profilePicture) {
-                        profilePicture.src = userData.profilePicture || "https://via.placeholder.com/40";
-                    }
-
-                    if (username) {
-                        username.innerText = userData.username || "Username";
-                        if (userData.nameColor) {
-                            username.style.color = userData.nameColor;
-                        }
-                    }
-
-                    if (tokensElement) {
-                        tokensElement.innerText = userData.tokens || 0;
-                    }
-
-                    if (rolesElement) {
-                        rolesElement.innerText = userData.roles || "No role assigned";
-                    }
-
-                    if (badgesContainer) {
-                        badgesContainer.innerHTML = "";
-                        displayBadges(userData.badges);
-                    }
-
-                    if (cosmeticsCountElement) {
-                        const cosmetics = userData.Cosmetics || [];
-                        cosmeticsCountElement.innerText = `Cosmetics Unlocked: ${cosmetics.length}`;
-                    }
-
-                    if (claimTokensButton) {
-                        claimTokensButton.addEventListener("click", claimTokens);
-                    } else {
-                        console.error("Element with ID 'claim-tokens-button' not found.");
-                    }
-
-                    if (statsButton) {
-                        statsButton.addEventListener("click", () => {
-                            Swal.fire({
-                                title: 'Enter Username',
-                                input: 'text',
-                                inputLabel: 'Username',
-                                inputPlaceholder: 'Enter the username',
-                                showCancelButton: true,
-                                confirmButtonText: 'View Stats',
-                                cancelButtonText: 'Cancel',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    showUserStats(result.value);
-                                }
-                            });
-                        });
-                    } else {
-                        console.error("Element with ID 'stats' not found.");
-                    }
-
-                    const role = userData.roles || "User";
-                    const allowedRoles = ["Helper", "Mod", "Admin", "Owner"];
-                    if (allowedRoles.includes(role)) {
-                        const sidebar = document.querySelector(".Sidebar");
-                        if (sidebar) {
-                            const panelItem = document.createElement("a");
-                            panelItem.innerHTML = `<a href="Panel.html">🔧 Panel</a>`;
-                            sidebar.appendChild(panelItem);
-                        }
-                    }
-
-                    if (profilePicture) {
-                        profilePicture.addEventListener("click", displayCosmetics);
-                    } else {
-                        console.error("Element with ID 'profile-picture' not found.");
-                    }
-
-                } else {
-                    alert("User not found!");
-                }
+            // Display badges
+            const badgesDiv = document.getElementById('badges');
+            badgesDiv.innerHTML = ''; // Clear any existing badges
+            data.badges.forEach(badge => {
+              const img = document.createElement('img');
+              img.src = badge;
+              badgesDiv.appendChild(img);
             });
 
+            // Add event listener for profile picture click
+            document.querySelector('#pfp').addEventListener('click', () => {
+              showBlacklets(user.uid, data.blacklets);
+            });
+          }
+        }).catch(err => {
+          console.error('Error fetching user document:', err);
+          Swal.fire('Error', 'Failed to retrieve user data: ' + err.message, 'error');
+        });
+      } else {
+        console.log('No user is signed in.');
+      }
+    });
 
+    // Function to handle claiming tokens
+    function claimTokens() {
+      const user = auth.currentUser;
+      if (!user) {
+        Swal.fire('Error', 'No user is currently signed in.', 'error');
+        return;
+      }
 
-        </script>
-    </body>
+      const userRef = doc(db, 'users', user.uid);
+      getDoc(userRef).then(docSnap => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const lastClaim = data.lastClaim || 0;
+          const now = Date.now();
+          const eightHours = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
+
+          if (now - lastClaim >= eightHours) {
+            updateDoc(userRef, {
+              tokens: (data.tokens || 0) + 1000,
+              lastClaim: now
+            }).then(() => {
+              Swal.fire('Tokens Claimed!', 'You have received 1,000 tokens.', 'success');
+            }).catch(err => {
+              console.error('Error claiming tokens:', err);
+              Swal.fire('Error', 'Could not claim tokens.', 'error');
+            });
+          } else {
+            const timeLeft = eightHours - (now - lastClaim);
+            const hoursLeft = Math.floor(timeLeft / (60 * 60 * 1000));
+            const minutesLeft = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
+            Swal.fire('Tokens Claim Time', `You can claim tokens again in ${hoursLeft} hours and ${minutesLeft} minutes.`, 'info');
+          }
+        } else {
+          Swal.fire('Error', 'User data not found.', 'error');
+        }
+      }).catch(err => {
+        console.error('Error fetching user document:', err);
+        Swal.fire('Error', 'Failed to retrieve user data: ' + err.message, 'error');
+      });
+    }
+
+    // Event listener for the Claim Tokens button
+    document.getElementById('claim-tokens').addEventListener('click', claimTokens);
+</script>
+      
+</body>
 </html>

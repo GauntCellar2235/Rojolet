@@ -1,102 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Signup Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<style>
+    /* Styling for the form and elements */
+    .form-signup{
+        height: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 21.875vw;
+        width: 90%;
+        background-color: rgb(72, 18, 18);    
+        border-radius: 0.365vw;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-bottom: 0.365vw;
+        box-shadow: inset 0 -0.365vw rgba(0, 0, 0, 0.2), 0 0 0.208vw rgba(0, 0, 0, 0.15);
+    }
+    .email, .password, .code {
+        margin: 0.260vw 0.104vw 0.260vw 0.573vw;
+        max-width: 13.542vw;
+        width: calc(100% - 1.823vw);
+        height: 1.823vw;
+        font-size: 0.885vw;
+        text-align: left;
+        font-family: Nunito, sans-serif;
+        color: #ffffff;
+        background-color: rgb(72, 18, 18);    
+        outline: none;
+        display: flex;
+        margin-left: 60px;
+        flex-direction: row;
+        align-items: center;
+        border-color: red;
+    }
+    .signup-h1{
+        font-weight: 700;
+        font-size: 40px;
+        z-index: 1;
+        font-family: Titan One, sans-serif;
+        margin-left: 15px;
+        margin-top: 40px;
+        color: white;
+    }
+    .signup{
+        border-color: #b22121;
+        border-style: solid;
+        border-radius: 0.313vw;
+        background-color: #6e1919;
+        width: 6.510vw;
+        height: 2.344vw;
+        margin: auto;
+        color: #999;
+        font-size: 1.146vw;
+        text-align: center;
+        font-family: Nunito, sans-serif;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.39, 0.5, 0.15, 1.36);
+    }
+    .header {
+        font-size: 2.083vw;
+        text-align: left;
+        font-family: Titan One, sans-serif;
+        background-color: #8f1d1d;
+        width: 100%;
+        height: 2.865vw;
+        padding-bottom: 0.313vw;
+        box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+</style>
+<body>
+    <div id="header" class="header">
+        Rojolet
+    </div>
+
+    <div class="form-signup" id="form-signup">
+        <h1 class="signup-h1">Signup</h1>
+        <input class="email" type="text" id="username-input" placeholder="Username">
+        <input class="email" type="password" id="password-input" placeholder="Password">
+        <input class="code" type="text" id="code-input" placeholder="Access Code">
+        <button id="signup" class="signup" onclick="signUp()">Signup</button>
+    </div>
+
+    <!-- Include Firebase 8.x and SweetAlert -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-    href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito+Sans:wght@400;700&display=swap"
-    rel="stylesheet"
-/>
-    <style>
-                        body {
-                font-family:
-                    Nunito Sans,
-                    sans-serif;
-                margin: 0;
-                padding: 0;
-                background-image: url("images/checkers.png");
-                background-size: cover;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                overflow: hidden;
-                text-align: center;
-            }
-            .container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-                max-width: 450px;
-                height: 350px;
-                width: 100%;
-                background-color: #a30000;
-                border-radius: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                color: #fff;
-                text-align: center;
-                margin-left: 1000px;
-                margin-top: 300px;
-                box-shadow: inset 0 -10px rgba(0, 0, 0, 0.2);
-            }
-            .username-input,
-            .password-input {
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #8B0000;
-                border-radius: 8px;
-                background-color: #6B0000;
-                color: white;
-                height: 20px;
-                width: 400px;
-                margin: 5px;
-            }
-            .toggle-link {
-                color: #fff;
-                font-family: "Titan One", sans-serif;
-                text-decoration: none;
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
+  authDomain: "cosmik-7c124.firebaseapp.com",
+  databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
+  projectId: "cosmik-7c124",
+  storageBucket: "cosmik-7c124.appspot.com",
+  messagingSenderId: "412506429662",
+  appId: "1:412506429662:web:9ca3e17199297df7384a4f",
+  measurementId: "G-R7K0LTHCK3"
+        };
+
+        // Initialize Firebase app
+        firebase.initializeApp(firebaseConfig);
+
+        // Initialize Firebase services
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        async function signUp() {
+            const username = document.getElementById('username-input').value;
+            const password = document.getElementById('password-input').value;
+            const accessCode = document.getElementById('code-input').value;
+
+            // Validate access code with Firestore
+            const codeDoc = await db.collection('codes').doc('code').get();
+            const validCode = codeDoc.data().code;
+
+            if (accessCode !== validCode.toString()) {
+                alert('Invalid Access Code');
+                return;
             }
 
-            button {
-                width: 100%;
-                background-color: red;
-                color: white;
-                border: 2px solid #d40000;
-                border-radius: 10px;
-                padding: 10px;
-                font-size: 16px;
-                cursor: pointer;
-                transition:
-                    transform 0.3s ease,
-                    background-color 0.3s ease,
-                    color 0.3s ease;
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-                margin-top: 10px;
-                width: 431px;
+            // Swal popup for email input and EULA agreement
+            Swal.fire({
+                title: 'EULA & Terms of Service',
+                text: "You must agree to our terms and EULA before signing up.",
+                icon: 'warning',
+                input: 'email',
+                inputLabel: 'Email',
+                inputPlaceholder: 'Enter your email',
+                showCancelButton: true,
+                confirmButtonText: 'Agree & Sign Up',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    const email = result.value;
+                    createUser(email, password, username);
+                }
+            });
+        }
+
+        // Create user and add data to Firestore
+        async function createUser(email, password, username) {
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                await db.collection('users').doc(user.uid).set({
+                    email: email,
+                    username: username,
+                    panelaccess: false,
+                    plusaccess: false,
+                    tokens: 0,
+                    badges: [],
+                    pfp: '',
+                    owneraccess: false,
+                    ban: false,
+                    mute: false,
+                    color: '#000000',
+                    exp: 0,
+                    clan: '',
+                    roles: [],
+                    friends: []
+                });
+
+                Swal.fire('Success!', 'Your account has been created.', 'success');
+            } catch (error) {
+                Swal.fire('Error!', error.message, 'error');
             }
-    </style>
-    <script defer type="module" src="/public/api/signup.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h2 style="font-family:'Titan One', sans-serif; font-size: 40px;">Sign Up</h2>
-        <div class="form-group">
-            <label for="signup-username"></label>
-            <input type="text" id="signup-username" placeholder="Choose a username" class="username-input">
-        </div>
-        <div class="form-group">
-            <label for="signup-password"></label>
-            <input 
-            type="password" 
-            id="signup-password" 
-            placeholder="Create a password" 
-            class="password-input">
-        </div>
-        <button class="button" onclick="signup()">Sign Up</button>
-        <a href="login.html"><span class="toggle-link">Already have an account? Login</span></a>
-    </div>
+        }
+    </script>
 </body>
 </html>
