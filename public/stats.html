@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats </title>
+    <title>Stats | Rojolet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
@@ -27,14 +28,32 @@
                 height: 200vh;
                 text-align: center;
         }
-
+       .container {
+        height: 300px;
+        margin-left: 500px;
+        margin-top: 200px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 35vw;
+        width: 90%;
+        background-color: #a30000;    
+        border-radius: 7px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-bottom: 0.365vw;
+        box-shadow: inset 0 -0.365vw rgba(0, 0, 0, 0.2), 0 0 0.208vw rgba(0, 0, 0, 0.15);
+       }
        .banner{
         margin-top: -80px;
         border-radius: 0.365vw;
-    background-color: rgb(138, 24, 24);
-    width: 300px;
-    height: 75px;
-    margin-left: 460px;
+        background-color: rgb(138, 24, 24);
+        max-width: 400px;
+        width: 90%;
+        height: 100px;
+        margin-left: 250px;
     padding: 0.781vw 0.260vw 0.573vw;
     box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
@@ -45,18 +64,17 @@
         margin-top: 100px;
         width: 70px;
      
-    -o-object-fit: contain;
+        -o-object-fit: contain;
     object-fit: contain;
     margin-left: 200px;
        }
-       .username{
-        font-weight: 700;
-    font-size: 1.354vw;
-    line-height: 1.354vw;
-    z-index: 1;
-    font-family: Titan One, sans-serif;
-    margin-left: 125px;
-    margin-top: 0px;
+           .username{
+            font-weight: 700;
+            font-size: 1.354vw;
+            line-height: 1.354vw;
+            z-index: 1;
+            font-family: Titan One, sans-serif;
+            margin-top: 10px;
            }
            .role{
             font-family: 'Nunito', sans-serif;
@@ -67,33 +85,32 @@
            .stats{
             height: 125px;
             border-radius: 0.365vw;
-    background-color: rgb(138, 24, 24);
-    width: 700px;
-    padding: 0.781vw 0.260vw 0.573vw;
-    margin: 2.083vw 0;
-    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    color: #fff;
-    position: relative;
-    margin-left: 400px;
-    margin-top: 250px;
+            background-color: rgb(138, 24, 24);
+            width: 900px;
+            padding: 0.781vw 0.260vw 0.573vw;
+            margin: 2.083vw 0;
+            box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            color: #fff;
+            position: relative;
+            margin-left: 400px;
+            margin-top: 250px;
            }
            .insider{
             height: 75px;
             border-radius: 0.365vw;
-    background-color: red;
-    margin: 0.521vw;
-    width: 10.417vw;
-    padding: 0.260vw 0.260vw 0.573vw;
-    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Nunito', sans-serif;
-font-size: 10px;
+            background-color: #8B0000;
+            margin: 100px;
+            width: 10.417vw;
+            padding: 0.260vw 0.260vw 0.573vw;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: verticle;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
            }
            .insider-h1{
             margin-top: -20px;
@@ -104,105 +121,203 @@ font-size: 10px;
            }
            .claim-tokens{
             font-family: 'Nunito', sans-serif;
-font-size: 5px;
-            background-color: rgb(113, 24, 138);
+            font-size: 5px;
+            background-color: #00a2ff;
             color: #fff;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0.260vw;
-    border-radius: 0.260vw;
-    transform: translateY(-0.208vw);
-    transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.4, 1);
-    width: 100px;
-    height: 20px;
-    margin-left: 470px;
-    margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.260vw;
+            border-radius: 0.260vw;
+            transform: translateY(-0.208vw);
+            transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.4, 1);
+            width: 140px;
+            height: 30px;
+            margin-left: 55px;
+            margin-top: 10px;
+            box-shadow: inset 0 -0.165vw rgba(0, 0, 0, 0.2), 0 0 0.208vw rgba(0, 0, 0, 0.15);
            }
-           .sidebar{
-            position: fixed;
-    top: 0;
-    left: 0;
-    width: 11.510vw;
-    height: 100%;
-    padding: 1.042vw 0.521vw 1.042vw 0;
-    box-sizing: border-box;
-    background-color: rgb(138, 24, 24);
-    box-shadow: inset -0.521vw 0 rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    z-index: 5;
-    font-family: Titan One, sans-serif;
-    
-           }
-           .button-sidebar{
-            position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 2.083vw;
-    width: 9.896vw;
-    margin: 0.208vw 0;
-    padding-left: 1.563vw;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    text-decoration: none;
-    border-top-right-radius: 0.260vw;
-    border-bottom-right-radius: 0.260vw;
-    background-color: transparent;
-    color: #fff;
-    transition: 0.2s linear;
-    font-size: 25px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-           }
-           a:hover{
-            color: black;
-            background-color: white;
-           }
+           .claim-tokens:focus {
+                background-color: #15a7fb;
+                cursor: pointer;
+            }
+           .nav-button {
+                background-color: #d40000;
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+                width: 100%;
+                font-family: "Titan One", sans-serif;
+            }
+            .nav-button a {
+                text-decoration: none;
+                color: #fff;
+                background-color: #c20000;
+                padding: 10px 40px;
+                border-radius: 5px;
+                font-family: "Nunito Sans", sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+            .nav-button a:hover {
+                background-color: #a30000;
+            }
+
+            h1 {
+                font-family: "Titan One", sans-serif;
+            }
+            .tokens {
+                font-size: 10px;
+            }
+            .nav-bar {
+                padding-right: 15px;
+                padding-left: 15px;
+                background-color: red;
+            }
+            .navdiv {
+                display: flex;
+                align-items: center;
+                background-color: #8B0000;
+                border-bottom: #6b0000 8px solid;
+                height: 100px;
+            }
+            .logo a {
+                margin-left: 15px;
+                font-size: 35px;
+                color: #fff;
+                font-family: "Titan One", sans-serif;
+                text-decoration: none;
+            }
+            button {
+                background-color: #9d0000;
+                margin-left: 10px;
+                align-items: center;
+                border-radius: 10px;
+                border-color: #fff;
+                padding: 10px;
+                width: 90px;
+                text-decoration: none;
+                font-family: "Titan One", sans-serif;
+                color: white;
+                flex-direction: row;
+            }
+            button a {
+                color: white;
+                font-family: "Titan One", sans-serif;
+                font-size: 15px;
+                text-decoration: none;
+            }
            .icons{
             margin-top: 300px;
             width: 35px;
-          
            }
+           * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Titan One', sans-serif;
+}
+
+ul {
+    list-style: none;
+    background: #a30000;
+    width: 200px;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: red;
+    margin-left: 600px;
+    
+}
+
+ul li {
+    display: inline-block;
+    position: relative;
+}
+
+ul li a {
+    display: block;
+    padding: 20px 25px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+ul li ul.dropdown li {
+    display: block;
+}
+
+ul li ul.dropdown {
+    width: 100%;
+    background: #e80505;
+    margin-left: -.0001px;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+
+ul li a:hover {
+    background: #8B0000;
+}
+
+ul li:hover ul.dropdown {
+    display: block;
+}
+           
            
 </style>
-<body>
-    <div class="sidebar" id="sidebar">
-        <h1 style="color: white; margin-left: 20px;">Rojolet</h1>
-        <a style="margin-top: 20px; margin-left: 30px;" class="button-sidebar" href="">Stats</a>
-        <a style="margin-top: 15px; margin-left: 20px;" class="button-sidebar" href="">Market</a>
-        <a style="margin-top: 15px; margin-left: 30px;" class="button-sidebar" href="">Chat</a>
-        <a style="margin-top: 15px; margin-left: 25px;" class="button-sidebar" href="">Rojos</a>
-        <a style="margin-top: 15px; margin-left: 0px;" class="button-sidebar" href="">Inventory</a>
-        <a style="margin-top: 15px; margin-left: 0px;" class="button-sidebar" href="">Settings</a>
-        <img class="icons" src="/imgs/icons8-youtube-50.png" alt="">
-        <img style="margin-top: -35px; margin-left: 40px;" class="icons" src="/imgs/icons8-discord-50.png" alt="">
-        <img style="margin-top: -37px; margin-left: 80px;" class="icons" src="/imgs/icons8-github-30.png" alt="">
-        <img style="margin-top: -37px; margin-left: 120px;" class="icons" src="/imgs/icons8-person-30.png" alt="">
-    </div>
+<body> 
+    <!-- navigation bar -->
+    <nav class="navbar">
+        <div class="navdiv">
+            <div class="logo"><a href="index.html">Rojolet</a></div>
+            <lu>
+                <button><a href="#">Stats</a></button>
+                <button><a href="chat.html">Chat</a></button>
+                <button><a href="market.html">Market</a></button>
+                <button><a href="rojos.html">Rojos</a></button>
+                <button><a href="admin.html">Panel</a></button>
+            </lu>
+        </div>
+    </nav>
+    <!-- Main Stats -->
+     <div class="container">
     <div>
         <img style="margin-left: 375px;" class="pfp" id="pfp" src="https://blacket.org/content/blooks/Haunted%20Pumpkin.webp" alt="">
     </div>
+    <!-- User banner -->
     <div class="banner">
         <h1 class="username" id="username">Prq</h1>
         <h1 class="role" id="roles">common</h1>
     </div>
+    <!-- Token Claiming Button -->
     <div class="claim-tokens" id="claim-tokens">
-        <h1>claim tokens</h1>
+        <h1 style="font-size: 16px;">Claim Tokens</h1>
     </div>
+    <!--Role container-->
+    <div class="role-container"></div>
+    <!--Drop down code-->
+    <nav>
+      <ul>
+      <li>
+          <a href="#">Locations ▾</a>
+          <ul class="dropdown">
+              <li><a href="settings.html">Settings</a></li>
+              <li><a href="#">Friends</a></li>
+              <li><a href="#">Leaderboard</a></li>
+              <li><a href="credits.html">Credits</a></li>
+          </ul>
+  </nav>
+  </div>
+  <!--stats-->
     <div class="stats" id="stats">
-
+        <!-- Tokens box -->
         <div class="insider" id="">
             <h1 class="insider-h1" id="tokens">tokens</h1>
         </div>
+
         <div style="margin-top: -80px; margin-left: 265px;" class="insider" id="rojos">
             <h1 class="insider-h1" id="badges"></h1>
         </div>
