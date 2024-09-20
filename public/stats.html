@@ -54,7 +54,7 @@
         width: 90%;
         height: 100px;
         margin-left: 250px;
-    padding: 0.781vw 0.260vw 0.573vw;
+        padding: 0.781vw 0.260vw 0.573vw;
     box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     color: #fff;
@@ -83,20 +83,37 @@
             margin-left: 105px;
            }
            .stats{
-            height: 125px;
+            height: 400px;
             border-radius: 0.365vw;
-            background-color: rgb(138, 24, 24);
-            width: 900px;
+            background-color: #a300003d;
+            backdrop-filter: blur (10px);
+            width: 600px;
             padding: 0.781vw 0.260vw 0.573vw;
             margin: 2.083vw 0;
             box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
             box-sizing: border-box;
             color: #fff;
             position: relative;
-            margin-left: 400px;
-            margin-top: 250px;
+            margin-left: 1000px;
+            margin-top: -450px;
            }
            .insider{
+            height: 75px;
+            border-radius: 0.365vw;
+            background-color: #8B0000;
+            margin: 100px;
+            width: 10.417vw;
+            padding: 0.260vw 0.260vw 0.573vw;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: verticle;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+           }
+           .tokens-container {
             height: 75px;
             border-radius: 0.365vw;
             background-color: #8B0000;
@@ -313,8 +330,9 @@ ul li:hover ul.dropdown {
   </div>
   <!--stats-->
     <div class="stats" id="stats">
+      <h1 style="font-size: 60px;">Stats</h1>
         <!-- Tokens box -->
-        <div class="insider" id="">
+        <div class="tokens-container">
             <h1 class="insider-h1" id="tokens">tokens</h1>
         </div>
 
