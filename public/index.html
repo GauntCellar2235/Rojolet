@@ -23,12 +23,56 @@
                 height: 200vh;
                 text-align: center;
             }
+            .container {
+                height: 400px;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 60vw;
+                width: 90%;
+                background-color: black;    
+                border-radius: px;
+                text-align: center;
+                position: absolute;
+                flex-direction: row;
+                box-sizing: border-box;
+                padding-bottom: 0.365vw;
+          }
+          .flex-container {
+            margin-top: 600px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
+          .flex-item {
+           flex: 1 1 calc(33.333% - 20px);
+           box-sizing: border-box;
+           height: 200px;
+           padding: 20px;
+           background-color: #a30000;
+           border: 5px solid #8B0000;
+           border-radius: 8px;
+           text-align: center;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+           color: white;
+          }
+          .box {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+          }
             .nav-button {
                 background-color: #d40000;
                 display: flex;
                 justify-content: space-around;
                 margin-top: 20px;
                 width: 100%;
+                border: 5px solid red;
                 font-family: "Titan One", sans-serif;
             }
             .nav-button a {
@@ -37,6 +81,7 @@
                 background-color: #c20000;
                 padding: 10px 40px;
                 border-radius: 5px;
+                border: 5px solid red;
                 font-family: "Nunito Sans", sans-serif;
                 font-weight: 700;
                 font-size: 16px;
@@ -77,9 +122,9 @@
                 margin-left: 10px;
                 align-items: center;
                 border-radius: 10px;
-                border-color: #fff;
+                border: 7px solid #a30000;
                 padding: 10px;
-                width: 90px;
+                width: 100px;
                 text-decoration: none;
                 font-family: "Titan One", sans-serif;
                 color: white;
@@ -111,6 +156,14 @@
                 color: #fff;
                 font-family: 'Nunito sans', sans-serif;
             }
+            .welcome-banner {
+                transform: translateY(50px);
+            }
+            @media (max-width: 768px) {
+            img {
+                 width: 100%;  /* Full width on mobile */
+                   }
+                }
   </style>
 </head>
 <body>
@@ -123,12 +176,16 @@
                 </ul>
             </div>
         </nav>
-        <img class="home-image" src="images/home image.webp" alt="Gaunt the ruler">
-        <h1 style="margin-top: -650px; margin-left: 600px;">Rojolet</h1>
-        <h2 style="margin-left: 600px;">The first red private</h2>
-        <h2 style="margin-left: 600px;">server</h2>
-        <h3 style="margin-left: 600px;">Founded by GauntCellar2235. Written in JS, HTML, and CSS.
-        <h3 style="margin-left: 600px;">This project has taken a long time to make and we are so excited for you to play.
-        </h3>
+        <img src="https://placehold.co/1100x450" alt="welcome banner" class="welcome-banner">
+
+     </div>
+     <div style="margin-top: 500px" class="flex-container">
+         <div class="flex-item">
+            <img src="https://placehold.co/50x50">
+            <h2>Chatting</h2>
+         </div>
+         <div class="flex-item"></div>
+         <div class="flex-item"></div>
+     </div>
 </body>
 </html>
