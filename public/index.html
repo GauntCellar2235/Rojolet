@@ -20,16 +20,17 @@
                 background-size: cover;
                 justify-content: center;
                 align-items: center;
-                height: 200vh;
+                height: 150vh;
                 text-align: center;
             }
             .container {
-                height: 400px;
+                height: 800px;
                 top: 40%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 max-width: 60vw;
                 width: 90%;
+                height: 100%;
                 background-color: black;    
                 border-radius: px;
                 text-align: center;
@@ -37,21 +38,23 @@
                 flex-direction: row;
                 box-sizing: border-box;
                 padding-bottom: 0.365vw;
+                
           }
           .flex-container {
-            margin-top: 600px;
+            margin-top: 100px;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             padding: 20px;
             max-width: 1200px;
+            max-height: 460px;
             margin: 0 auto;
           }
 
           .flex-item {
            flex: 1 1 calc(33.333% - 20px);
            box-sizing: border-box;
-           height: 200px;
+           height: 500px;
            padding: 20px;
            background-color: #a30000;
            border: 5px solid #8B0000;
@@ -112,7 +115,7 @@
             }
             .logo a {
                 margin-left: 15px;
-                font-size: 35px;
+                font-size: 50px;
                 color: #fff;
                 font-family: "Titan One", sans-serif;
                 text-decoration: none;
@@ -122,7 +125,7 @@
                 margin-left: 10px;
                 align-items: center;
                 border-radius: 10px;
-                border: 7px solid #a30000;
+                border: 7px solid #af0505;
                 padding: 10px;
                 width: 100px;
                 text-decoration: none;
@@ -147,9 +150,9 @@
                 color: #fff;
             }            
             h2 { 
-                font-size: 60px;
+                font-size: 30px;
                 color: #fff;
-                font-family: 'Titan One', sans-serif;
+                font-family: 'Nunito', sans-serif;
             }
             h3 { 
                 font-size: 30px;
@@ -157,7 +160,15 @@
                 font-family: 'Nunito sans', sans-serif;
             }
             .welcome-banner {
-                transform: translateY(50px);
+                transform: translateY(50px);;
+                border-radius: 7px;
+                border: 12px solid #8B0000;
+                margin: 0 auto;
+            }
+            .featimg {
+               width: 300px;
+               border-radius: 7px;
+               border: 9px solid #6B0000;
             }
             @media (max-width: 768px) {
             img {
@@ -176,16 +187,21 @@
                 </ul>
             </div>
         </nav>
-        <img src="https://placehold.co/1100x450" alt="welcome banner" class="welcome-banner">
-
+        <img src="images/index/rojolet welcome.png" alt="welcome banner" class="welcome-banner">
      </div>
-     <div style="margin-top: 500px" class="flex-container">
+     <div style="margin-top: 100px" class="flex-container">
          <div class="flex-item">
-            <img src="https://placehold.co/50x50">
-            <h2>Chatting</h2>
+            <img class="featimg" src="images/index/chat home.png">
+            <h2>Chat with your friends in the Rojolet chat</h2>
          </div>
-         <div class="flex-item"></div>
-         <div class="flex-item"></div>
+         <div class="flex-item">
+            <img class="featimg" src="images/index/Owned home.png">
+            <h2>Unlock lots of Rojos</h2>
+         </div>
+         <div class="flex-item">
+            <img class="featimg" src="images/index/comingsoon home.png">
+            <h2>See Updates for our game in the discord server</h2>
+         </div>
      </div>
 </body>
 </html>
