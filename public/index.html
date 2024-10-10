@@ -122,9 +122,9 @@
             }
             button {
                 background-color: #9d0000;
-                margin-left: 10px;
+                margin-right: 10px;
                 align-items: center;
-                border-radius: 10px;
+                border-radius: 15px;
                 border: 7px solid #af0505;
                 padding: 10px;
                 width: 100px;
@@ -132,11 +132,20 @@
                 font-family: "Titan One", sans-serif;
                 color: white;
                 flex-direction: row;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #a80101;
+                border: 7px solid #c50606;
+            }
+            button:active {
+                background-color: #af0101;
+                border: 7px solid #c80101;
             }
             button a {
                 color: white;
                 font-family: "Titan One", sans-serif;
-                font-size: 15px;
+                font-size: 16px;
                 text-decoration: none;
             }
 
@@ -187,19 +196,19 @@
                 </ul>
             </div>
         </nav>
-        <img src="images/index/rojolet welcome.png" alt="welcome banner" class="welcome-banner">
+        <img draggable="false" src="images/index/rojolet welcome.png" alt="welcome banner" class="welcome-banner">
      </div>
      <div style="margin-top: 100px" class="flex-container">
          <div class="flex-item">
-            <img class="featimg" src="images/index/chat home.png">
+            <img draggable="false" class="featimg" src="images/index/chat home.png">
             <h2>Chat with your friends in the Rojolet chat</h2>
          </div>
          <div class="flex-item">
-            <img class="featimg" src="images/index/Owned home.png">
+            <img draggable="false" class="featimg" src="images/index/Owned home.png">
             <h2>Unlock lots of Rojos</h2>
          </div>
          <div class="flex-item">
-            <img class="featimg" src="images/index/comingsoon home.png">
+            <img draggable="false" class="featimg" src="images/index/comingsoon home.png">
             <h2>See Updates for our game in the discord server</h2>
          </div>
      </div>
