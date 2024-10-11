@@ -54,7 +54,7 @@
           .flex-item {
            flex: 1 1 calc(33.333% - 20px);
            box-sizing: border-box;
-           height: 500px;
+           height: 550px;
            padding: 20px;
            background-color: #a30000;
            border: 5px solid #8B0000;
@@ -168,6 +168,14 @@
                 color: #fff;
                 font-family: 'Nunito sans', sans-serif;
             }
+            h4 {
+                font-size: 30px;
+                color: #fff;
+                font-family: 'Nunito', sans-serif;
+                position: absolute;
+                top: 230%;
+                right: 58%;
+            }
             .welcome-banner {
                 transform: translateY(50px);;
                 border-radius: 7px;
@@ -178,6 +186,11 @@
                width: 300px;
                border-radius: 7px;
                border: 9px solid #6B0000;
+            }
+            .comingsoon {
+                width: 500px;
+                top: 240%;
+                position: absolute;
             }
             @media (max-width: 768px) {
             img {
@@ -201,16 +214,22 @@
      <div style="margin-top: 100px" class="flex-container">
          <div class="flex-item">
             <img draggable="false" class="featimg" src="images/index/chat home.png">
-            <h2>Chat with your friends in the Rojolet chat</h2>
+            <h2>Chat with other Rojolet users and make friends with lots of people.</h2>
          </div>
          <div class="flex-item">
             <img draggable="false" class="featimg" src="images/index/Owned home.png">
-            <h2>Unlock lots of Rojos</h2>
+            <h2>Collect them all</h2>
          </div>
          <div class="flex-item">
             <img draggable="false" class="featimg" src="images/index/comingsoon home.png">
-            <h2>See Updates for our game in the discord server</h2>
+            <h2>See Updates for our game in the Rojolet discord server.</h2>
+            <p><a href="https://discord.gg/EbGP8SZ3cz/">
+                <img src="images/discord.png" alt="discord img" width="100">
+                </a></p>
          </div>
      </div>
+     <h1 style="top: 210%; right: 50%; position: absolute; font-size: 60px; margin-top: 40px;" >More coming soon...</h1>
+     <h4>This page is still being developed</h4>
+     <img draggable="false" class="comingsoon" src="images/index/coming soon.png">
 </body>
 </html>
