@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Stats</title>
+    <style>
+        body {
+            background-color: rgb(6, 6, 84);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            margin: 0; /* Remove default margin */
+            height: 100vh; /* Make body fill the viewport height */
+            width: 100vw; /* Make body fill the viewport width */
+            overflow: hidden; /* Prevent vertical overflow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #banner {
+            background-color: rgb(5, 5, 255);
+            height: 50px;
+            width: 300px;
+            box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 11.510vw; /* Keep the original width */
+    height: 100%;
+    padding: 1.042vw 0.521vw 1.042vw 0;
+    box-sizing: border-box;
+    background-color: darkblue;
+    box-shadow: inset -0.521vw 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally center the items */
+    justify-content: space-between; /* Evenly space the items */
+    z-index: 5;
+}
+
+#sidebarh1 {
+    color: white;
+    font-family: 'Titan One', sans-serif;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    margin: 0;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%; /* Make the links container fill the sidebar height */
+}
+
+.sidebar-links a {
+    color: white;
+    font-size: 1.2vw;
+    text-decoration: none;
+    margin: 1.5vw 0;
+    font-family: sans-serif;
+    display: flex;  /* Flexbox for icon and text alignment */
+    align-items: center;
+    justify-content: flex-start; /* Align text and icon to the left */
+}
+
+.sidebar-links a i {
+    margin-right: 0.5vw; /* Spacing between the icon and text */
+    font-size: 1.5vw; /* Adjust icon size */
+}
+
+        h1 {
+            font-size: 2rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        img#pfp {
+            width: 75px;
+            margin: 10px;
+        }
+
+        #info {
+            background-color: darkblue;
+            width: 700px;
+            padding: 20px;
+            box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #tokens, #level {
+            color: white;
+            background-color: rgb(62, 62, 131);
+            height: 50px;
+            width: 200px;
+            box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px; /* Center text vertically */
+            margin: 10px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        li {
+            margin: 5px 0;
+            font-size: 1.2rem;
+        }
+
+        #badges img {
+            width: 50px;
+            margin: 5px;
+        }
+
+        a {
+            color: rgb(255, 154, 0);
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: darkblue;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: rgb(255, 154, 0);
+            color: darkblue;
+        }
+
+        #blooksbg {
+            position: absolute; /* Position absolutely to allow precise placement */
+            width: 200%; /* Make it wider than the viewport */
+            height: 200%; /* Make it taller than the viewport */
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            background-image: url("https://ac.blooket.com/play-l/assets/BlookCheckers-BykpA7vd.png");
+            background-size: 550px; /* Set the size of the background image */
+            background-position: -100px -100px; /* Adjust the position of the image */
+            opacity: 0.1; /* Set transparency */
+            transform: translate(-50%, -50%) rotate(15deg); /* Center and rotate */
+            z-index: -1; /* Ensure it stays behind other elements */
+        }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div id="sidebar">
+    <h1 id="sidebarh1">Cosmik</h1>
+    <div class="sidebar-links">
+        <a href="stats.html"><i class="fas fa-chart-bar"></i> Stats</a>
+        <a href="#"><i class="fas fa-comments"></i> Chat</a>
+        <a href="market.html"><i class="fas fa-store"></i> Market</a>
+        <a href="cosmetics.html"><i class="fas fa-suitcase"></i> Cosmetics</a>
+        <a href="#"><i class="fas fa-box"></i> Inventory</a>
+        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        <a href="#"><i class="fas fa-award"></i> Credits</a>
+        <a href="#"><i class="fas fa-newspaper"></i> News</a>
+    </div>
+</div>
+    <div id="blooksbg"></div>
+    <div id="info">
+        <div id="banner">
+            <h1><%= user.username %></h1>
+        </div>
+        <img id="pfp" src="<%= user.pfp %>" alt="Profile Picture">
+        <div id="tokens">Tokens: <%= user.tokens %></div>
+        <div id="level"><%= user.role %></div>
+        <h2>Your Cosmetics:</h2>
+        <ul>
+            <% user.cosmetics.forEach(cosmetic => { %>
+                <li><%= cosmetic %></li>
+            <% }) %>
+        </ul>
+        <h2>Your Badges:</h2>
+        <div id="badges">
+            <% user.badges.forEach(badge => { %>
+                <img src="<%= badge %>" alt="Badge">
+            <% }) %>
+        </div>
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>
