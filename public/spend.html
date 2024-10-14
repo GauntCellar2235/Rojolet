@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <title>Market | Rojolet</title>
+    <style>
+        body {             
+              font-family: Arial, sans-serif;
+              font-family: Nunito Sans, sans-serif;
+              margin: 0;
+              padding: 0;
+              background-image: url("images/checkers.png");
+              background-size: cover;
+              justify-content: center;
+              align-items: center;
+              height: 150vh;
+              text-align: center;
+              overflow: hidden;
+        }
+        #sidebar{
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            padding: 1.042vw 0.521vw 1.042vw 0;
+            box-sizing: border-box;
+            background-color: #8B0000;
+            box-shadow: inset -0.521vw 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 5;
+          }
+          #sidebar-h1{
+            font-size: 40px;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 1.042vw;
+            text-align: center;
+            font-family: Titan One, sans-serif;
+            text-shadow: 4px 4px #6B0000;
+          }
+        button {
+            background-color: #9d0000;
+            margin-right: 10px;
+            align-items: center;
+            border-radius: 15px;
+            border: 7px solid #af0505;
+            padding: 10px;
+            width: 125px;
+            text-decoration: none;
+            font-family: "Titan One", sans-serif;
+            color: white;
+            flex-direction: row;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #a80101;
+            border: 7px solid #c50606;
+        }
+        button:active {
+            background-color: #af0101;
+            border: 7px solid #c80101;
+        }
+        button a {
+            color: white;
+            font-family: "Titan One", sans-serif;
+            font-size: 16px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h1 id="sidebar-h1">Rojolet</h1>
+        <button><a href="stats.html">Stats</a></button>
+        <button><a href="chat.html">Chat</a></button>
+        <button><a href="spend.html">Market</a></button>
+        <button><a href="#">Rojos</a></button>
+        <button><a href="#">Panel</a></button>
+    </div>
+    <div id="user-info">
+        <p>Username: <span id="username"></span></p>
+        <p>Tokens: <span id="tokens"></span></p>
+    </div>
+    <div id="rojos-list"></div>
+
+    <script>
+        let userRojos = {}; // Object to store user's rojos and their qualities
+
+        // Fetch user info
+        fetch('/user')
+            .then(response => response.json())
+            .then(user => {
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('tokens').textContent = user.tokens;
+
+                // Store user's current Rojos collection
+                userRojos = user.rojos; // Assuming user.rojos is an object { rojoName: quality }
+            })
+            .catch(err => console.error('Error fetching user:', err));
+
+        // Fetch the list of rojos and display them
+        fetch('/rojos')
+            .then(response => response.json())
+            .then(rojos => {
+                const rojosList = document.getElementById('rojos-list');
+                rojosList.innerHTML = ''; // Clear any existing content
+
+                rojos.forEach(rojo => {
+                    // Determine the user's current quality of the Rojo
+                    const userQuality = userRojos[rojo.name] || 1; // Default quality is 1 if not owned
+
+                    const rojoDiv = document.createElement('div');
+                    rojoDiv.classList.add('rojo');
+                    rojoDiv.innerHTML = `
+                        <img src="${rojo.imgUrl}" alt="${rojo.name}">
+                        <h3>${rojo.name}</h3>
+                        <p>Rarity: ${rojo.rarity}</p>
+                        <p>Cost: ${rojo.cost} tokens</p>
+                        <p>Quality: <span id="quality-${rojo.name}">${userQuality}</span></p>
+                        <button onclick="buyRojo('${rojo.name}', ${rojo.cost})">Buy</button>
+                    `;
+                    rojosList.appendChild(rojoDiv);
+                });
+            })
+            .catch(err => console.error('Error fetching rojos:', err));
+
+        // Function to buy a Rojo
+        function buyRojo(rojoName, cost) {
+            // Fetch the user data to get available tokens
+            fetch('/user')
+                .then(response => response.json())
+                .then(user => {
+                    const userTokens = user.tokens;
+                    const currentQuality = userRojos[rojoName] || 1; // Default quality is 1 if not owned
+
+                    // Check if the user has enough tokens
+                    if (userTokens >= cost) {
+                        // Send a request to the server to deduct tokens and "buy" the Rojo
+                        fetch('/pay-tokens', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                username: user.username, // Send username from user data
+                                rojoName: rojoName,
+                                cost: cost,
+                                newQuality: currentQuality + 1 // Increment quality
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                // Update quality and UI
+                                const newQuality = currentQuality + 1;
+                                userRojos[rojoName] = newQuality;
+                                document.getElementById(`quality-${rojoName}`).textContent = newQuality;
+
+                                // Update token count in UI
+                                document.getElementById('tokens').textContent = userTokens - cost;
+
+                                alert(`You successfully bought ${rojoName} for ${cost} tokens! New quality: ${newQuality}`);
+                            } else {
+                                alert('Purchase failed. Try again.'); // Handle purchase failure
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Error buying Rojo:', err);
+                            alert('An error occurred while processing your purchase.');
+                        });
+                    } else {
+                        alert('You do not have enough tokens to buy this Rojo.');
+                    }
+                })
+                .catch(err => console.error('Error fetching user data:', err));
+        }
+    </script>
+</body>
+</html>

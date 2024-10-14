@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <title>Rojos | Rojolet</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            font-family: Nunito Sans, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("images/checkers.png");
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            text-align: center;
+            overflow: hidden;
+        }
+          #search-container{
+            align-items: center;
+            margin-top: -100px;
+            margin-left: 300px;
+            height: 125px;
+            border-radius: 0.365vw;
+            background-color: darkred;
+            width: 800px;
+            padding: 0.781vw 0.260vw 0.573vw;
+            margin: 2.083vw 0;
+            box-shadow: inset 0 -0.613vw rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            color: #fff;
+            position: relative;
+          }
+
+          #search-input{
+            border: none;
+            height: 3.083vw;
+            line-height: 2.083vw;
+            font-size: 1.458vw;
+            text-align: center;
+            font-weight: 600;
+            font-family: Nunito, sans-serif;
+            color: #fff;
+            background-color: #6B0000;
+            outline: none;
+            width: 70.5%;
+            border-radius: 0.365vw;
+          }
+        .rojos-container {
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 70vw;
+            width: 100%;
+            height: 70%;
+            margin-top: 150px;
+            background-color: #8B0000;    
+            border-radius: 7px;
+            text-align: center;
+            position: absolute;
+            flex-direction: row;
+            box-sizing: border-box;
+            padding-bottom: 0.365vw;
+            box-shadow: inset 0 -0.613vw rgba(0, 0, 0, 0.2);
+        }
+        .rojos-div {
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 70vw;
+            width: 95%;
+            height: 90%;
+            margin-top: 45px;
+            background-color: #6B0000;    
+            border-radius: 7px;
+            text-align: center;
+            position: absolute;
+            flex-direction: row;
+            box-sizing: border-box;
+            padding-bottom: 0.365vw;
+            overflow: auto;
+        }
+        #sidebar{
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            padding: 1.042vw 0.521vw 1.042vw 0;
+            box-sizing: border-box;
+            background-color: #8B0000;
+            box-shadow: inset -0.521vw 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 5;
+          }
+          #sidebar-h1{
+            font-size: 40px;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 1.042vw;
+            text-align: center;
+            font-family: Titan One, sans-serif;
+            text-shadow: 4px 4px #6B0000;
+          }
+        button {
+            background-color: #9d0000;
+            margin-right: 10px;
+            align-items: center;
+            border-radius: 15px;
+            border: 7px solid #af0505;
+            padding: 10px;
+            width: 125px;
+            text-decoration: none;
+            font-family: "Titan One", sans-serif;
+            color: white;
+            flex-direction: row;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #a80101;
+            border: 7px solid #c50606;
+        }
+        button:active {
+            background-color: #af0101;
+            border: 7px solid #c80101;
+        }
+        button a {
+            color: white;
+            font-family: "Titan One", sans-serif;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        img{
+            
+            align-self: center;
+            align-items: center;
+            width: 60px;
+            align-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- sidebar code -->
+    <div id="sidebar">
+        <h1 id="sidebar-h1">Rojolet</h1>
+        <button><a href="stats.html">Stats</a></button>
+        <button><a href="chat.html">Chat</a></button>
+        <button><a href="spend.html">Market</a></button>
+        <button><a href="#">Rojos</a></button>
+        <button><a href="#">Panel</a></button>
+    </div>
+    <!-- Search rojos -->
+    <div class="search-container">
+        <div style="margin-left: 375px;" id="search-container">
+            <input id="search-input" type="text" placeholder="Search Rojos">
+            <button><a>Search</a></button>
+        </div>
+    </div>
+    <div style="margin-left: 100px;" class="rojos-container">
+        <div class="rojos-div">
+    <div id="rojos-list"></div>
+        </div>
+   </div>
+    <script>
+        let allRojosData = {}; 
+
+        // Fetch user info to get purchased rojos
+        fetch('/user')
+            .then(response => response.json())
+            .then(user => {
+                const rojos = user.rojos; 
+                const rojosList = document.getElementById('rojos-list');
+                rojosList.innerHTML = ''; 
+                fetch('/rojos')
+                    .then(response => response.json())
+                    .then(rojosData => {
+                        console.log('Fetched all rojos data:', rojosData); 
+                        allRojosData = rojosData;
+                        rojos.forEach(rojoName => {
+                            const rojoDiv = document.createElement('div');
+                            rojoDiv.classList.add('rojo');
+                            rojoDiv.innerHTML = `
+                                <h3 onclick="showDetails('${rojoName}')">${rojoName}</h3>
+                                <div class="details" id="details-${rojoName}" style="display: none;"></div>
+                            `;
+                            rojosList.appendChild(rojoDiv);
+                        });
+                    })
+                    .catch(err => console.error('Error fetching all rojos:', err));
+            })
+            .catch(err => console.error('Error fetching user:', err));
+
+        // Function to normalize Rojo names (e.g., remove spaces and lowercase)
+        function normalizeRojoName(name) {
+            return name.replace(/\s+/g, '').toLowerCase(); // Remove spaces and make lowercase
+        }
+
+        // Function to show details when a Rojo name is clicked
+        function showDetails(rojoName) {
+            const detailsDiv = document.getElementById(`details-${rojoName}`);
+
+            // Check if details are already displayed
+            if (detailsDiv.style.display === 'block') {
+                detailsDiv.style.display = 'none'; // Hide if already visible
+                return;
+            }
+
+            // Normalize the user Rojo name
+            const normalizedRojoName = normalizeRojoName(rojoName);
+
+            // Find the corresponding Rojo in the fetched data by normalizing both keys and the user name
+            const matchedRojo = Object.values(allRojosData).find(rojo => 
+                normalizeRojoName(rojo.name) === normalizedRojoName
+            );
+
+            if (matchedRojo) {
+                // If Rojo is found, display its details
+                console.log('Found Rojo details:', matchedRojo);
+                detailsDiv.innerHTML = `
+                    <img src="${matchedRojo.imgUrl}" alt="${matchedRojo.name}">
+                    <p>Rarity: ${matchedRojo.rarity}</p>
+                    <p>Quality: ${matchedRojo.quality}</p>
+                `;
+                detailsDiv.style.display = 'block'; // Show the details
+                detailsDiv.querySelector('img').style.display = 'block'; // Show the image
+            } else {
+                // If no Rojo details are found, log and display a message
+                console.error(`Details not found for Rojo: ${rojoName}`);
+                detailsDiv.innerHTML = `<p>No details found for "${rojoName}".</p>`;
+                detailsDiv.style.display = 'block'; // Show error message
+            }
+        }
+    </script>
+</body>
+</html>

@@ -32,7 +32,491 @@
         height: 300px;
         margin-left: 500px;
         margin-top: 200px;
-        top: 50%;
+        top: 50%;<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats | Rojolet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <style>
+           #badges{
+        margin-top: -2px;
+        width: 30px;
+        gap: 100px;
+      }
+      #stats-div{
+        margin-top: 100px;
+        margin-left: -100px;
+        height: 5
+            800px;
+        border-radius: 5px;
+    background-color: #8B0000;
+    width: 400px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+    font-family: Titan One, sans-serif;
+    text-align: center;
+    }
+        .container {
+            background-color: #6B0000;
+            width: 100%;
+            width: 360px;
+            height: 100px;
+            border-radius: 4px;
+            margin-top: -60px;
+            margin-left: 900px;
+            margin: 10px;
+            
+        }
+
+        .container-h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 30px
+        }
+        .user-container {
+            align-content: center;
+            background-color: #8B0000;
+            width: 100%;
+            width: 700px;
+            height: 250px;
+            border-radius: 4px;
+            margin-top: -60px;
+            margin-left: -200px;
+            margin: auto;
+            box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+        }
+
+        .user-container-h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 30px
+        }
+    button{
+        font-family: Titan One, sans-serif;
+    }
+    #friends{
+        align-items: center;
+        text-align: center;
+        margin-top: 100px;
+        margin-left: -200px;
+        height: 400px;
+        border-radius: 0.365vw;
+    background-color: darkred;
+    width: 325px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+    }
+    #friends-div{
+        align-items: center;
+        margin-top: -100px;
+        margin-left: -200px;
+        height: 77%;
+        border-radius: 0.365vw;
+    background-color: #6B0000;
+    width: 300px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+        overflow: auto;
+    }
+    #stats-profile{
+      margin-right: 100px;
+        height: 50px;
+        border-radius: 0.365vw;
+    background-color: #6B0000;
+    width: 225px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+        font-family: 'Titan One', sans-serif;
+        user-select: none;
+    }
+     #banner{
+      margin-right: 400px;
+        height: 80px;
+        border-radius: 0.365vw;
+    background-color: #a30000;
+    width: 50%;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+         font-family: 'Titan One', sans-serif;
+    }
+  #pfp{
+    border-radius: 10px;
+
+    margin-top: -340px;
+    margin-left: 320px;
+    width: 75px;
+    margin-bottom: 120px;
+  }
+  body{
+    background-image: url('images/checkers.png');
+  }
+#username{
+    family: 'Titan One', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.354vw;
+    z-index: 1;
+    text-align: center;
+    margin: auto;
+  }
+  #friends-p{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.354vw;
+    line-height: 1.354vw;
+    z-index: 1;
+    text-align: center;
+    margin: auto;
+    
+  }
+  #roles{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.354vw;
+    line-height: 1.354vw;
+    z-index: 1;
+    text-align: center;
+    margin: auto;
+  }
+  #tokens, #exp{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.354vw;
+    line-height: 1.354vw;
+    z-index: 1;
+    text-align: center;
+    margin: auto;
+  }
+  #header{
+    background-color: rgb(101, 33, 33);
+    width: 100%;
+    height: 2.865vw;
+    padding-bottom: 0.313vw;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 10;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 30px;
+    color: #fff;
+  
+    font-family: Titan One, sans-serif;
+   
+  }
+  #auction{
+    align-items: center;
+      text-align: center;
+        margin-top: -100px;
+        margin-left: -200px;
+        height: 400px;
+        border-radius: 0.365vw;
+    background-color: darkred;
+    width: 350px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-shadow: inset 0 -0.513vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+  }
+  
+  #auction-input{
+    border: none;
+    height: 2.083vw;
+    line-height: 2.083vw;
+    font-size: 1.458vw;
+    text-align: center;
+    font-weight: 700;
+    font-family: Nunito, sans-serif;
+    color: #fff;
+    background-color: #6B0000;
+    outline: none;
+    width: 75.5%;
+    border-radius: 0.365vw;
+  }
+  #sidebar{
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    padding: 1.042vw 0.521vw 1.042vw 0;
+    box-sizing: border-box;
+    background-color: #8B0000;
+    box-shadow: inset -0.521vw 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+  }
+  #sidebar-h1{
+    font-size: 40px;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 1.042vw;
+    text-align: center;
+    font-family: Titan One, sans-serif;
+    text-shadow: 4px 4px #6B0000;
+    user-select: none;
+  }
+  #Suser{
+    font-family: Nunito, sans-serif;
+
+    align-items: center;
+        margin-top: -100px;
+        margin-left: -200px;
+        height:25px;
+        border-radius: 0.365vw;
+    background-color: rgb(141, 119, 119);
+    width: 100px;
+    padding: 0.781vw 0.260vw 0.573vw;
+    margin: 2.083vw 0;
+    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+ 
+    transition: 0.2s;
+    filter: drop-shadow(0 0 0.182vw var(--secondary));
+    width: 5.990vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.625vw;
+    font-weight: 700;  }
+
+  #user-h1{
+    font-family: Nunito, sans-serif;
+
+  }
+  @keyframes rainbowMove {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+        button {
+            background-color: #9d0000;
+            margin-right: 10px;
+            align-items: center;
+            border-radius: 15px;
+            border: 7px solid #af0505;
+            padding: 10px;
+            width: 125px;
+            text-decoration: none;
+            font-family: "Titan One", sans-serif;
+            color: white;
+            flex-direction: row;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #a80101;
+            border: 7px solid #c50606;
+        }
+        button:active {
+            background-color: #af0101;
+            border: 7px solid #c80101;
+        }
+        button a {
+            color: white;
+            font-family: "Titan One", sans-serif;
+            font-size: 16px;
+            text-decoration: none;
+        }
+  .rainbow-username {
+    background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 300% 300%; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.354vw;
+    line-height: 1.354vw;
+    z-index: 1;
+    text-align: center;
+    margin: auto;
+    animation: rainbowMove 5s linear infinite; 
+  }
+        h1 { 
+            font-size: 32px;
+            color: #fff;
+            font-family: 'Titan One', sans-serif;
+        }            
+        h2 { 
+            font-size: 30px;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+        }
+        h3 { 
+            font-size: 30px;
+            color: #fff;
+            font-family: 'Nunito sans', sans-serif;
+        }
+        h4 {
+            font-size: 30px;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            position: absolute;
+            top: 230%;
+            right: 58%;
+        }
+        
+</style>
+    <div style="margin-left: 250px; margin-top: 50px;" class="user-container">
+        <div style="margin-left: 200px; margin-top: 0px;" id="banner">
+          <p style="margin-left: 0px; margin-top: 5px;" id="username"></p>
+          <p style="margin-top: 10px;" id="roles"></p>
+        </div>
+    <div style="margin-left: 200px; margin-top: -10px;" id="stats-profile">
+      <p style="width: 300px; margin-right: 100px;" id="badges"></p>
+    </div> 
+        <!-- display settings popup -->
+
+    </div>
+    
+    <div id="sidebar">
+        <h1 id="sidebar-h1">Rojolet</h1>
+        <button><a href="#">Stats</a></button>
+        <button><a href="/chat">Chat</a></button>
+        <button><a href="/market">Market</a></button>
+        <button><a href="rojos.html">Rojos</a></button>
+        <button><a href="#">Panel</a></button>
+    </div>
+    <img id="pfp" src="" alt="">
+    <div style="margin-top: -280px; margin-left: 1000px;" id="stats-div">
+        <button id="claim-tokens" style="font-size: 17px; margin-left: 20px;">Claim Tokens</button>
+                <button href="settings.html" style="font-size: 17px; margin-left: 20px; margin-top: 20px;">Settings</button>
+          <!--stats containers-->
+          <div style="margin-left: 20px;" class="container">
+              <h1 class="container-h1">Tokens</h1>
+              
+  <hr style="width: 250px;"></hr>
+              <h1 id="tokens"></h1>
+          </div>
+          <!--messages container-->
+                  <div style="margin-left: 20px;" class="container">
+              <h1 class="container-h1">Messages</h1>
+  <hr style="width: 250px;"></hr>
+                  </div>
+          <!--Level container-->
+                          <div style="margin-left: 20px;" class="container">
+              <h1 class="container-h1">Level</h1>
+  <hr style="width: 250px;"></hr>
+                    <h1 id="exp"></h1>
+                          </div>
+          <!--blooks container-->
+                          <div style="margin-left: 20px;" class="container">
+              <h1 class="container-h1">Blooks Unlocked</h1>
+  <hr style="width: 250px;"></hr>
+                          </div>
+      </div>
+    <div style="margin-left: 600px; margin-top: -390px;" id="auction">
+        <h1>Search Auction</h1>
+        <input style="margin-left: 10px;" id="auction-input" type="text" placeholder="Search Auction">
+        <button><a>Search</a></button>
+    </div>
+    <div style="margin-left: 250px; margin-top: -428px;" id="friends">
+        <h1>Friends</h1>
+      <p id="friends-p"></p>
+      <div style="margin-top: 7px; margin-left: 10px;" id="friends-div"></div>
+    </div>
+    
+</head>
+<body>
+
+    <script>
+        fetch('/user')
+        .then(response => response.json())
+        .then(user => {
+            document.getElementById('banner').src = user.banner || '/default-banner.png';
+            document.getElementById('pfp').src = user.pfp || '/default-pfp.png';
+            document.getElementById('username').textContent = user.username;
+            document.getElementById('roles').textContent = user.role;
+            document.getElementById('exp').textContent = user.level;
+            document.getElementById('tokens').textContent = user.tokens;
+    
+         
+      const badgesList = document.getElementById('badges');
+    if (user.badges.length > 0) {
+        user.badges.forEach(badge => {
+            const badgeImg = document.createElement('img');
+            badgeImg.src = `${badge}.png`; 
+            badgeImg.alt = `${badge}`;
+            badgeImg.classList.add('badge-img');  
+            badgesList.appendChild(badgeImg);
+        });
+    } else {
+        badgesList.innerHTML = '<p>No badges earned yet.</p>';
+    }
+    
+    
+    
+            const cosmeticsList = document.getElementById('cosmetics-list');
+            if (user.cosmetics.length > 0) {
+                user.cosmetics.forEach(cosmetic => {
+                    const cosmeticItem = document.createElement('li');
+                    cosmeticItem.classList.add('cosmetic-item');
+                    cosmeticItem.textContent = cosmetic;
+                    cosmeticsList.appendChild(cosmeticItem);
+                });
+            } else {
+                cosmeticsList.innerHTML = '<p>No cosmetics equipped.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user stats:', error);
+        });
+    
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        fetch('/logout', {
+            method: 'GET',
+            credentials: 'same-origin'
+        })
+        .then(() => {
+            window.location.href = '/test'; 
+        })
+        .catch(error => {
+            console.error('Error logging out:', error);
+        });
+    });
+    </script>
+</body>
+</html>
+
         left: 50%;
         transform: translate(-50%, -50%);
         max-width: 35vw;
