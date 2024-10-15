@@ -1,39 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats | Rojolet</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-</head>
-<style>
-        body {
-            font-family:
-                    Nunito Sans,
-                    sans-serif;
-                margin: 0;
-                padding: 0;
-                background-image: url("images/checkers.png");
-                background-size: cover;
-                justify-content: center;
-                align-items: center;
-                height: 200vh;
-                text-align: center;
-        }
-       .container {
-        height: 300px;
-        margin-left: 500px;
-        margin-top: 200px;
-        top: 50%;<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2a82e72161.js" crossorigin="anonymous"></script>
     <style>
            #badges{
         margin-top: -2px;
@@ -169,7 +136,7 @@
 
     margin-top: -340px;
     margin-left: 320px;
-    width: 75px;
+    width: 115px;
     margin-bottom: 120px;
   }
   body{
@@ -335,7 +302,8 @@
             border-radius: 15px;
             border: 7px solid #af0505;
             padding: 10px;
-            width: 125px;
+            width: 150px;
+            height: 60px;
             text-decoration: none;
             font-family: "Titan One", sans-serif;
             color: white;
@@ -394,14 +362,85 @@
             top: 230%;
             right: 58%;
         }
-        
+        button b {
+            background-color: #9d0000;
+            margin-right: 10px;
+            align-items: center;
+            border-radius: 15px;
+            border: 7px solid #af0505;
+            padding: 10px;
+            width: 20px;
+            text-decoration: none;
+            font-family: "Titan One", sans-serif;
+            color: white;
+            flex-direction: row;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button b:hover {
+            background-color: #a80101;
+            border: 7px solid #c50606;
+        }
+        button b:active {
+            background-color: #af0101;
+            border: 7px solid #c80101;
+        }
+        .popup-button {
+            background-color: #9d0000;
+            margin-right: 10px;
+            align-items: center;
+            border-radius: 15px;
+            border: 7px solid #af0505;
+            padding: 10px;
+            width: 150px;
+            height: 60px;
+            text-decoration: none;
+            font-family: "Titan One", sans-serif;
+            color: white;
+            flex-direction: row;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .popup {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #8B0000;
+          padding: 20px;
+          border-radius: 5px 0 0 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          display: none;
+          width: 400px;
+          overflow-y: auto;
+        }
+        .popup div {
+            background-color: #6B0000;
+            width: 100%;
+            width: 375px;
+            height: 1000px;
+            border-radius: 4px;
+            margin-top: -60px;
+            margin-left: 900px;
+            margin: 10px;
+        }
+        .popup .close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          font-size: 20px;
+          font-weight: bold;
+        }
 </style>
     <div style="margin-left: 250px; margin-top: 50px;" class="user-container">
         <div style="margin-left: 200px; margin-top: 0px;" id="banner">
           <p style="margin-left: 0px; margin-top: 5px;" id="username"></p>
           <p style="margin-top: 10px;" id="roles"></p>
+            <button style="width: 60px; height: 60px; border: none; border-radius: 7px; margin-top: 65px;margin-left: -150px; box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2); background-color: #a30000;"><i class="fa-solid fa-palette fa-3x" style="color: #ffffff; margin-top: -5px;"></i></button>
+            <button style="width: 60px; height: 60px; border: none; border-radius: 7px; margin-top: 65px;margin-left: 20px; box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2); background-color: #a30000;"><i class="fa-solid fa-gear fa-3x" style="color: #ffffff; margin-top: -5px;"></i></button>
         </div>
-    <div style="margin-left: 200px; margin-top: -10px;" id="stats-profile">
+    <div style="margin-left: 260px; margin-top: -10px;" id="stats-profile">
       <p style="width: 300px; margin-right: 100px;" id="badges"></p>
     </div> 
         <!-- display settings popup -->
@@ -410,11 +449,12 @@
     
     <div id="sidebar">
         <h1 id="sidebar-h1">Rojolet</h1>
-        <button><a href="#">Stats</a></button>
-        <button><a href="/chat">Chat</a></button>
-        <button><a href="/market">Market</a></button>
-        <button><a href="rojos.html">Rojos</a></button>
-        <button><a href="#">Panel</a></button>
+        <button><a href="#"><i class="fa-solid fa-user fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Stats</a></button>
+        <button><a href="/chat"><i class="fa-solid fa-comments fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Chat</a></button>
+        <button><a href="/market"><i class="fa-solid fa-store fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Market</a></button>
+        <button><a href="rojos.html"><i class="fa-solid fa-box fa-lg" style="color: #ffffff; margin-right: 5px;"></i>inventory</a></button>
+        <button><a href="#"><i class="fa-solid fa-wrench fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Panel</a></button>
+        <button class="popup-button"><a href="#"><i class="fa-solid fa-newspaper fa-lg" style="color: #ffffff; margin-right: 5px;"></i>News</a></button>
     </div>
     <img id="pfp" src="" alt="">
     <div style="margin-top: -280px; margin-left: 1000px;" id="stats-div">
@@ -455,10 +495,32 @@
       <div style="margin-top: 7px; margin-left: 10px;" id="friends-div"></div>
     </div>
     
+      <div class="popup">
+        <h1 style="font-size: 45px; text-shadow: 4px 4px #6B0000;">Rojolet News</h1>
+          <div class="popup-div">
+        <p>This is the content of the popup.</p>
+          <span style="color: white; font-family: 'Nunito', sans-serif;" class="close-button" onclick="closePopup()">x</span> </div>
+      </div>
 </head>
 <body>
 
     <script>
+        const button = document.querySelector('.popup-button');
+        const popup = document.querySelector('.popup');
+        const overlay = document.querySelector('.popup-overlay');
+        button.addEventListener('click', () => {
+          popup.style.display = 'block';
+          overlay.style.display = 'block';
+        });
+        function closePopup() {
+          popup.style.display = 'none';
+          overlay.style.display = 'none';
+        }
+
+
+
+
+        
         fetch('/user')
         .then(response => response.json())
         .then(user => {
@@ -514,429 +576,5 @@
         });
     });
     </script>
-</body>
-</html>
-
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 35vw;
-        width: 90%;
-        background-color: #a30000;    
-        border-radius: 7px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-        padding-bottom: 0.365vw;
-        box-shadow: inset 0 -0.365vw rgba(0, 0, 0, 0.2), 0 0 0.208vw rgba(0, 0, 0, 0.15);
-       }
-       .banner{
-        margin-top: -80px;
-        border-radius: 0.365vw;
-        background-color: rgb(138, 24, 24);
-        max-width: 400px;
-        width: 90%;
-        height: 100px;
-        margin-left: 250px;
-        padding: 0.781vw 0.260vw 0.573vw;
-    box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    color: #fff;
-    position: relative;
-       }
-       .pfp{
-        margin-top: 100px;
-        width: 70px;
-     
-        -o-object-fit: contain;
-    object-fit: contain;
-    margin-left: 200px;
-       }
-           .username{
-            font-weight: 700;
-            font-size: 1.354vw;
-            line-height: 1.354vw;
-            z-index: 1;
-            font-family: Titan One, sans-serif;
-            margin-top: 10px;
-           }
-           .role{
-            font-family: 'Nunito', sans-serif;
-            margin-top: -10px;
-            font-size: 20px;
-            margin-left: 105px;
-           }
-           .stats{
-            height: 400px;
-            border-radius: 0.365vw;
-            background-color: #a300003d;
-            backdrop-filter: blur (10px);
-            width: 600px;
-            padding: 0.781vw 0.260vw 0.573vw;
-            margin: 2.083vw 0;
-            box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
-            color: #fff;
-            position: relative;
-            margin-left: 1000px;
-            margin-top: -450px;
-           }
-           .insider{
-            height: 75px;
-            border-radius: 0.365vw;
-            background-color: #8B0000;
-            margin: 100px;
-            width: 10.417vw;
-            padding: 0.260vw 0.260vw 0.573vw;
-            box-sizing: border-box;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: verticle;
-            justify-content: center;
-            font-family: 'Nunito', sans-serif;
-            font-size: 10px;
-           }
-           .tokens-container {
-            height: 75px;
-            border-radius: 0.365vw;
-            background-color: #8B0000;
-            margin: 100px;
-            width: 10.417vw;
-            padding: 0.260vw 0.260vw 0.573vw;
-            box-sizing: border-box;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: verticle;
-            justify-content: center;
-            font-family: 'Nunito', sans-serif;
-            font-size: 10px;
-           }
-           .insider-h1{
-            margin-top: -20px;
-           }
-           .tokensimg{
-            margin-top: -30px;
-            width: 40px;
-           }
-           .claim-tokens{
-            font-family: 'Nunito', sans-serif;
-            font-size: 5px;
-            background-color: #00a2ff;
-            color: #fff;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0.260vw;
-            border-radius: 0.260vw;
-            transform: translateY(-0.208vw);
-            transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.4, 1);
-            width: 140px;
-            height: 30px;
-            margin-left: 55px;
-            margin-top: 10px;
-            box-shadow: inset 0 -0.165vw rgba(0, 0, 0, 0.2), 0 0 0.208vw rgba(0, 0, 0, 0.15);
-           }
-           .claim-tokens:focus {
-                background-color: #15a7fb;
-                cursor: pointer;
-            }
-           .nav-button {
-                background-color: #d40000;
-                display: flex;
-                justify-content: space-around;
-                margin-top: 20px;
-                width: 100%;
-                font-family: "Titan One", sans-serif;
-            }
-            .nav-button a {
-                text-decoration: none;
-                color: #fff;
-                background-color: #c20000;
-                padding: 10px 40px;
-                border-radius: 5px;
-                font-family: "Nunito Sans", sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                transition: background-color 0.3s;
-            }
-            .nav-button a:hover {
-                background-color: #a30000;
-            }
-
-            h1 {
-                font-family: "Titan One", sans-serif;
-            }
-            .tokens {
-                font-size: 10px;
-            }
-            .nav-bar {
-                padding-right: 15px;
-                padding-left: 15px;
-                background-color: red;
-            }
-            .navdiv {
-                display: flex;
-                align-items: center;
-                background-color: #8B0000;
-                border-bottom: #6b0000 8px solid;
-                height: 100px;
-            }
-            .logo a {
-                margin-left: 15px;
-                font-size: 35px;
-                color: #fff;
-                font-family: "Titan One", sans-serif;
-                text-decoration: none;
-            }
-            button {
-                background-color: #9d0000;
-                margin-left: 10px;
-                align-items: center;
-                border-radius: 10px;
-                border-color: #fff;
-                padding: 10px;
-                width: 90px;
-                text-decoration: none;
-                font-family: "Titan One", sans-serif;
-                color: white;
-                flex-direction: row;
-            }
-            button a {
-                color: white;
-                font-family: "Titan One", sans-serif;
-                font-size: 15px;
-                text-decoration: none;
-            }
-           .icons{
-            margin-top: 300px;
-            width: 35px;
-           }
-           * {
-    padding: 0;
-    margin: 0;
-    font-family: 'Titan One', sans-serif;
-}
-
-ul {
-    list-style: none;
-    background: #a30000;
-    width: 200px;
-    border-radius: 6px;
-    border-style: solid;
-    border-color: red;
-    margin-left: 600px;
-    
-}
-
-ul li {
-    display: inline-block;
-    position: relative;
-}
-
-ul li a {
-    display: block;
-    padding: 20px 25px;
-    color: #FFF;
-    text-decoration: none;
-    text-align: center;
-    font-size: 20px;
-}
-
-ul li ul.dropdown li {
-    display: block;
-}
-
-ul li ul.dropdown {
-    width: 100%;
-    background: #e80505;
-    margin-left: -.0001px;
-    position: absolute;
-    z-index: 999;
-    display: none;
-}
-
-ul li a:hover {
-    background: #8B0000;
-}
-
-ul li:hover ul.dropdown {
-    display: block;
-}
-           
-           
-</style>
-<body> 
-    <!-- navigation bar -->
-    <nav class="navbar">
-        <div class="navdiv">
-            <div class="logo"><a href="index.html">Rojolet</a></div>
-            <lu>
-                <button><a href="#">Stats</a></button>
-                <button><a href="chat.html">Chat</a></button>
-                <button><a href="market.html">Market</a></button>
-                <button><a href="rojos.html">Rojos</a></button>
-                <button><a href="admin.html">Panel</a></button>
-            </lu>
-        </div>
-    </nav>
-    <!-- Main Stats -->
-     <div class="container">
-    <div>
-        <img style="margin-left: 375px;" class="pfp" id="pfp" src="https://blacket.org/content/blooks/Haunted%20Pumpkin.webp" alt="">
-    </div>
-    <!-- User banner -->
-    <div class="banner">
-        <h1 class="username" id="username">Prq</h1>
-        <h1 class="role" id="roles">common</h1>
-    </div>
-    <!-- Token Claiming Button -->
-    <div class="claim-tokens" id="claim-tokens">
-        <h1 style="font-size: 16px;">Claim Tokens</h1>
-    </div>
-    <!--Role container-->
-    <div class="role-container"></div>
-    <!--Drop down code-->
-    <nav>
-      <ul>
-      <li>
-          <a href="#">Locations ▾</a>
-          <ul class="dropdown">
-              <li><a href="settings.html">Settings</a></li>
-              <li><a href="#">Friends</a></li>
-              <li><a href="#">Leaderboard</a></li>
-              <li><a href="credits.html">Credits</a></li>
-          </ul>
-  </nav>
-  </div>
-  <!--stats-->
-    <div class="stats" id="stats">
-      <h1 style="font-size: 60px;">Stats</h1>
-        <!-- Tokens box -->
-        <div class="tokens-container">
-            <h1 class="insider-h1" id="tokens">tokens</h1>
-        </div>
-
-        <div style="margin-top: -80px; margin-left: 265px;" class="insider" id="rojos">
-            <h1 class="insider-h1" id="badges"></h1>
-        </div>
-        <div  style="margin-top: -85px; margin-left: 525px;" class="insider" id="messages">
-            <h1 class="insider-h1">messages</h1>
-        </div>
-    </div>
-    
-    <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-    // Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyCOIKlP9YhtX9xa5aoggmsrWwavlW-XuzI",
-  authDomain: "cosmik-7c124.firebaseapp.com",
-  databaseURL: "https://cosmik-7c124-default-rtdb.firebaseio.com",
-  projectId: "cosmik-7c124",
-  storageBucket: "cosmik-7c124.appspot.com",
-  messagingSenderId: "412506429662",
-  appId: "1:412506429662:web:9ca3e17199297df7384a4f",
-  measurementId: "G-R7K0LTHCK3"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Handle authentication state
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        const userRef = doc(db, 'users', user.uid);
-        getDoc(userRef).then(docSnap => {
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            // Update UI with user data
-            document.getElementById('tokens').textContent = `Tokens: ${data.tokens}`;
-            document.getElementById('roles').textContent = ` ${data.roles.join(', ')}`;
-            document.getElementById('username').textContent = ` ${data.username}`;
-            document.querySelector('#pfp').src = data.pfp;
-
-            if (data.owneraccess) {
-              document.getElementById('username').classList.add('rainbow-username');
-            }
-
-            // Display badges
-            const badgesDiv = document.getElementById('badges');
-            badgesDiv.innerHTML = ''; // Clear any existing badges
-            data.badges.forEach(badge => {
-              const img = document.createElement('img');
-              img.src = badge;
-              badgesDiv.appendChild(img);
-            });
-
-            // Add event listener for profile picture click
-            document.querySelector('#pfp').addEventListener('click', () => {
-              showBlacklets(user.uid, data.blacklets);
-            });
-          }
-        }).catch(err => {
-          console.error('Error fetching user document:', err);
-          Swal.fire('Error', 'Failed to retrieve user data: ' + err.message, 'error');
-        });
-      } else {
-        console.log('No user is signed in.');
-      }
-    });
-
-    // Function to handle claiming tokens
-    function claimTokens() {
-      const user = auth.currentUser;
-      if (!user) {
-        Swal.fire('Error', 'No user is currently signed in.', 'error');
-        return;
-      }
-
-      const userRef = doc(db, 'users', user.uid);
-      getDoc(userRef).then(docSnap => {
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          const lastClaim = data.lastClaim || 0;
-          const now = Date.now();
-          const eightHours = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
-
-          if (now - lastClaim >= eightHours) {
-            updateDoc(userRef, {
-              tokens: (data.tokens || 0) + 1000,
-              lastClaim: now
-            }).then(() => {
-              Swal.fire('Tokens Claimed!', 'You have received 1,000 tokens.', 'success');
-            }).catch(err => {
-              console.error('Error claiming tokens:', err);
-              Swal.fire('Error', 'Could not claim tokens.', 'error');
-            });
-          } else {
-            const timeLeft = eightHours - (now - lastClaim);
-            const hoursLeft = Math.floor(timeLeft / (60 * 60 * 1000));
-            const minutesLeft = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
-            Swal.fire('Tokens Claim Time', `You can claim tokens again in ${hoursLeft} hours and ${minutesLeft} minutes.`, 'info');
-          }
-        } else {
-          Swal.fire('Error', 'User data not found.', 'error');
-        }
-      }).catch(err => {
-        console.error('Error fetching user document:', err);
-        Swal.fire('Error', 'Failed to retrieve user data: ' + err.message, 'error');
-      });
-    }
-
-    // Event listener for the Claim Tokens button
-    document.getElementById('claim-tokens').addEventListener('click', claimTokens);
-</script>
-      
 </body>
 </html>
