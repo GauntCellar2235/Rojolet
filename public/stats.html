@@ -418,7 +418,7 @@
             background-color: #6B0000;
             width: 100%;
             width: 375px;
-            height: 1000px;
+            height: 600px;
             border-radius: 4px;
             margin-top: -60px;
             margin-left: 900px;
@@ -432,13 +432,43 @@
           font-size: 20px;
           font-weight: bold;
         }
+        .display-popup {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          background-color: #8B0000;
+          padding: 20px;
+          border-radius: 5px 0 0 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          display: none;
+          width: 400px;
+          overflow-y: auto;
+        }
+        .display-popup div {
+            background-color: #6B0000;
+            width: 100%;
+            width: 375px;
+            height: 600px;
+            border-radius: 4px;
+            margin-top: -60px;
+            margin-left: 900px;
+            margin: 10px;
+        }
+        .display-popup .display-close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          font-size: 20px;
+          font-weight: bold;
+        }
 </style>
     <div style="margin-left: 250px; margin-top: 50px;" class="user-container">
         <div style="margin-left: 200px; margin-top: 0px;" id="banner">
           <p style="margin-left: 0px; margin-top: 5px;" id="username"></p>
           <p style="margin-top: 10px;" id="roles"></p>
-            <button style="width: 60px; height: 60px; border: none; border-radius: 7px; margin-top: 65px;margin-left: -150px; box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2); background-color: #a30000;"><i class="fa-solid fa-palette fa-3x" style="color: #ffffff; margin-top: -5px;"></i></button>
-            <button style="width: 60px; height: 60px; border: none; border-radius: 7px; margin-top: 65px;margin-left: 20px; box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2); background-color: #a30000;"><i class="fa-solid fa-gear fa-3x" style="color: #ffffff; margin-top: -5px;"></i></button>
+            <button class="display-popup-button" onclick="displayPopup()" style="width: 60px; height: 60px; border: none; border-radius: 7px; margin-top: 65px;margin-left: -150px; box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2); background-color: #a30000;"><i class="fa-solid fa-palette fa-3x" style="color: #ffffff; margin-top: -5px;"></i></button>
+            <button href="settings.html" style="width: 60px; height: 60px; border: none; border-radius: 7px; margin-top: 65px;margin-left: 20px; box-shadow: inset 0 -0.313vw rgba(0, 0, 0, 0.2); background-color: #a30000;"><i class="fa-solid fa-gear fa-3x" style="color: #ffffff; margin-top: -5px;"></i></button>
         </div>
     <div style="margin-left: 260px; margin-top: -10px;" id="stats-profile">
       <p style="width: 300px; margin-right: 100px;" id="badges"></p>
@@ -452,14 +482,14 @@
         <button><a href="#"><i class="fa-solid fa-user fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Stats</a></button>
         <button><a href="/chat"><i class="fa-solid fa-comments fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Chat</a></button>
         <button><a href="/market"><i class="fa-solid fa-store fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Market</a></button>
-        <button><a href="rojos.html"><i class="fa-solid fa-box fa-lg" style="color: #ffffff; margin-right: 5px;"></i>inventory</a></button>
+        <button><a href="rojos.html"><i class="fa-solid fa-box fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Inventory</a></button>
         <button><a href="#"><i class="fa-solid fa-wrench fa-lg" style="color: #ffffff; margin-right: 5px;"></i>Panel</a></button>
         <button class="popup-button"><a href="#"><i class="fa-solid fa-newspaper fa-lg" style="color: #ffffff; margin-right: 5px;"></i>News</a></button>
     </div>
     <img id="pfp" src="" alt="">
     <div style="margin-top: -280px; margin-left: 1000px;" id="stats-div">
-        <button id="claim-tokens" style="font-size: 17px; margin-left: 20px;">Claim Tokens</button>
-                <button href="settings.html" style="font-size: 17px; margin-left: 20px; margin-top: 20px;">Settings</button>
+        <button id="claim-tokens" style="font-size: 17px; margin-left: 20px; width: 155px;">Claim Tokens</button>
+                <button href="settings.html" style="font-size: 17px; margin-left: 20px; margin-top: 20px; width: 155px;">Settings</button>
           <!--stats containers-->
           <div style="margin-left: 20px;" class="container">
               <h1 class="container-h1">Tokens</h1>
@@ -480,7 +510,7 @@
                           </div>
           <!--blooks container-->
                           <div style="margin-left: 20px;" class="container">
-              <h1 class="container-h1">Blooks Unlocked</h1>
+              <h1 class="container-h1">Rojos Unlocked</h1>
   <hr style="width: 250px;"></hr>
                           </div>
       </div>
@@ -494,12 +524,18 @@
       <p id="friends-p"></p>
       <div style="margin-top: 7px; margin-left: 10px;" id="friends-div"></div>
     </div>
-    
+    <!-- news popup -->
       <div class="popup">
         <h1 style="font-size: 45px; text-shadow: 4px 4px #6B0000;">Rojolet News</h1>
           <div class="popup-div">
-        <p>This is the content of the popup.</p>
+        <p>Welcome to Rojolet v1.0.0 release. We hope you have fun unlocking rojos and chatting with friends.</p>
           <span style="color: white; font-family: 'Nunito', sans-serif;" class="close-button" onclick="closePopup()">x</span> </div>
+      </div>
+    <!-- display settings popup -->
+      <div class="display-popup" id="displayPopup1">
+        <h2>Popup Content 1</h2>
+        <p>This is the content of the first popup.</p>
+        <span class="close-button" onclick="closePopup('displayPopup1')">X</span> 
       </div>
 </head>
 <body>
@@ -520,6 +556,22 @@
 
 
 
+        
+
+        const displayPopup1 = document.getElementById('displayPopup1');
+        const displayPopupOverlay = document.querySelector('.display-popup-overlay');
+        function displayPopup() {
+          displayPopup1.style.display = 'block';
+          displayPopupOverlay.style.display = 'block';
+        }
+        function closePopup(popupId) {
+          document.getElementById(popupId).style.display = 'none';
+        }
+
+
+
+        
+        
         
         fetch('/user')
         .then(response => response.json())
